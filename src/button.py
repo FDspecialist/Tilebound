@@ -16,16 +16,18 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         self.y = _y
         self.button_rect.center = (self.x, self.y)
         #text
-        self.font = configs.DEFAULT_FONT
+        self.font_assets = Assets()
+        self.font_assets.load_fonts()
+        self.font_size = _font_size
+        self.font = self.font_assets.get_font(configs.DEFAULT_FONT, self.font_size)
         self.text = _text
         self.text_colour = (255, 255, 255)
-        self.text_surface = self.font.render(self.text, False, self.text_colour)
+        self.text_surface = self.font.render(self.text, True, self.text_colour)
         self.text_surface_rect = self.text_surface.get_rect()
 
     def rundraw(self, screen):
         #set the text to center of button
         text_x = ((self.button_image.get_width() - self.text_surface.get_width())// 2)
         text_y = ((self.button_image.get_height() - self.text_surface.get_height())// 2)
-
         self.button_image.blit(self.text_surface, (text_x, text_y))
         screen.blit(self.button_image, (self.button_rect))

@@ -10,7 +10,7 @@ class MainMenu:
 
         #Add buttons here, access by index
         self.buttons = [# Name, font size, button width, button height, posx, posy
-            Button("Start", 36, 400, 100, configs.SCREEN_MIDDLE_X, configs.SCREEN_MIDDLE_Y) # 1
+            Button("START", 25, 100, 25, configs.SCREEN_MIDDLE_X, configs.SCREEN_MIDDLE_Y) # 1
 
         ]
     def run(self):

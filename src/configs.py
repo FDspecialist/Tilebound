@@ -18,7 +18,9 @@ SCREEN_MIDDLE_Y = SCREEN_HEIGHT / 2# Set to y to align with vertical half line
 FPS = 60
 
 #font constant
-DEFAULT_FONT = font_assets.get_font("Pixel Digivolve", 36)
+DEFAULT_FONT = 'Pixel Digivolve'
+
+#ignore, updat later
 # LAST SUCCESSFUL VERSION
 # DATE: 04/01/2025
 # TIME: 17:12

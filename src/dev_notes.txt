@@ -1,16 +1,43 @@
 log:
 
 Update:
-We used our big brain to math the text ontot he button correctly (YESS!!)
-However, we are struggling to get full screen to work, but work can still be done on the smaller resolution
-so we can worry about it later
+Discovered error: Solve the font error, i forgot to load the fonts :face_palm:
 
-For clarity: master_surface is implemented and passde through each screen class, but not
+
+
+
+
+Fullscreen: not implemented
+
+For clarity: master_surface is implemented and passed through each screen class, but not
              used for full screen logic yet 21:18 06/01/2025
 
+
+
+
 Current goals:
-- adjust button text to dynamically fit dimensions of button rectangle
-- NEVERMINDDD MAKE THE WINDOW SIZE FIXED!!!
+Dynamic screen switching
+    Button input
+
+Add backgrounds
+    See if assets.py still loads files correctly
+
+
+Important milestones:
+    Player and Computer class management
+    2D Array (visuals especially)
+    Unit generation ---> see C# prototype
+    Computer Pathfinding
+    Computer behaviour
+    Tile and Unit relationship
+
+
+
+
+
+
+
+
 
 
 

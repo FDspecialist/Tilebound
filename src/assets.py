@@ -31,7 +31,7 @@ class Assets:
         if name in self.fonts:
             return pygame.font.Font(self.fonts[name], size)
         else:
-            print("font was not found")
+            print(f"{name} was not found")
     def fonts(self):
         return self.fonts
 
@@ -43,7 +43,4 @@ button_assets.load_buttons()
 font_assets = Assets()
 font_assets.load_fonts()
 font = font_assets.get_font("Pixel Digivolve", 36)
-if font == None:
-    print("Uh ohhh problem")
-else:
-    print("yippee the font was actually loaded yayyyy im so happyy")
+font.render("Testing", False, (255,255,255))
