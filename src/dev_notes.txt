@@ -1,0 +1,36 @@
+log:
+
+Update:
+We used our big brain to math the text ontot he button correctly (YESS!!)
+However, we are struggling to get full screen to work, but work can still be done on the smaller resolution
+so we can worry about it later
+
+For clarity: master_surface is implemented and passde through each screen class, but not
+             used for full screen logic yet 21:18 06/01/2025
+
+Current goals:
+- adjust button text to dynamically fit dimensions of button rectangle
+- NEVERMINDDD MAKE THE WINDOW SIZE FIXED!!!
+
+
+
+
+some ernest advice for screen resolution dynamics whatever
+
+-ernest
+"Your screen/window will probs be huge. You create a surface, blit everything to that one surface. Then scale the surface and blit that to the screen"
+
+"Not talking about your display surface
+That you make using pygame.display.set_mode
+A separate surface
+Sorry, it's been a while since I used pygame, I forgot the window itself is a surface too lol"
+
+- me
+"So
+I ahve another surface, that isnt the display surface
+blit everything onto there
+thenn scale the surface holding everything, then blit it to the actual display surface?"
+Ernest Placido — Today at 23:47
+"Yep"
+
+yes I pasted a discord convo onto here, bite me
