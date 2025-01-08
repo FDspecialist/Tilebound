@@ -1,7 +1,24 @@
 log:
 
 Update:
-check commit comment lol
+Current issues:
+Gordon is an absolute genius, solved my code without me ahving to show it
+however won't go bakc to normal screen but meh I can work with this instead no big deal, if i mathed it right
+it must be scalable
+
+trying to customise game screen, however any changes made currently dont appear
+game screen only displays a white canvas
+
+
+
+Dynamic screen switching
+    Still working on button input, pygame will run
+    however shows no response to any input in the console
+
+Full screen:
+    screen_manager values and screens keys values changed and matched
+    'example_screen' ---> 0 (index)
+
 
 
 

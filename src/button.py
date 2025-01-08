@@ -11,6 +11,7 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         self.button_image = self.button_default
         self.button_image = pygame.transform.scale(self.button_image, (width, height))
         self.button_rect = self.button_image.get_rect()
+
         # set button position
         self.x = _x
         self.y = _y
@@ -25,9 +26,22 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         self.text_surface = self.font.render(self.text, True, self.text_colour)
         self.text_surface_rect = self.text_surface.get_rect()
 
-    def rundraw(self, screen):
+    def is_clicked(self, event):
+        if event == pygame.MOUSEBUTTONDOWN:
+            print(f"{self.text}: Clicked")
+            return True
+        else:
+            return False
+
+    def rundraw(self, screen, event):
+
+        clicked = self.is_clicked(event)
+        if clicked:
+            self.button_image = self.button_down
+        elif event == pygame.MOUSEBUTTONUP:
+            self.button_image = self.button_default
         #set the text to center of button
         text_x = ((self.button_image.get_width() - self.text_surface.get_width())// 2)
         text_y = ((self.button_image.get_height() - self.text_surface.get_height())// 2)
         self.button_image.blit(self.text_surface, (text_x, text_y))
-        screen.blit(self.button_image, (self.button_rect))
+        screen.blit(self.button_image, self.button_rect)

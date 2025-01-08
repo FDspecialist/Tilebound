@@ -12,7 +12,7 @@ class MainMenu:
 
         self.bg_load = Assets()
         self.bg_load.load_backgrounds()
-        self.background = self.bg_load.get_sprite("main_menu")
+        self.background = self.bg_load.get_sprite("main_menu").convert_alpha()
         self.background_rect = self.display.get_rect()
 
         #Title
@@ -25,15 +25,21 @@ class MainMenu:
 
         #Add buttons here, access by index
         self.buttons = [# Name, font size, button width, button height, posx, posy
-            Button("START", 25, 200, 50, configs.SCREEN_MIDDLE_X, configs.SCREEN_MIDDLE_Y) # 1
+            #0
+            Button("START", 25, 200, 50, configs.SCREEN_MIDDLE_X, configs.SCREEN_MIDDLE_Y)
         ]
-    def run(self):
-        #adjust screen size according to current view window
-        screen_width, screen_height = pygame.display.get_surface().get_size()
+    def run(self,event):
+        if self.buttons[0].is_clicked(event):
+            print("Screen acknowledges click.")
+        #adjust screen size according to current view window (not implemented yet)
+        #screen_width, screen_height = pygame.display.get_surface().get_size()
         self.display.blit(self.background, (self.background_rect))
         title_x = self.display.get_width() / 2
         title_y = 100
+
+
+
         self.title_rect.center = title_x, title_y
         self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
         for button in self.buttons: #draw all buttons
-            button.rundraw(self.display)
+            button.rundraw(self.display, event)
