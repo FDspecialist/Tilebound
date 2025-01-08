@@ -27,8 +27,7 @@ class Game:
     def run(self):
 
         if self.full_screen:
-            self.scaled_master_surface = pygame.transform.scale(self.master_surface,
-                                                                (configs.USER_WIDTH, configs.USER_HEIGHT))
+            self.scaled_master_surface = pygame.transform.scale(self.master_surface,(configs.USER_WIDTH, configs.USER_HEIGHT))
             self.screen = pygame.display.set_mode((configs.USER_WIDTH, configs.USER_HEIGHT))
         else:
             self.scaled_master_surface = self.master_surface

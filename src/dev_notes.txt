@@ -1,7 +1,7 @@
 log:
 
 Update:
-Discovered error: Solve the font error, i forgot to load the fonts :face_palm:
+check commit comment lol
 
 
 
@@ -23,7 +23,9 @@ Add backgrounds
     See if assets.py still loads files correctly
 
 
+
 Important milestones:
+    File management
     Player and Computer class management
     2D Array (visuals especially)
     Unit generation ---> see C# prototype

@@ -4,8 +4,8 @@ font_assets = Assets()
 font_assets.load_fonts()
 
 #game constants
-SCREEN_WIDTH = 640
-SCREEN_HEIGHT = 360
+SCREEN_WIDTH = 640 * 2
+SCREEN_HEIGHT = 360 * 2
 # user specific window sizes
 info = pygame.display.Info()
 USER_WIDTH = 1280 #info.current_w
