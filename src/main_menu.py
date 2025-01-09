@@ -6,8 +6,8 @@ import configs
 class MainMenu:
     def __init__(self, _display, _ScreenManager):
         pygame.init()
+        self.ID_NAME = "MainMenu"
         self.display = _display
-        print(f"main menu screen surface: {self.display}")
         self.ScreenManager = _ScreenManager
 
         #Load Backgrounds

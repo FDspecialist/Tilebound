@@ -17,7 +17,7 @@ class Game:
         self.scaled_master_surface = pygame.Surface((configs.SCREEN_WIDTH, configs.SCREEN_HEIGHT))
 
         self.clock = pygame.time.Clock()
-        self.ScreenManager = ScreenManager('main menu')
+        self.ScreenManager = ScreenManager('game screen')
         self.main_menu = MainMenu(self.scaled_master_surface, self.ScreenManager)
         self.game_screen = GameScreen(self.scaled_master_surface, self.ScreenManager)
         self.screens = {
@@ -26,8 +26,10 @@ class Game:
         }
 
     def init_screens(self):
+        print("=======================================================================================")
+        print("init_screens debug:")
         index = 0
-        target = len(self.screens) - 1
+        target = len(self.screens)
         while index != target:
             match index:
                 case 0:
@@ -39,6 +41,7 @@ class Game:
                     index = index + 1
                     print("Reached case 1")
             print(f"Reached end of switch-case\nindex: {index}\ntarget: {target}")
+        print("=======================================================================================")
 
 
 

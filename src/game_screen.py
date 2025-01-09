@@ -5,8 +5,8 @@ from assets import Assets
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
         pygame.init()
+        self.ID_NAME = "GameScreen"
         self.display = _display
-        print(f"game_screen screen surface: {self.display}")
         self.ScreenManager = _ScreenManager
 
         #Load backgorunds
