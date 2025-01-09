@@ -7,21 +7,31 @@ class MainMenu:
     def __init__(self, _display, _ScreenManager):
         pygame.init()
         self.display = _display
+        print(f"main menu screen surface: {self.display}")
         self.ScreenManager = _ScreenManager
 
-
+        #Load Backgrounds
         self.bg_load = Assets()
         self.bg_load.load_backgrounds()
+
+        #Background
         self.background = self.bg_load.get_sprite("main_menu").convert_alpha()
         self.background_rect = self.display.get_rect()
 
-        #Title
+
+
+        #Font init
         self.font_assets = Assets()
         self.font_assets.load_fonts()
         self.font = self.font_assets.get_font(configs.DEFAULT_FONT, 100)
         self.text_colour = (255, 255, 255)
+
+        #Title
         self.title = self.font.render("Tilebound", True, self.text_colour)
         self.title_rect = self.title.get_rect()
+        title_x = self.display.get_width() / 2
+        title_y = 100
+        self.title_rect.center = title_x, title_y
 
         #Add buttons here, access by index
         self.buttons = [# Name, font size, button width, button height, posx, posy
@@ -31,15 +41,8 @@ class MainMenu:
     def run(self,event):
         if self.buttons[0].is_clicked(event):
             print("Screen acknowledges click.")
-        #adjust screen size according to current view window (not implemented yet)
-        #screen_width, screen_height = pygame.display.get_surface().get_size()
         self.display.blit(self.background, (self.background_rect))
-        title_x = self.display.get_width() / 2
-        title_y = 100
-
-
-
-        self.title_rect.center = title_x, title_y
         self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
+
         for button in self.buttons: #draw all buttons
             button.rundraw(self.display, event)

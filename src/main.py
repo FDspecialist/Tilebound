@@ -36,7 +36,7 @@ class Game:
                     print("Reached case 0")
                 case 1:
                     self.screens['game screen'].display = self.scaled_master_surface
-                    index = + 1
+                    index = index + 1
                     print("Reached case 1")
             print(f"Reached end of switch-case\nindex: {index}\ntarget: {target}")
 

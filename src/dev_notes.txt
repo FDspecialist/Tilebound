@@ -1,13 +1,14 @@
 log:
-
 Update:
 Current issues:
-Gordon is an absolute genius, solved my code without me ahving to show it
-however won't go bakc to normal screen but meh I can work with this instead no big deal, if i mathed it right
-it must be scalable
-
 trying to customise game screen, however any changes made currently dont appear
-game screen only displays a white canvas
+game screen only displays a white canvas.
+
+Still no solution, i checked the object being passed and it is the same so
+the error is probably not in the object being passed.
+Possibly error in the usage of blit()
+Possibly incorrectly linked with main.py (although I doubt it because main_menu works)
+other than that I don't have many ideas
 
 
 
