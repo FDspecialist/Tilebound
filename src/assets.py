@@ -11,6 +11,11 @@ class Assets:
         path = os.path.join("Assets", "Backgrounds")
         for file in os.listdir(path):
             self.sprites[file.split('.')[0]] = pygame.image.load(os.path.join(path, file))
+
+    def load_icon(self):
+        path = os.path.join("Assets", "Icon")
+        for file in os.listdir(path):
+            self.sprites[file.split('.')[0]] = pygame.image.load(os.path.join(path, file))
     def load_buttons(self):
         path = os.path.join("Assets", "Buttons")
         for file in os.listdir(path):
@@ -44,3 +49,6 @@ font_assets = Assets()
 font_assets.load_fonts()
 font = font_assets.get_font("Pixel Digivolve", 36)
 font.render("Testing", False, (255,255,255))
+icon_asset = Assets()
+icon_asset.load_icon()
+icon = icon_asset.get_sprite("icon")

@@ -1,10 +1,10 @@
 log:
 Update:
-Fixed game_screen showing blank canvas, logic error to do with indexing in init_screens()
+Added temporary icon REMEMBER TO CHANGE
 
 
 Current issues:
-
+Buttons show no response to input
 
 
 Dynamic screen switching

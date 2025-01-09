@@ -17,7 +17,7 @@ class Game:
         self.scaled_master_surface = pygame.Surface((configs.SCREEN_WIDTH, configs.SCREEN_HEIGHT))
 
         self.clock = pygame.time.Clock()
-        self.ScreenManager = ScreenManager('game screen')
+        self.ScreenManager = ScreenManager('main menu')
         self.main_menu = MainMenu(self.scaled_master_surface, self.ScreenManager)
         self.game_screen = GameScreen(self.scaled_master_surface, self.ScreenManager)
         self.screens = {
