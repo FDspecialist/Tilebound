@@ -38,6 +38,7 @@ class MainMenu:
         self.title_font = self.font_assets.get_font(configs.DEFAULT_FONT, 150)
         self.title = self.title_font.render("!Tilebound!", True, self.text_colour)
         self.title_rect = self.title.get_rect()
+        #Title position
         title_x = self.display.get_width() / 2
         title_y = 100
         self.title_rect.center = title_x, title_y
@@ -64,6 +65,12 @@ class MainMenu:
                 sys.exit()
             if self.buttons[0].is_clicked(event):
                 print(f"button: {self.buttons[0].text} is clicked")
+                self.ScreenManager.set_state('game screen')
+            if self.buttons[3].is_clicked(event):
+                print("Game closed via QUIT button(main_menu.py)")
+                pygame.quit()
+                sys.exit()
+
         self.display.blit(self.background, (self.background_rect))
         self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
         self.display.blit(self.icon, (0, 0))

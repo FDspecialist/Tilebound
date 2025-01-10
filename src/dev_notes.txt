@@ -1,35 +1,52 @@
 log:
 IMPORTANT: REMEMBER TO CHANGE OR REMOVE TEMP ICON
 Update:
-fixed button inputs for main menu, DO NOT put event logic inside main.py, place inside screens instead
+added temp stuff to game screen lol
+
+ need to repurpose button_down image to when hovered
+
+Completed buttons (main_menu.py):
+    START
+    QUIT
+To do:
+    OPTIONS - needs screen
+    ABOUT - needs screen
+
+
 
 
 Current issues:
 Side effect from making button work, console not spits out current event and position
 on every tick, i cant find where it is being printed :c
+This will undeniably make it a lot harder to debug using the terminal
 
-Dynamic screen switching
-    Button input detected, will attempt to add screen switch logic
-
-Full screen:
-    now default
-
-
-For clarity: master_surface is implemented and passed through each screen class, but not
-             used for full screen logic yet 21:18 06/01/2025
 
 
 
 
 Current goals:
+Screen Class Asset Manager - planning
+    Judging from how the code looks now, it will probably be better to have visual assets organised in
+    the code so that its easier to read and debug cos currently, text and images do not have organisation
+    so it miiight get messy in the future, but so far everything is okay.
+
+
+
+Full Screen - Done (Requires testing)
+    Successfully set screen size to user's unique screen dimensions
+    (not tested on other devices, i gotta find a way to get the program solution so I can send it to other devices)
+
+
 Dynamic screen switching - partially complete
     Button input - DONE
-    Screen switch logic - incomplete
+    Screen switch logic - DONE (Working example, main menu --> game screen)
+
 
 Add backgrounds - DONE
     Load assets - Done
     Use assets - Done
     (successful in main_menu.py)
+
 
 Add 2D Array in game_screen.py - Incomplete
     Create 2D Array
@@ -38,11 +55,13 @@ Add 2D Array in game_screen.py - Incomplete
     Create 2D Array visuals
         Uhhh research how :)
 
+
 Add Unit Class - Incomplete
     Create Unit class
     Create Unit Pool and class
 
     Define necessary lists for organisation
+
 
 File management - Incomplete
     Research pycharm docs
@@ -53,10 +72,13 @@ File management - Incomplete
 
 
 Important milestones:
+    Full Screen
+    Dynamic screen switching
+
     File management
     Player and Computer class management
     2D Array (visuals especially)
     Unit generation ---> see C# prototype and python practice project (python obj pooling)
     Tile and Unit relationship
-    Computer Pathfinding ---> custom A*, perhaps createa nother project to practice this
+    Computer Pathfinding ---> custom A*, perhaps create another project to practice this
     Computer behaviour ---> Implement after gameplay exist, so that i can get conditions

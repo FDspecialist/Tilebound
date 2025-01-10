@@ -2,16 +2,20 @@ from assets import Assets
 import configs
 import pygame
 class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
-    def __init__(self, _text, _font_size,width, height, _x, _y):
+    def __init__(self, _text, _font_size,_width, _height, _x, _y):
 
         #Properties:
+        #dimensions
+        self.width = _width
+        self.height = _height
+
         #display
         self.button_assets = Assets()
         self.button_assets.load_buttons()
         self.button_default = self.button_assets.get_sprite("button_default").convert_alpha()
         self.button_down = self.button_assets.get_sprite("button_down").convert_alpha()
         self.button_image = self.button_default
-        self.button_image = pygame.transform.scale(self.button_image, (width, height))
+        self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
         self.button_rect = self.button_image.get_rect()
 
         # set button position
@@ -31,8 +35,12 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
     def is_clicked(self, event):
         print(event)
         if event.type == pygame.MOUSEBUTTONDOWN and self.button_rect.collidepoint(event.pos):
+            self.button_image = self.button_down
+            self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
             return True
         else:
+            self.button_image = self.button_default
+            self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
             return False
 
     def draw(self, screen):
