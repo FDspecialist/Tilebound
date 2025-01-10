@@ -2,8 +2,7 @@ log:
 IMPORTANT: REMEMBER TO CHANGE OR REMOVE TEMP ICON
 Update:
 added temp stuff to game screen lol
-
- need to repurpose button_down image to when hovered
+button image now changes when hovered 8)
 
 Completed buttons (main_menu.py):
     START
