@@ -3,6 +3,8 @@ import configs
 import pygame
 class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
     def __init__(self, _text, _font_size,width, height, _x, _y):
+
+        #Properties:
         #display
         self.button_assets = Assets()
         self.button_assets.load_buttons()
@@ -27,20 +29,13 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         self.text_surface_rect = self.text_surface.get_rect()
 
     def is_clicked(self, event):
-        if event == pygame.MOUSEBUTTONDOWN:
-            print(f"{self.text}: Clicked")
+        print(event)
+        if event.type == pygame.MOUSEBUTTONDOWN and self.button_rect.collidepoint(event.pos):
             return True
         else:
             return False
 
-    def rundraw(self, screen, event):
-
-        clicked = self.is_clicked(event)
-        if clicked:
-            self.button_image = self.button_down
-        elif event == pygame.MOUSEBUTTONUP:
-            self.button_image = self.button_default
-        #set the text to center of button
+    def draw(self, screen):
         text_x = ((self.button_image.get_width() - self.text_surface.get_width())// 2)
         text_y = ((self.button_image.get_height() - self.text_surface.get_height())// 2)
         self.button_image.blit(self.text_surface, (text_x, text_y))

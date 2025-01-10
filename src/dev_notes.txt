@@ -1,26 +1,19 @@
 log:
+IMPORTANT: REMEMBER TO CHANGE OR REMOVE TEMP ICON
 Update:
-Added temporary icon REMEMBER TO CHANGE
+fixed button inputs for main menu, DO NOT put event logic inside main.py, place inside screens instead
 
 
 Current issues:
-Buttons show no response to input
-
+Side effect from making button work, console not spits out current event and position
+on every tick, i cant find where it is being printed :c
 
 Dynamic screen switching
-    Still working on button input, pygame will run
-    however shows no response to any input in the console
+    Button input detected, will attempt to add screen switch logic
 
 Full screen:
-    screen_manager values and screens keys values changed and matched
-    'example_screen' ---> 0 (index)
+    now default
 
-
-
-
-
-
-Fullscreen: not implemented
 
 For clarity: master_surface is implemented and passed through each screen class, but not
              used for full screen logic yet 21:18 06/01/2025
@@ -29,11 +22,33 @@ For clarity: master_surface is implemented and passed through each screen class,
 
 
 Current goals:
-Dynamic screen switching
-    Button input
+Dynamic screen switching - partially complete
+    Button input - DONE
+    Screen switch logic - incomplete
 
-Add backgrounds
-    See if assets.py still loads files correctly
+Add backgrounds - DONE
+    Load assets - Done
+    Use assets - Done
+    (successful in main_menu.py)
+
+Add 2D Array in game_screen.py - Incomplete
+    Create 2D Array
+        2D Array methods and implementation
+        Clear view and use of Array interactions
+    Create 2D Array visuals
+        Uhhh research how :)
+
+Add Unit Class - Incomplete
+    Create Unit class
+    Create Unit Pool and class
+
+    Define necessary lists for organisation
+
+File management - Incomplete
+    Research pycharm docs
+    Keep all files inside 'src'
+    Move files to separate directory folders
+    Manage file paths
 
 
 
@@ -41,38 +56,7 @@ Important milestones:
     File management
     Player and Computer class management
     2D Array (visuals especially)
-    Unit generation ---> see C# prototype
-    Computer Pathfinding
-    Computer behaviour
+    Unit generation ---> see C# prototype and python practice project (python obj pooling)
     Tile and Unit relationship
-
-
-
-
-
-
-
-
-
-
-
-
-some ernest advice for screen resolution dynamics whatever
-
--ernest
-"Your screen/window will probs be huge. You create a surface, blit everything to that one surface. Then scale the surface and blit that to the screen"
-
-"Not talking about your display surface
-That you make using pygame.display.set_mode
-A separate surface
-Sorry, it's been a while since I used pygame, I forgot the window itself is a surface too lol"
-
-- me
-"So
-I ahve another surface, that isnt the display surface
-blit everything onto there
-thenn scale the surface holding everything, then blit it to the actual display surface?"
-Ernest Placido — Today at 23:47
-"Yep"
-
-yes I pasted a discord convo onto here, bite me
+    Computer Pathfinding ---> custom A*, perhaps createa nother project to practice this
+    Computer behaviour ---> Implement after gameplay exist, so that i can get conditions

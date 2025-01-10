@@ -1,4 +1,5 @@
 import pygame
+import sys
 from assets import Assets
 from button import Button
 import configs
@@ -56,11 +57,16 @@ class MainMenu:
             Button("QUIT", 25, 200, 50, configs.SCREEN_MIDDLE_X, (configs.SCREEN_MIDDLE_Y + (75 * 3)))
 
         ]
-    def run(self,event):
-        if self.buttons[0].is_clicked(event):
-            print("Screen acknowledges click.")
+    def run(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if self.buttons[0].is_clicked(event):
+                print(f"button: {self.buttons[0].text} is clicked")
         self.display.blit(self.background, (self.background_rect))
         self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
         self.display.blit(self.icon, (0, 0))
+
         for button in self.buttons: #draw all buttons
-            button.rundraw(self.display, event)
+            button.draw(self.display)

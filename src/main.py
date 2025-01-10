@@ -57,15 +57,7 @@ class Game:
 
 
         while True:
-            event_to_screen = None #To get the event and pass it into the current screen
-            for event in pygame.event.get():
-                event_to_screen = event
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-
-
-            self.screens[self.ScreenManager.get_state()].run(event_to_screen)
+            self.screens[self.ScreenManager.get_state()].run()
             self.screen.blit(self.scaled_master_surface, (0, 0))
 
             pygame.display.flip() #double buffering
