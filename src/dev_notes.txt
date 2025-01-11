@@ -15,13 +15,13 @@ To do:
 
 
 Current issues:
-Side effect from making button work, console not spits out current event and position
-on every tick, i cant find where it is being printed :c
-This will undeniably make it a lot harder to debug using the terminal
+Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
+perhaps even a surface manger class (yay more work in design doc)
 
-
-
-
+Also i should probably find a more efficient way of adding logic to buttons, rather than creating
+massive if tangles, cos its actually kinda ugly and ill probably get marked down for its quality
+This will probably help me in the long run, especially if i plan to slap a bunch of 'clickables'
+onto the screen
 
 Current goals:
 Screen Class Asset Manager - planning
