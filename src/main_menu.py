@@ -65,6 +65,7 @@ class MainMenu:
                 sys.exit()
             if self.buttons[0].is_clicked(event):
                 print(f"button: {self.buttons[0].text} is clicked")
+                print("main menu ----> game screen")
                 self.ScreenManager.set_state('game screen')
             if self.buttons[3].is_clicked(event):
                 print("Game closed via QUIT button(main_menu.py)")

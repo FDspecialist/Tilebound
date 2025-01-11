@@ -2,6 +2,7 @@ import pygame
 import sys
 import configs
 from assets import Assets
+from button import Button
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
         pygame.init()
@@ -46,6 +47,12 @@ class GameScreen:
         self.text_y = self.display.get_height() / 2
         self.text_rect.center = self.text_x, self.text_y
 
+        #buttons
+        self.buttons = [
+            #0
+            Button("back",20,100,50,50, 25)
+        ]
+
 
     def run(self):
         for event in pygame.event.get():
@@ -53,8 +60,14 @@ class GameScreen:
                 print("Prompted exit from game_screen.py")
                 pygame.quit()
                 sys.exit()
+            if self.buttons[0].is_clicked(event):
+                print("game screen ----> main menu")
+                self.ScreenManager.set_state('main menu')
 
 
         self.display.blit(self.background, self.background_rect)
         self.display.blit(self.text, self.text_rect)
         self.display.blit(self.icon, self.icon_rect)
+
+        for button in self.buttons:
+            button.draw(self.display)

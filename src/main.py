@@ -35,12 +35,11 @@ class Game:
                 case 0:
                     self.screens['main menu'].display = self.scaled_master_surface
                     index = index + 1
-                    print("Reached case 0")
+                    print("main menu initialized")
                 case 1:
                     self.screens['game screen'].display = self.scaled_master_surface
                     index = index + 1
-                    print("Reached case 1")
-            print(f"Reached end of switch-case\nindex: {index}\ntarget: {target}")
+                    print("game screen initialized")
         print("=======================================================================================")
 
 
