@@ -25,17 +25,6 @@ class GameScreen:
 
 
 
-        # Load Icons
-        self.icon_load = Assets()
-        self.icon_load.load_icon()
-
-        # icon
-        self.icon_init = self.icon_load.get_sprite("icon").convert_alpha()
-        self.icon = pygame.transform.scale(self.icon_init, ((161 * 2), (86 * 2)))
-        self.icon_rect = self.icon.get_rect()
-        self.icon_rect.center = self.display.get_width() / 2, self.display.get_height() * (3/4)
-
-
 
 
         #text
@@ -67,7 +56,6 @@ class GameScreen:
 
         self.display.blit(self.background, self.background_rect)
         self.display.blit(self.text, self.text_rect)
-        self.display.blit(self.icon, self.icon_rect)
 
         for button in self.buttons:
             button.draw(self.display)

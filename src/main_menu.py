@@ -7,6 +7,7 @@ import configs
 class MainMenu:
     def __init__(self, _display, _ScreenManager):
         pygame.init()
+        #basic screen properties
         self.ID_NAME = "MainMenu"
         self.display = _display
         self.ScreenManager = _ScreenManager
@@ -19,14 +20,6 @@ class MainMenu:
         self.background = self.bg_load.get_sprite("main_menu").convert_alpha()
         self.background_rect = self.display.get_rect()
 
-
-        #Load Icons
-        self.icon_load = Assets()
-        self.icon_load.load_icon()
-
-        #icon
-        self.icon_init = self.icon_load.get_sprite("icon").convert_alpha()
-        self.icon = pygame.transform.scale(self.icon_init, (161, 86))
 
 
         #Font init
@@ -64,9 +57,13 @@ class MainMenu:
                 pygame.quit()
                 sys.exit()
             if self.buttons[0].is_clicked(event):
-                print(f"button: {self.buttons[0].text} is clicked")
                 print("main menu ----> game screen")
                 self.ScreenManager.set_state('game screen')
+            if self.buttons[1].is_clicked(event):
+                print(f"button: {self.buttons[1].text} is clicked")
+            if self.buttons[2].is_clicked(event):
+                print("main menu ----> about screen")
+                self.ScreenManager.set_state('about screen')
             if self.buttons[3].is_clicked(event):
                 print("Game closed via QUIT button(main_menu.py)")
                 pygame.quit()
@@ -74,7 +71,6 @@ class MainMenu:
 
         self.display.blit(self.background, (self.background_rect))
         self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
-        self.display.blit(self.icon, (0, 0))
 
         for button in self.buttons: #draw all buttons
             button.draw(self.display)

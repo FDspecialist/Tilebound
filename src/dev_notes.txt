@@ -1,29 +1,41 @@
 log:
 IMPORTANT: REMEMBER TO CHANGE OR REMOVE TEMP ICON
 Update:
-added temp stuff to game screen lol
-button image now changes when hovered 8)
+added about screen, plan to add text below for explanation of project
 
 Completed buttons (main_menu.py):
     START
+    ABOUT
     QUIT
 To do:
     OPTIONS - needs screen
-    ABOUT - needs screen
 
 
 
 
 Current issues:
-Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
-perhaps even a surface manger class (yay more work in design doc)
 
-Also i should probably find a more efficient way of adding logic to buttons, rather than creating
+Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
+perhaps even a surface manager class (yay more work in design doc)
+
+
+Also I should probably find a more efficient way of adding logic to buttons, rather than creating
 massive if tangles, cos its actually kinda ugly and ill probably get marked down for its quality
-This will probably help me in the long run, especially if i plan to slap a bunch of 'clickables'
+This will probably help me in the long run, especially if I plan to slap a bunch of 'clickables'
 onto the screen
 
+
+
+
 Current goals:
+About Screen - partially complete
+    learn how to add organised boxes of text / paragraphs
+    Add text explaining the project
+
+Smoother text on buttons - incomplete
+    Button text gets fuzzy each tick when mouse is moving.
+    Issue is probably in button.py: is_clicked()
+
 Screen Class Asset Manager - planning
     Judging from how the code looks now, it will probably be better to have visual assets organised in
     the code so that its easier to read and debug cos currently, text and images do not have organisation
