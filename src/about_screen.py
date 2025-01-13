@@ -16,7 +16,7 @@ class AboutScreen:
         self.bg_load = Assets()
         self.bg_load.load_backgrounds()
 
-        self.background = self.bg_load.get_sprite("main_menu").convert_alpha()
+        self.background = self.bg_load.get_sprite("background1").convert_alpha()
         self.background_rect = self.background.get_rect()
 
         #buttons

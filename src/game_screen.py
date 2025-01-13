@@ -15,7 +15,7 @@ class GameScreen:
         self.bg_load.load_backgrounds()
 
         #background // using main menu bg as placeholder
-        self.background = self.bg_load.get_sprite("main_menu").convert_alpha()
+        self.background = self.bg_load.get_sprite("background1").convert_alpha()
         self.background_rect = self.display.get_rect()
 
         # Font init
@@ -29,7 +29,7 @@ class GameScreen:
 
         #text
         self.text_font = self.font_assets.get_font(configs.DEFAULT_FONT, 50)
-        self.text = self.text_font.render("I will put game here lol, nothing to see yet", True, self.text_colour)
+        self.text = self.text_font.render("game goes here , nothing to see yet", True, self.text_colour)
         self.text_rect = self.text.get_rect()
         #text position
         self.text_x = self.display.get_width() / 2

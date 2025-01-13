@@ -11,9 +11,10 @@ SCREEN_HEIGHT = 360 * 2
 
 # user specific window sizes
 info = pygame.display.Info()
-USER_WIDTH = 1280 #info.current_w
-USER_HEIGHT = 768 #info.current_h
-
+USER_WIDTH = 1280
+USER_HEIGHT = 768
+#1280
+#768
 #Positioning in relation to dimensions of screen
 SCREEN_MIDDLE_X = SCREEN_WIDTH / 2 # Set to x to align with horizontal half line
 SCREEN_MIDDLE_Y = SCREEN_HEIGHT / 2# Set to y to align with vertical half line

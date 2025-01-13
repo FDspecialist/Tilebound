@@ -14,6 +14,8 @@ To do:
 
 
 Current issues:
+Game currently only playable with game screen as visual assets currently do NOT scale with the master surface.
+Not exactly a serious issue, however this abandons the idea of having fullscreen on any monitor.
 
 Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
 perhaps even a surface manager class (yay more work in design doc)
@@ -24,10 +26,15 @@ massive if tangles, cos its actually kinda ugly and ill probably get marked down
 This will probably help me in the long run, especially if I plan to slap a bunch of 'clickables'
 onto the screen
 
-
+NEA OBJECTIVES:
+    ipso
+    UML diagrams
+    more documentation
 
 
 Current goals:
+
+
 About Screen - partially complete
     learn how to add organised boxes of text / paragraphs
     Add text explaining the project

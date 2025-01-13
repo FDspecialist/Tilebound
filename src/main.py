@@ -1,5 +1,4 @@
 import pygame
-import sys
 import configs
 from main_menu import MainMenu
 from game_screen import GameScreen

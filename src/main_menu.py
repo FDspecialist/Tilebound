@@ -17,7 +17,7 @@ class MainMenu:
         self.bg_load.load_backgrounds()
 
         #Background
-        self.background = self.bg_load.get_sprite("main_menu").convert_alpha()
+        self.background = self.bg_load.get_sprite("background1").convert_alpha()
         self.background_rect = self.display.get_rect()
 
 
@@ -51,25 +51,29 @@ class MainMenu:
             Button("QUIT", 25, 200, 50, configs.SCREEN_MIDDLE_X, (configs.SCREEN_MIDDLE_Y + (75 * 3)))
 
         ]
+    #iterate through all buttons on the screen, passes event into subroutine
+    def check_buttons(self, event):
+        for button in self.buttons:
+            if button.is_clicked(event):
+                match button.text:
+                    case "START":
+                        self.ScreenManager.set_state('game screen')
+                    case "OPTIONS":
+                        print("This is options")
+                    case "ABOUT":
+                        self.ScreenManager.set_state('about screen')
+                    case "QUIT":
+                        print("Exiting through QUIT button (main_menu.py)")
+                        pygame.quit()
+                        sys.exit()
+
     def run(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if self.buttons[0].is_clicked(event):
-                print("main menu ----> game screen")
-                self.ScreenManager.set_state('game screen')
-            if self.buttons[1].is_clicked(event):
-                print(f"button: {self.buttons[1].text} is clicked")
-            if self.buttons[2].is_clicked(event):
-                print("main menu ----> about screen")
-                self.ScreenManager.set_state('about screen')
-            if self.buttons[3].is_clicked(event):
-                print("Game closed via QUIT button(main_menu.py)")
-                pygame.quit()
-                sys.exit()
-
-        self.display.blit(self.background, (self.background_rect))
+            self.check_buttons(event)
+        self.display.blit(self.background, self.background_rect)
         self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
 
         for button in self.buttons: #draw all buttons
