@@ -4,10 +4,12 @@ font_assets = Assets()
 font_assets.load_fonts()
 
 
-#game constants
-SCREEN_WIDTH = 640 * 2
-SCREEN_HEIGHT = 360 * 2
+#game constants (default settings)
+SCREEN_WIDTH = 1280
+SCREEN_HEIGHT = 720
 
+BOARD_WIDTH = 15
+BOARD_HEIGHT = 15
 
 # user specific window sizes
 info = pygame.display.Info()
@@ -16,8 +18,8 @@ USER_HEIGHT = 768
 #1280
 #768
 #Positioning in relation to dimensions of screen
-SCREEN_MIDDLE_X = SCREEN_WIDTH / 2 # Set to x to align with horizontal half line
-SCREEN_MIDDLE_Y = SCREEN_HEIGHT / 2# Set to y to align with vertical half line
+SCREEN_MIDDLE_X = USER_WIDTH / 2 # Set to x to align with horizontal half line
+SCREEN_MIDDLE_Y = USER_HEIGHT / 2# Set to y to align with vertical half line
 FPS = 60
 
 #font constant

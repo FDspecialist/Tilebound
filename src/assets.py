@@ -11,7 +11,6 @@ class Assets:
         path = os.path.join("Assets", "Backgrounds")
         for file in os.listdir(path):
             self.sprites[file.split('.')[0]] = pygame.image.load(os.path.join(path, file))
-
     def load_buttons(self):
         path = os.path.join("Assets", "Buttons")
         for file in os.listdir(path):

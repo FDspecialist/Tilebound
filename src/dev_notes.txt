@@ -16,6 +16,16 @@ To do:
 Current issues:
 Game currently only playable with game screen as visual assets currently do NOT scale with the master surface.
 Not exactly a serious issue, however this abandons the idea of having fullscreen on any monitor.
+For clarity,there are 3 main surfaces: the display surface (window), master_surface (contains all visual aspects),
+scaled_master_surface(self explanitory). Originally, I was supposed to develop the game on the master surface, then
+when I want to test it for dynamically scaling to any monitor size, scaled_master_surface is meant to be scaled to
+the device's current resolution, instead of having a fixed size. This was under the assumption that all visual assets
+and their position on the master surface would scale as well. This is not the case. Will most likely drop this aspect
+and have fixed dimensions but big enough for gameplay.
+
+Currently set to the current dimensions of the screen, however I am unable to text whether the game's
+visual assets scale with the master surface, or view window
+
 
 Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
 perhaps even a surface manager class (yay more work in design doc)
@@ -28,7 +38,7 @@ onto the screen
 
 NEA OBJECTIVES:
     ipso
-    UML diagrams
+    UML diagram
     more documentation
 
 
