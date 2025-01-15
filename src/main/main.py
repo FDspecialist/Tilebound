@@ -1,17 +1,18 @@
 import pygame
-import configs
-from main_menu import MainMenu
-from game_screen import GameScreen
-from about_screen import AboutScreen
-from screen_manager import ScreenManager
+from src.utils.configs import Configs
+configs = Configs()
+from src.screens.main_menu import MainMenu
+from src.screens.game_screen import GameScreen
+from src.screens.about_screen import AboutScreen
+from src.utils.screen_manager import ScreenManager
 class Game:
 
     def __init__(self):
         pygame.init()
-        pygame.display.set_caption("Tilebound")
 
         self.screen = pygame.display.set_mode((configs.USER_WIDTH, configs.USER_HEIGHT))
         self.master_surface = pygame.Surface((configs.USER_WIDTH, configs.USER_HEIGHT))
+        pygame.display.set_caption("Tilebound")
         print(f"\nCurrent resolution: {configs.USER_WIDTH},{configs.USER_HEIGHT}\n")
 
         #full screen logic handling

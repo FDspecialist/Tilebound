@@ -1,8 +1,8 @@
 import pygame
 import sys
-import configs
-from assets import Assets
-from button import Button
+from src.utils.configs import Configs
+from src.utils.assets import Assets
+from src.utils.button import Button
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
         pygame.init()
@@ -28,7 +28,7 @@ class GameScreen:
 
 
         #text
-        self.text_font = self.font_assets.get_font(configs.DEFAULT_FONT, 50)
+        self.text_font = self.font_assets.get_font(Configs.DEFAULT_FONT, 50)
         self.text = self.text_font.render("game goes here , nothing to see yet", True, self.text_colour)
         self.text_rect = self.text.get_rect()
         #text position

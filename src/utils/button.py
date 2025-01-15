@@ -1,5 +1,5 @@
-from assets import Assets
-import configs
+from src.utils.assets import Assets
+from src.utils.configs import Configs
 import pygame
 class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
     def __init__(self, _text, _font_size,_width, _height, _x, _y):
@@ -26,7 +26,7 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         self.font_assets = Assets()
         self.font_assets.load_fonts()
         self.font_size = _font_size
-        self.font = self.font_assets.get_font(configs.DEFAULT_FONT, self.font_size)
+        self.font = self.font_assets.get_font(Configs.DEFAULT_FONT, self.font_size)
         self.text = _text
         self.text_colour = (255, 255, 255)
         self.text_surface = self.font.render(self.text, True, self.text_colour)

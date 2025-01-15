@@ -1,8 +1,10 @@
 import pygame
 import sys
-from assets import Assets
-from button import Button
-import configs
+from src.utils.assets import Assets
+from src.utils.button import Button
+from src.utils.configs import Configs
+
+
 #note: See configs for info
 class MainMenu:
     def __init__(self, _display, _ScreenManager):
@@ -28,7 +30,7 @@ class MainMenu:
         self.text_colour = (255, 255, 255)
 
         #Title
-        self.title_font = self.font_assets.get_font(configs.DEFAULT_FONT, 150)
+        self.title_font = self.font_assets.get_font(Configs.DEFAULT_FONT, 150)
         self.title = self.title_font.render("!Tilebound!", True, self.text_colour)
         self.title_rect = self.title.get_rect()
         #Title position
@@ -39,16 +41,16 @@ class MainMenu:
         #Add buttons here, access by index
         self.buttons = [# Name, font size, button width, button height, posx, posy
             #0
-            Button("START", 25, 200, 50, configs.SCREEN_MIDDLE_X, configs.SCREEN_MIDDLE_Y),
+            Button("START", 25, 200, 50, Configs.SCREEN_MIDDLE_X, Configs.SCREEN_MIDDLE_Y),
 
             #1
-            Button("OPTIONS", 25, 200, 50, configs.SCREEN_MIDDLE_X, (configs.SCREEN_MIDDLE_Y + (75*1))),
+            Button("OPTIONS", 25, 200, 50, Configs.SCREEN_MIDDLE_X, (Configs.SCREEN_MIDDLE_Y + (75 * 1))),
 
             #2
-            Button("ABOUT", 25, 200, 50, configs.SCREEN_MIDDLE_X, (configs.SCREEN_MIDDLE_Y + (75 *2))),
+            Button("ABOUT", 25, 200, 50, Configs.SCREEN_MIDDLE_X, (Configs.SCREEN_MIDDLE_Y + (75 * 2))),
 
             #3
-            Button("QUIT", 25, 200, 50, configs.SCREEN_MIDDLE_X, (configs.SCREEN_MIDDLE_Y + (75 * 3)))
+            Button("QUIT", 25, 200, 50, Configs.SCREEN_MIDDLE_X, (Configs.SCREEN_MIDDLE_Y + (75 * 3)))
 
         ]
     #iterate through all buttons on the screen, passes event into subroutine

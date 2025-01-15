@@ -8,11 +8,11 @@ class Assets:
 
     #sprite related
     def load_backgrounds(self):
-        path = os.path.join("Assets", "Backgrounds")
+        path = os.path.join("../Assets", "Backgrounds")
         for file in os.listdir(path):
             self.sprites[file.split('.')[0]] = pygame.image.load(os.path.join(path, file))
     def load_buttons(self):
-        path = os.path.join("Assets", "Buttons")
+        path = os.path.join("../Assets", "Buttons")
         for file in os.listdir(path):
             self.sprites[file.split('.')[0]] = pygame.image.load(os.path.join(path, file))
     def get_sprite(self, name):
@@ -22,7 +22,7 @@ class Assets:
 
     #font related
     def load_fonts(self):
-        path = os.path.join("Assets", "Fonts")
+        path = os.path.join("../Assets", "Fonts")
         for file in os.listdir(path):
             if file.endswith(".otf"):
                 font_name = file.split('.')[0]

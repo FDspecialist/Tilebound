@@ -1,8 +1,8 @@
 import pygame
 import sys
-import configs
-from assets import Assets
-from button import Button
+from src.utils.configs import Configs
+from src.utils.assets import Assets
+from src.utils.button import Button
 
 class AboutScreen:
     def __init__(self, _display, _ScreenManager):
@@ -22,7 +22,7 @@ class AboutScreen:
         #buttons
         self.buttons = [# Name, font size, button width, button height, posx, posy
             #0
-            Button("main menu", 25, 255, 50, configs.SCREEN_MIDDLE_X, 100)
+            Button("main menu", 25, 255, 50, Configs.SCREEN_MIDDLE_X, 100)
         ]
 
     def run(self):
