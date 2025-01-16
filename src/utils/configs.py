@@ -7,11 +7,12 @@ class Configs:
     SCREEN_WIDTH = 1280
     SCREEN_HEIGHT = 720
 
-    BOARD_WIDTH = 15
-    BOARD_HEIGHT = 15
 
+    #board
+    TILESIZE = 32
+    GRID_WIDTH = 480
+    GRID_HEIGHT = 480
     # user specific window sizes
-    info = pygame.display.Info()
     USER_WIDTH = 1280
     USER_HEIGHT = 768
     #1280

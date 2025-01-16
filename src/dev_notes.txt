@@ -1,7 +1,12 @@
 log:
 IMPORTANT: REMEMBER TO CHANGE OR REMOVE TEMP ICON
 Update:
-added about screen, plan to add text below for explanation of project
+When working on 2D array rn, when adding images for board,
+create a new folder inside assets and place everything board related inside there
+this includes images for board pieces and buildings etc.
+
+started working on the tile, still testing tilesize and tile image.
+
 
 Completed buttons (main_menu.py):
     START

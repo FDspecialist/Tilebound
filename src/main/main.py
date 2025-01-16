@@ -19,6 +19,8 @@ class Game:
 
         self.clock = pygame.time.Clock()
         self.ScreenManager = ScreenManager('main menu')
+
+        #screen init
         self.main_menu = MainMenu(self.master_surface, self.ScreenManager)
         self.game_screen = GameScreen(self.master_surface, self.ScreenManager)
         self.about_screen = AboutScreen(self.master_surface, self.ScreenManager)
@@ -29,8 +31,6 @@ class Game:
         }
 
     def run(self):
-
-
         while True:
             self.screens[self.ScreenManager.get_state()].run()
             self.screen.blit(self.master_surface, (0, 0))
