@@ -13,8 +13,9 @@ class Configs:
     GRID_WIDTH = 480
     GRID_HEIGHT = 480
     # user specific window sizes
-    USER_WIDTH = 1280
-    USER_HEIGHT = 768
+    info = pygame.display.Info()
+    USER_WIDTH = info.current_w
+    USER_HEIGHT = info.current_h
     #1280
     #768
     #Positioning in relation to dimensions of screen
