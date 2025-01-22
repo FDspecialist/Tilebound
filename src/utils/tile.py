@@ -20,6 +20,9 @@ class Tile:
 
     def blit_to_board(self, _board):
         _board.blit(self.tile_image, (self.blitposx, self.blitposy))
+    def clicked(self, event):
+        print("")
+        #when click event on tile rect, do logic
     def draw(self):
         print("")
         #do logic here later
