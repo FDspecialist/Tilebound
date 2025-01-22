@@ -86,7 +86,12 @@ Add 2D Array in game_screen.py - Incomplete
         2D Array methods and implementation
         Clear view and use of Array interactions
     Create 2D Array visuals
-        Uhhh research how :)
+
+        #calculating tile position in pixels (being able to fit the sprite)
+
+        tileposx = boardrectx * TILESIZE
+        tileposy = boardrectx * TILESIZE
+        tilepos = (tileposx, tileposy)
 
 
 Add Unit Class - Incomplete

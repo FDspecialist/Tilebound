@@ -1,10 +1,12 @@
 import pygame
+from src.utils.tile import Tile
 from src.utils.configs import Configs
 Configs = Configs()
 class Board:
     def __init__(self):
         #properties
         self.array = []
+
         #board_base, can change to a different sprite later
         self.base = pygame.surface.Surface((Configs.GRID_WIDTH,Configs.GRID_HEIGHT))
         self.base.fill((0, 0, 0))

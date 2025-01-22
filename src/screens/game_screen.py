@@ -4,6 +4,7 @@ from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
 from src.utils.board import Board
+from src.utils.tile import Tile
 Configs = Configs()
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
@@ -37,6 +38,9 @@ class GameScreen:
         #board
         self.board = Board()
 
+        #test
+        self.tile = Tile(0,0)
+
 
     def run(self):
         for event in pygame.event.get():
@@ -51,5 +55,6 @@ class GameScreen:
 
         self.display.blit(self.background, self.background_rect)
         self.board.draw(self.display)
+        self.display.blit(self.tile.tile_image, (550,550))
         for button in self.buttons:
             button.draw(self.display)
