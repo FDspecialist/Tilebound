@@ -19,8 +19,8 @@ class Configs:
     #1280
     #768
     #Positioning in relation to dimensions of screen
-    SCREEN_MIDDLE_X = USER_WIDTH / 2 # Set to x to align with horizontal half line
-    SCREEN_MIDDLE_Y = USER_HEIGHT / 2# Set to y to align with vertical half line
+    SCREEN_MIDDLE_X = USER_WIDTH / 2  # Set to x to align with horizontal half line
+    SCREEN_MIDDLE_Y = USER_HEIGHT / 2 # Set to y to align with vertical half line
     FPS = 60
 
     #font constant

@@ -38,9 +38,6 @@ class GameScreen:
         #board
         self.board = Board()
 
-        #test
-        self.tile = Tile(0,0)
-
 
     def run(self):
         for event in pygame.event.get():
@@ -55,6 +52,5 @@ class GameScreen:
 
         self.display.blit(self.background, self.background_rect)
         self.board.draw(self.display)
-        self.display.blit(self.tile.tile_image, (550,550))
         for button in self.buttons:
             button.draw(self.display)
