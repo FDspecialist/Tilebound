@@ -1,6 +1,6 @@
 import pygame
 import numpy as np
-from src.utils.tile import Tile
+from src.game_mechanics.tile import Tile
 from src.utils.configs import Configs
 Configs = Configs()
 class Board:

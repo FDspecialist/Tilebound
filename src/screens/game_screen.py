@@ -3,7 +3,7 @@ import sys
 from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
-from src.utils.board import Board
+from src.game_mechanics.board import Board
 Configs = Configs()
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
