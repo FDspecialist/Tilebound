@@ -14,8 +14,19 @@ class Board:
 
         # ARRAY = [[Tile(x,y) for x in range(15)]for y in range(15)]
         self.array = np.array([[Tile(x, y) for x in range(15)] for y in range(15)])
+
+        #Visually attaching Tiles to array.
         for x in self.array:
             for tile in x:
                 tile.blit_to_board(self.base)
     def draw(self, display):
         display.blit(self.base, (Configs.SCREEN_MIDDLE_X - (self.base_rect.width //2), Configs.SCREEN_MIDDLE_Y - (self.base_rect.width //2)))
+
+
+
+    #Tile operation handling shall exist within board.
+    def tile_click_detect(self,event):
+        for x in self.array:
+            for tile in x:
+                if tile.clicked(event):
+                    tile.click_function()

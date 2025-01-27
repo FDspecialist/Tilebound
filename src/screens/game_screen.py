@@ -4,7 +4,6 @@ from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
 from src.utils.board import Board
-from src.utils.tile import Tile
 Configs = Configs()
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
@@ -38,12 +37,11 @@ class GameScreen:
         #board
         self.board = Board()
 
-        #learning to iterate through array
-        for tile in self.board.array:
-            print(f"Accounting for tile: [{tile}]")
-
     def run(self):
         for event in pygame.event.get():
+
+            self.board.tile_click_detect(event)
+
             if event.type == pygame.QUIT:
                 print("Prompted exit from game_screen.py")
                 pygame.quit()

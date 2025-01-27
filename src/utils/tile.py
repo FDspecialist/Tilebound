@@ -10,10 +10,11 @@ class Tile:
         #All math variables for pathfinding algorithm will be stored inside Tile as it is relative to tile.
         #properties
         #coordinates relative to board sprite
+        #Assignment position
         self.x = X
-        self.blitposx = self.x * Configs.TILESIZE
-
         self.y = Y
+        #Pixel position relative to board
+        self.blitposx = self.x * Configs.TILESIZE
         self.blitposy = self.y * Configs.TILESIZE
 
         #image
@@ -25,8 +26,11 @@ class Tile:
         _board.blit(self.tile_image, (self.blitposx, self.blitposy))
     def clicked(self, event):
         if pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint(event.pos):
-            print(f"Clicked on tile: [{self.x},{self.y}]")
+            print("[tile.py] clicked returns true")
+            return True
+    def click_function(self):
+        print(f"Tile[{self.x},{self.y}]")
     def draw(self):
         print("")
-        #do logic here later
+        #do logic here later, likely used for placing objects on top
 
