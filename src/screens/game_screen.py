@@ -38,6 +38,9 @@ class GameScreen:
         #board
         self.board = Board()
 
+        #learning to iterate through array
+        for tile in self.board.array:
+            print(f"Accounting for tile: [{tile}]")
 
     def run(self):
         for event in pygame.event.get():

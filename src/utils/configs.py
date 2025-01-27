@@ -9,9 +9,9 @@ class Configs:
 
 
     #board
-    TILESIZE = 32
-    GRID_WIDTH = 480
-    GRID_HEIGHT = 480
+    TILESIZE = 32*1.5
+    GRID_WIDTH = 480*1.5
+    GRID_HEIGHT = 480*1.5
     # user specific window sizes
     info = pygame.display.Info()
     USER_WIDTH = info.current_w
