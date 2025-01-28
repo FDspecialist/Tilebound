@@ -25,7 +25,7 @@ class Tile:
     def blit_to_board(self, _board):
         _board.blit(self.tile_image, (self.blitposx, self.blitposy))
     def clicked(self, event):
-        if pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint(event.pos):
+        if event.type == pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint(event.pos):
             print("[tile.py] clicked returns true")
             return True
     def click_function(self):

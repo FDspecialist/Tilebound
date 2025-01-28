@@ -4,6 +4,8 @@ from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
 from src.game_mechanics.board import Board
+from src.game_mechanics.unit_pool import UnitPool
+from src.game_mechanics.unit import Unit #just in case lol
 Configs = Configs()
 class GameScreen:
     def __init__(self, _display, _ScreenManager):
@@ -13,6 +15,9 @@ class GameScreen:
         display_dimensions = self.display.get_rect()
         print(f"display width: {display_dimensions.width}\ndisplay height: {display_dimensions.height}")
         self.ScreenManager = _ScreenManager
+
+        #game properties
+        self.UnitPool = UnitPool()
 
         #Load backgorunds
         self.bg_load = Assets()
