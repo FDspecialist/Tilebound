@@ -28,6 +28,8 @@ class Tile:
         if event.type == pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint(event.pos):
             print("[tile.py] clicked returns true")
             return True
+        else:
+            return False
     def click_function(self):
         print(f"Tile[{self.x},{self.y}]")
     def draw(self):

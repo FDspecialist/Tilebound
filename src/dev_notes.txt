@@ -28,11 +28,11 @@ To do:
 
 
 Current issues:
-Currently set to the current dimensions of the screen, however I am unable to text whether the game's
-visual assets scale with the master surface, or view window
-
 Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
 perhaps even a surface manager class (yay more work in design doc)
+
+#tile interactivity
+Fixed issue with tile conditions not working as intended, now to fix the issue of board iterating through each tile and calling for output from each tile
 
 NEA OBJECTIVES:
     FUNCTIONALITY
