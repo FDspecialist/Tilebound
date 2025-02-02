@@ -45,7 +45,8 @@ class GameScreen:
     def run(self):
         for event in pygame.event.get():
 
-            self.board.tile_click_detect(event)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.board.tile_click_detect(event)
 
             if event.type == pygame.QUIT:
                 print("Prompted exit from game_screen.py")

@@ -14,7 +14,7 @@ class Board:
 
         # ARRAY = [[Tile(x,y) for x in range(15)]for y in range(15)]
         self.array = np.array([[Tile(x, y) for x in range(15)] for y in range(15)])
-
+        self.process_array = []
         #Visually attaching Tiles to array.
         for x in self.array:
             for tile in x:
@@ -28,5 +28,11 @@ class Board:
     def tile_click_detect(self,event):
         for x in self.array:
             for tile in x:
-                if tile.clicked(event):
-                    tile.click_function()
+                self.process_array.append(tile)
+
+        #no idea why it behaves the way it does >;|
+        for item in self.process_array:
+            print(f"checking tile[{item.x},{item.y}]")
+            if item.clicked(event):
+                item.click_function()
+                return

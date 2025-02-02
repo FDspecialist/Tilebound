@@ -34,17 +34,17 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
 
     def is_clicked(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and self.button_rect.collidepoint(event.pos):
-            self.button_image = self.button_down
-            self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
             return True
         elif event.type == pygame.MOUSEMOTION:
-            if self.button_rect.collidepoint(event.pos):
+            if self.button_rect.collidepoint(event.pos): #visual response to button hover
                 self.button_image = self.button_down
                 self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
             else:
                 self.button_image = self.button_default
                 self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
             return False
+
+        #using pygame.transform.scale because the button images has a different size by default.
         else:
             return False
 

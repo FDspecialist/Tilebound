@@ -32,7 +32,7 @@ Code organisation for visual assets, maybe create classes for each kind of surfa
 perhaps even a surface manager class (yay more work in design doc)
 
 #tile interactivity
-Fixed issue with tile conditions not working as intended, now to fix the issue of board iterating through each tile and calling for output from each tile
+Clicking is unresponsive, gotta find out why ;|
 
 NEA OBJECTIVES:
     FUNCTIONALITY
