@@ -39,11 +39,10 @@ class Tile:
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
 
 
-
-
     def clicked(self, event):
         mousepos = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint((mousepos[0],mousepos[1])):
+            print(f"clicked on [{self.x},{self.y}]")
             return True
         return False
 

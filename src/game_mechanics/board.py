@@ -32,6 +32,4 @@ class Board:
             for tile in x:
                 tile.blit_to_board(self.base)
 
-
-
         display.blit(self.base, (Configs.SCREEN_MIDDLE_X - (self.base_rect.width //2), Configs.SCREEN_MIDDLE_Y - (self.base_rect.width //2)))

@@ -44,13 +44,10 @@ class GameScreen:
 
     def run(self):
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                for row in range(15):
-                    for col in range(15):
+            for row in range(15):
+                for col in range(15):
+                    if self.board.array[row,col].clicked(event):
                         self.board.array[row,col].visual_debug(self.board.base)
-                        if self.board.array[row, col].clicked(event):
-                            print(f"tile x: {self.board.array[row,col].x}")
-                            print(f"tile y: {self.board.array[row,col].y}")
 
 
             if event.type == pygame.QUIT:
