@@ -21,6 +21,10 @@ class Board:
         for x in self.array:
             for tile in x:
                 tile.blit_to_board(self.base)
+
+
+
+
     def draw(self, display):
 
         #update tile visuals
@@ -31,32 +35,3 @@ class Board:
 
 
         display.blit(self.base, (Configs.SCREEN_MIDDLE_X - (self.base_rect.width //2), Configs.SCREEN_MIDDLE_Y - (self.base_rect.width //2)))
-
-
-
-    #Tile operation handling shall exist within board.
-    def tile_click_detect(self,event, display):
-        #move all items into temp array
-        self.process_array = []
-        for x in self.array:
-            for tile in x:
-                self.process_array.append(tile)
-
-        #iterate through temp array, check for click, then return output if so
-        for item in self.process_array:
-            if item.clicked(event, display):
-                print(f"clicked: [{item.x},{item.y}]")
-                return
-
-    def debug_tile(self,X,Y):
-        for x in self.array:
-            for tile in x:
-                if tile.x == X and tile.y == Y:
-                    print(f"tile x: {tile.x}\ntile y: {tile.y}")
-                    tile.visual_debug()
-
-        boardrows = len(self.array)
-        boardcols = len(self.array[0])
-        array_size = boardrows * boardcols
-        print(f"Board Array size: {boardrows} x {boardcols}\nNumber of tile slots: {array_size}")
-        print(f"Temp Array size: {len(self.process_array)}")

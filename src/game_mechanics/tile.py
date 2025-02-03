@@ -17,18 +17,26 @@ class Tile:
         #Pixel position relative to board
         self.blitposx = self.x * Configs.TILESIZE
         self.blitposy = self.y * Configs.TILESIZE
+        #toggle debug
+        self.vdebug = False
 
-
-        #image
+        #default image
         self.tile_image = board_assets.get_sprite("tile").convert_alpha()
         self.tile_image = pygame.transform.scale(self.tile_image, (Configs.TILESIZE,Configs.TILESIZE))
+
+        #hover image
+        self.tile_image_hover = board_assets.get_sprite("tile_hover").convert_alpha()
+        self.tile_image_hover = pygame.transform.scale(self.tile_image_hover,(Configs.TILESIZE, Configs.TILESIZE))
+
+        #initialise default image
+        self.active_image = self.tile_image
         self.tile_rect = self.tile_image.get_rect()
 
         #menu UI
         self.menu = TileMenu()
 
     def blit_to_board(self, _board):
-        _board.blit(self.tile_image, (self.blitposx, self.blitposy))
+        _board.blit(self.active_image, (self.blitposx, self.blitposy))
 
 
 
@@ -39,14 +47,14 @@ class Tile:
             return True
         return False
 
-    def click_function(self, display, mousepos):
-        self.menu.open(display, mousepos)
 
+    def visual_debug(self, _board):
+        self.vdebug = not self.vdebug
+        if self.vdebug:
+            self.active_image = self.tile_image_hover
+        else:
+            self.active_image = self.tile_image
 
-    def visual_debug(self):
-        overlay = pygame.surface.Surface(self.tile_image.get_size(),pygame.SRCALPHA)
-        overlay.fill((50,50,50,100))
-        self.tile_image.blit(overlay, (0,0), special_flags=pygame.BLEND_RGBA_ADD)
 
     def draw(self):
         print("")
