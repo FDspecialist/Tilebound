@@ -33,7 +33,7 @@ class Tile:
 
 
 
-    def clicked(self, event, display):
+    def clicked(self, event):
         mousepos = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint((mousepos[0],mousepos[1])):
             return True
