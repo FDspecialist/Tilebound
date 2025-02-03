@@ -8,18 +8,18 @@ from src.game_mechanics.unit_pool import UnitPool
 from src.game_mechanics.unit import Unit #just in case lol
 Configs = Configs()
 class GameScreen:
-    def __init__(self, _display, _ScreenManager):
+    def __init__(self, _display, _screenmanager):
         pygame.init()
         self.ID_NAME = "GameScreen"
         self.display = _display
         display_dimensions = self.display.get_rect()
         print(f"display width: {display_dimensions.width}\ndisplay height: {display_dimensions.height}")
-        self.ScreenManager = _ScreenManager
+        self.ScreenManager = _screenmanager
 
         #game properties
         self.UnitPool = UnitPool()
 
-        #Load backgorunds
+        #Load backgrounds
         self.bg_load = Assets()
         self.bg_load.load_backgrounds()
 
@@ -46,7 +46,8 @@ class GameScreen:
         for event in pygame.event.get():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                self.board.tile_click_detect(event)
+                self.board.tile_click_detect(event, self.display)
+                self.board.debug_tile(1,0)
 
             if event.type == pygame.QUIT:
                 print("Prompted exit from game_screen.py")
