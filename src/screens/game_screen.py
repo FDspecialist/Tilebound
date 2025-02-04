@@ -44,11 +44,12 @@ class GameScreen:
 
     def run(self):
         for event in pygame.event.get():
-            for row in range(15):
-                for col in range(15):
-                    if self.board.array[row,col].clicked(event):
-                        self.board.array[row,col].visual_debug(self.board.base)
-
+            # for row in range(15):
+        #         for col in range(15):
+        #             if self.board.array[row,col].clicked(event):
+        #                 print(f"checking [{self.board.array[row,col].x},{self.board.array[row,col]}]")
+        #                 self.board.array[row,col].visual_debug(self.board.base)
+        #             print("reached endpoint")
 
             if event.type == pygame.QUIT:
                 print("Prompted exit from game_screen.py")

@@ -16,6 +16,7 @@ class Board:
 
         # ARRAY = [[Tile(x,y) for x in range(15)]for y in range(15)]
         self.array = np.array([[Tile(x, y) for x in range(15)] for y in range(15)])
+        # print(self.array)
         self.process_array = []
         #Visually attaching Tiles to array.
         for x in self.array:
