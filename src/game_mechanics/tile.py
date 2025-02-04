@@ -32,6 +32,9 @@ class Tile:
         self.active_image = self.tile_image
         self.tile_rect = self.tile_image.get_rect()
 
+        # Set tile_rect position relative to sprite
+        self.tile_rect.topleft = (self.blitposx, self.blitposy)
+
         #menu UI
         self.menu = TileMenu()
 
@@ -46,7 +49,7 @@ class Tile:
         return False
 
 
-    def visual_debug(self, _board):
+    def visual_debug(self):
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover
@@ -57,4 +60,3 @@ class Tile:
     def draw(self):
         print("")
         #do logic here later, likely used for placing objects on top
-

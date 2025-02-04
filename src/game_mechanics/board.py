@@ -1,5 +1,8 @@
 import pygame
 import numpy as np
+from typing import cast
+from pygame import SurfaceType
+
 from src.game_mechanics.tile import Tile
 from src.utils.configs import Configs
 Configs = Configs()
@@ -16,12 +19,25 @@ class Board:
 
         # ARRAY = [[Tile(x,y) for x in range(15)]for y in range(15)]
         self.array = np.array([[Tile(x, y) for x in range(15)] for y in range(15)])
-        # print(self.array)
-        self.process_array = []
         #Visually attaching Tiles to array.
         for x in self.array:
             for tile in x:
                 tile.blit_to_board(self.base)
+
+
+    def check_clicked(self, event):
+        for row in range(15):
+            for col in range(15):
+                tile = cast(Tile, self.array[row,col])
+                clicked = tile.clicked(event)
+                if clicked:
+                    tile.visual_debug()
+        # for row in range(len(self.array)):
+        #     for col in range(len(self.array)):
+        #         tile = cast(Tile, self.array [row,col])
+        #         tilex = tile.x
+        #         tiley = tile.y
+        #         print(f"Check tile [{tilex},{tiley}]")
 
 
 

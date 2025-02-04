@@ -41,16 +41,8 @@ class GameScreen:
 
         #board
         self.board = Board()
-
     def run(self):
         for event in pygame.event.get():
-            # for row in range(15):
-        #         for col in range(15):
-        #             if self.board.array[row,col].clicked(event):
-        #                 print(f"checking [{self.board.array[row,col].x},{self.board.array[row,col]}]")
-        #                 self.board.array[row,col].visual_debug(self.board.base)
-        #             print("reached endpoint")
-
             if event.type == pygame.QUIT:
                 print("Prompted exit from game_screen.py")
                 pygame.quit()
@@ -58,6 +50,9 @@ class GameScreen:
             if self.buttons[0].is_clicked(event):
                 print("game screen ----> main menu")
                 self.ScreenManager.set_state('main menu')
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.board.check_clicked(event)
 
 
         self.display.blit(self.background, self.background_rect)
