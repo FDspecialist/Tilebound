@@ -35,6 +35,7 @@ class Tile:
         # Set tile_rect position relative to sprite
         self.tile_rect.topleft = (self.blitposx, self.blitposy)
 
+
         #menu UI
         self.menu = TileMenu()
 
@@ -42,8 +43,9 @@ class Tile:
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
 
 
-    def clicked(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN and self.tile_rect.collidepoint(event.pos):
+    def clicked(self, event, board_x, board_y):
+        adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
+        if event.type == pygame.MOUSEBUTTONDOWN and adjusted_rect.collidepoint(event.pos):
             print(f"clicked on [{self.x},{self.y}]")
             return True
         return False
