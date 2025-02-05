@@ -18,6 +18,7 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         self.button_image = pygame.transform.scale(self.button_image, (self.width, self.height))
         self.button_rect = self.button_image.get_rect()
 
+
         # set button position
         self.x = _x
         self.y = _y

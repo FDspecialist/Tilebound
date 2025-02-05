@@ -3,7 +3,7 @@ import sys
 from src.utils.assets import Assets
 from src.utils.button import Button
 from src.utils.configs import Configs
-
+from src.utils.text import Text
 
 #note: See configs for info
 class MainMenu:
@@ -29,14 +29,8 @@ class MainMenu:
         self.font_assets.load_fonts()
         self.text_colour = Configs.WHITE
 
-        #Title
-        self.title_font = self.font_assets.get_font(Configs.DEFAULT_FONT, 150)
-        self.title = self.title_font.render("!Tilebound!", True, self.text_colour)
-        self.title_rect = self.title.get_rect()
-        #Title position
-        title_x = self.display.get_width() / 2
-        title_y = 100
-        self.title_rect.center = title_x, title_y
+        #Screen Text
+        self.title = Text("!Tilebound!", 150, Configs.WHITE, Configs.SCREEN_MIDDLE_X, 100)
 
         #Add buttons here, access by index
         self.buttons = [# Name, font size, button width, button height, posx, posy
@@ -76,7 +70,7 @@ class MainMenu:
                 sys.exit()
             self.check_buttons(event)
         self.display.blit(self.background, self.background_rect)
-        self.display.blit(self.title, (self.title_rect.centerx - (self.title.get_width()/2),self.title_rect.centery))
+        self.title.draw(self.display)
 
         for button in self.buttons: #draw all buttons
             button.draw(self.display)
