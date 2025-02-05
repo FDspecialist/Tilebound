@@ -4,20 +4,28 @@ font_assets = Assets()
 font_assets.load_fonts()
 
 class Configs:
+    #relative my personal machine c:
     SCREEN_WIDTH = 1280
     SCREEN_HEIGHT = 720
 
+    #colour
+    WHITE = (255,255,255)
+    RED = (255,0,0)
+    GREEN = (0,255,0)
+    BLUE = (0,0,255)
+    GRAY = (125,125,125)
+    BLACK = (0,0,0)
 
     #board
-    TILESIZE = 32*1.5
-    GRID_WIDTH = 480*1.5
-    GRID_HEIGHT = 480*1.5
+    TILESIZE = 48
+    GRID_WIDTH = 720
+    GRID_HEIGHT = 720
+
     # user specific window sizes
     info = pygame.display.Info()
     USER_WIDTH = info.current_w
     USER_HEIGHT = info.current_h
-    #1280
-    #768
+
     #Positioning in relation to dimensions of screen
     SCREEN_MIDDLE_X = USER_WIDTH / 2  # Set to x to align with horizontal half line
     SCREEN_MIDDLE_Y = USER_HEIGHT / 2 # Set to y to align with vertical half line

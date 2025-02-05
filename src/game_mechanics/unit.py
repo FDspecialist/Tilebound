@@ -17,6 +17,7 @@ class Unit:
 
         #Graphics properties
 
+
         #Unique position relative to board
         self.board_x = 0
         self.board_y = 0
@@ -57,6 +58,7 @@ class Unit:
                 self.Cost = 250
                 self.Description = "Mounted infantry, reduced defence for increased movement range. Cavalries excel in damage and speed. Bonus damage to infantry if attacking right after moving. "
                 self.WeaknessDesc = "Reduced DAMAGE when stationary, Low DEFENCE"
+
     def reset(self):
         self.UnitType = "blank"
         self.Health = 0

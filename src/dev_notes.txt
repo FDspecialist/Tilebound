@@ -1,4 +1,11 @@
 log:
+
+MOVING TO NOTION!
+
+
+
+
+
 Create a cell with a colour for the player and another colour for the computer
 
 Create path finding for player and computer units
@@ -24,15 +31,6 @@ Completed buttons (main_menu.py):
 To do:
     OPTIONS - needs screen
 
-
-
-
-Current issues:
-Code organisation for visual assets, maybe create classes for each kind of surface I can implement,
-perhaps even a surface manager class (yay more work in design doc)
-
-#tile interactivity
-Clicking is unresponsive, gotta find out why ;|
 
 NEA OBJECTIVES:
     FUNCTIONALITY
@@ -104,7 +102,7 @@ Add Unit Class - Incomplete
     Define necessary lists for organisation
 
 
-File management - Incomplete
+File management - Complete
     Research pycharm docs
     Keep all files inside 'src'
     Move files to separate directory folders

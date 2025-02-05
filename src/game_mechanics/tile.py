@@ -9,11 +9,14 @@ class Tile:
         board_assets.load_boardsprites()
         #note to future self:
         #All math variables for pathfinding algorithm will be stored inside Tile as it is relative to tile.
-        #properties
-        #coordinates relative to board sprite
-        #Assignment position
+
+        #game properties
         self.x = X
         self.y = Y
+        self.traversable = True
+
+
+
         #Pixel position relative to board
         self.blitposx = self.x * Configs.TILESIZE
         self.blitposy = self.y * Configs.TILESIZE
@@ -43,15 +46,21 @@ class Tile:
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
 
 
+
     def clicked(self, event, board_x, board_y):
         adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
         if event.type == pygame.MOUSEBUTTONDOWN and adjusted_rect.collidepoint(event.pos):
-            print(f"clicked on [{self.x},{self.y}]")
             return True
         return False
 
 
+    def lock(self):
+        self.traversable = False
+    def unlock(self):
+        self.traversable = True
+
     def visual_debug(self):
+        print(f"Click on Tile[{self.x},{self.y}]")
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover

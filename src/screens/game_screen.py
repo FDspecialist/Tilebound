@@ -16,6 +16,7 @@ class GameScreen:
         print(f"display width: {display_dimensions.width}\ndisplay height: {display_dimensions.height}")
         self.ScreenManager = _screenmanager
 
+        self.tile_debug = False
         #game properties
         self.UnitPool = UnitPool()
 
@@ -35,7 +36,9 @@ class GameScreen:
         #buttons
         self.buttons = [
             #0
-            Button("back",20,100,50,50, 25)
+            Button("back",20,100,50,50, 25),
+            #1
+            Button("Toggle Tile Debug",20,220,50,110,75)
         ]
 
 
@@ -50,8 +53,10 @@ class GameScreen:
             if self.buttons[0].is_clicked(event):
                 print("game screen ----> main menu")
                 self.ScreenManager.set_state('main menu')
-
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if self.buttons[1].is_clicked(event):
+                self.tile_debug = not self.tile_debug
+                print("\nTILE DEBUG: ON\n")
+            if event.type == pygame.MOUSEBUTTONDOWN and self.tile_debug:
                 self.board.check_clicked(event)
 
 

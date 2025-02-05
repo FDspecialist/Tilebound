@@ -27,7 +27,7 @@ class MainMenu:
         #Font init
         self.font_assets = Assets()
         self.font_assets.load_fonts()
-        self.text_colour = (255, 255, 255)
+        self.text_colour = Configs.WHITE
 
         #Title
         self.title_font = self.font_assets.get_font(Configs.DEFAULT_FONT, 150)
