@@ -1,5 +1,6 @@
 from src.utils.assets import Assets
 from src.utils.configs import Configs
+from src.utils.text import Text
 import pygame
 class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
     def __init__(self, _text, _font_size,_width, _height, _x, _y):
