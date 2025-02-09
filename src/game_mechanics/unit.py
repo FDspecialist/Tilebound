@@ -39,10 +39,10 @@ class Unit:
         tile.blit(self.unit_sprite, (0,0))
 
     #pooling essentials
-    def activate(self, _unitType, is_player, x, y):
-        match _unitType:
+    def activate(self, unitType, is_player, x, y):
+        match unitType:
             case "Infantry":
-                self.UnitType = _unitType
+                self.UnitType = unitType
                 self.Health = 8
                 self.Defence = 2
                 self.Attack = 4

@@ -43,8 +43,9 @@ class Board:
                 if clicked:
                     #spawn infantry for now
                     infantry_unit = Configs.UNIT_POOL.get_unit()
-                    infantry_unit.activate("Infantry", True, tile.x, tile.y)
-                    tile.add_unit(Configs.UNIT_POOL.get_unit())
+                    infantry_unit.activate("Infantry",True, tile.x, tile.y)
+                    tile.add_unit(infantry_unit)
+                    tile.update_visual()
                     return
 
 

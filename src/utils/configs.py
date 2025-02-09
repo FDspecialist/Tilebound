@@ -38,3 +38,7 @@ class Configs:
 
     #font constant
     DEFAULT_FONT = 'Pixel Digivolve'
+
+#debugging
+test_unit = Configs.UNIT_POOL.get_unit()
+print(test_unit.Description)

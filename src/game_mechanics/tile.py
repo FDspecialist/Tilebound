@@ -59,7 +59,6 @@ class Tile:
 
     def add_unit(self, unit):
         self.current_unit = unit # Assign unit to tile
-        self.current_unit.draw(self.active_image) # Draw unit onto tile
         self.lock()
     def remove_unit(self):
         self.unlock()
@@ -85,6 +84,5 @@ class Tile:
             self.active_image = self.tile_image
 
 
-    def draw(self):
-        print("")
-        #do logic here later, likely used for placing objects on top
+    def update_visual(self):
+        self.current_unit.draw(self.active_image) # Draw unit onto tile

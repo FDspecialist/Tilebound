@@ -9,7 +9,7 @@ class Stack:
     def push(self,obj):
         self.stack.append(obj)
     def pop(self):
-        if self.is_empty():
+        if not self.is_empty():
             return self.stack.pop()
         else:
             print("Stack ran out of objects")
