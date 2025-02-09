@@ -3,8 +3,10 @@ pygame.init()
 from src.utils.assets import Assets
 from src.utils.configs import Configs
 from src.game_mechanics.tile_menu import TileMenu
+from src.game_mechanics.unit import Unit
+from src.game_mechanics.tile_menu import TileMenu
 class Tile:
-    def __init__(self,X,Y):
+    def __init__(self,X,Y, display):
         board_assets = Assets()
         board_assets.load_boardsprites()
         #note to future self:
@@ -13,9 +15,12 @@ class Tile:
         #game properties
         self.x = X
         self.y = Y
+        self.current_unit = Unit()
         self.traversable = True
 
 
+        #display orientations
+        self.display = display
 
         #Pixel position relative to board
         self.blitposx = self.x * Configs.TILESIZE
@@ -44,9 +49,6 @@ class Tile:
 
     def blit_to_board(self, _board):
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
-
-
-
     def clicked(self, event, board_x, board_y):
         adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
         if event.type == pygame.MOUSEBUTTONDOWN and adjusted_rect.collidepoint(event.pos):
@@ -54,10 +56,25 @@ class Tile:
         return False
 
 
+
+    def add_unit(self, unit):
+        self.current_unit = unit # Assign unit to tile
+        self.current_unit.draw(self.active_image) # Draw unit onto tile
+        self.lock()
+    def remove_unit(self):
+        self.unlock()
     def lock(self):
         self.traversable = False
     def unlock(self):
         self.traversable = True
+
+    def open_menu(self, display):
+        mousepos = pygame.mouse.get_pos()
+        self.menu.draw(display, mousepos)
+
+
+
+
 
     def visual_debug(self):
         print(f"Click on Tile[{self.x},{self.y}]")

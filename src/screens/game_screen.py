@@ -1,13 +1,12 @@
 import pygame
-import time
 import sys
 from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
-from src.game_mechanics.board import Board
-from src.game_mechanics.unit_pool import UnitPool
 from src.utils.text import Text
-from src.game_mechanics.unit import Unit #just in case lol
+from src.game_mechanics.board import Board
+from src.game_mechanics.unit import Unit
+from src.game_mechanics.unit_pool import UnitPool
 Configs = Configs()
 class GameScreen:
     def __init__(self, _display, _screenmanager):
@@ -22,9 +21,8 @@ class GameScreen:
 
 
         #game properties
-        self.UnitPool = UnitPool()
+        Configs.UNIT_POOL = UnitPool() #Refresh UnitPool each time GameScreen is initialised
         self.enable_player = True
-        self.computer_turn_ticks = None
 
 
 
@@ -65,7 +63,7 @@ class GameScreen:
 
 
         #board
-        self.board = Board()
+        self.board = Board(self.display)
 
 
     def player_turn(self):
@@ -92,24 +90,27 @@ class GameScreen:
 
                 #tile debug
                 if event.type == pygame.MOUSEBUTTONDOWN and self.tile_debug:
-                    self.board.check_clicked(event)
+                    self.board.check_clicked_debug(event)
+
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.board.check_clicked_game(event)
+
         self.draw()
 
 
     def computer_turn(self):
         print("\n\nComputer turn started\n")
         self.possession_turn_text.update_text("Computer's Turn")
-        if self.computer_turn_ticks is None:
-            self.computer_turn_ticks = pygame.time.get_ticks()
-        if 20000 <= (pygame.time.get_ticks() - self.computer_turn_ticks):
-            print("\nComputer turn ended")
-            self.end_turn()
+
+
+
         self.draw()
         self.end_turn()
 
+
+
     def end_turn(self):
         self.enable_player = not self.enable_player
-        self.computer_turn_ticks = None
     def run_turns(self):
         match self.enable_player:
             case True:

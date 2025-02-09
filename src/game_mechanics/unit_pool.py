@@ -11,3 +11,9 @@ class UnitPool:
             self.unit_pool.push(blank_unit)
             index -= 1
         print(f"UnitPool size: {self.unit_pool.size()}")
+
+    def get_unit(self):
+        return self.unit_pool.pop()
+    def return_unit(self, unit):
+        unit.reset()
+        self.unit_pool.push(unit)

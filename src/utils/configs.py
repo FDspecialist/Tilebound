@@ -1,5 +1,6 @@
 import pygame
 from src.utils.assets import Assets
+from src.game_mechanics.unit_pool import UnitPool
 font_assets = Assets()
 font_assets.load_fonts()
 
@@ -15,6 +16,10 @@ class Configs:
     BLUE = (0,0,255)
     GRAY = (125,125,125)
     BLACK = (0,0,0)
+
+    #Unit Pool
+    UNIT_POOL = UnitPool()
+
 
     #board
     TILESIZE = 48
