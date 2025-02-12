@@ -24,16 +24,16 @@ class Unit:
         self.unit_sprite = self.unit_load.get_sprite("tile")
 
         #Unique position relative to board
-        self.board_x = 0
-        self.board_y = 0
+        self.x = 0
+        self.y = 0
 
 
 
 
 
     def move(self,x ,y):
-        self.board_x = x
-        self.board_y = y
+        self.x = x
+        self.y = y
 
     def draw(self, board):
         board.blit(self.unit_sprite, (0,0))

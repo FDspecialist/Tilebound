@@ -2,11 +2,15 @@ import pygame
 import numpy as np
 from typing import cast
 from src.game_mechanics.tile import Tile
+from src.game_mechanics.player import Player
+from src.game_mechanics.computer import Computer
 from src.utils.configs import Configs
 Configs = Configs()
 class Board:
     def __init__(self, display):
-        #properties
+        #game properties
+        self.Player = Player()
+        self.Computer = Computer()
         #board_base, can change to a different sprite later
         self.base = pygame.surface.Surface((Configs.GRID_WIDTH,Configs.GRID_HEIGHT))
         self.base.fill((0, 0, 0))
@@ -45,8 +49,12 @@ class Board:
                     infantry_unit = Configs.UNIT_POOL.get_unit()
                     infantry_unit.activate("Infantry",isPlayer, tile.x, tile.y)
                     tile.add_unit(infantry_unit)
+
+                    if isPlayer:
+                        self.Player.assign_unit(infantry_unit)
                     tile.update_visual()
-                    return
+                    return True
+        return False
 
 
 

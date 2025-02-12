@@ -5,7 +5,6 @@ from src.utils.assets import Assets
 from src.utils.button import Button
 from src.utils.text import Text
 from src.game_mechanics.board import Board
-from src.game_mechanics.unit import Unit
 from src.game_mechanics.unit_pool import UnitPool
 Configs = Configs()
 class GameScreen:
@@ -22,6 +21,12 @@ class GameScreen:
 
         #game properties
         Configs.UNIT_POOL = UnitPool() #Refresh UnitPool each time GameScreen is initialised
+        self.board = Board(self.display)
+
+        self.Player = self.board.Player
+        self.Computer = self.board.Computer
+
+
         self.enable_player = True
         self.isPlayer = False#Determines whether a unit is being assigned to the player or not
 
@@ -46,8 +51,8 @@ class GameScreen:
         #[
 
         #0
-        self.possession_turn_text = Text("_", 40, Configs.GRAY,Configs.SCREEN_MIDDLE_X, 50)
-        self.texts.append(self.possession_turn_text)
+        self.player_unit_count_text = Text("Player Unit Count: 0", 25, Configs.LIGHT_BLUE,145, 225)
+        self.texts.append(self.player_unit_count_text)
 
         #]
 
@@ -65,12 +70,7 @@ class GameScreen:
         ]
 
 
-        #board
-        self.board = Board(self.display)
-
-
     def player_turn(self):
-        self.possession_turn_text.update_text("Player's Turn")
         if self.enable_player:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -99,14 +99,17 @@ class GameScreen:
                     self.board.check_clicked_debug(event)
 
                 elif event.type == pygame.MOUSEBUTTONDOWN and not self.tile_debug:
-                    self.board.check_clicked_game(event,self.isPlayer)
+                    added_unit_bool = self.board.check_clicked_game(event,self.isPlayer)
+                    if added_unit_bool:
+                        print(f"\nPlayer Unit Count: {self.Player.unit_count}")
+                        print(f"self.player_unit_count_text: {self.player_unit_count_text.text}\n")
+                        self.player_unit_count_text.update_text(f"Player Unit Count: {self.Player.unit_count}")
 
         self.draw()
 
 
     def computer_turn(self):
         print("\n\nComputer turn started\n")
-        self.possession_turn_text.update_text("Computer's Turn")
 
 
 

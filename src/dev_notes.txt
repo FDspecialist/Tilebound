@@ -2,7 +2,10 @@ log:
 
 MOVING TO NOTION!
 
-
+IMPORTANT DESIGN CHOICE:
+player and computer class inside board class.. why?
+player and computer class need to be in same module where units are being generated.
+prevents awkwardly rewriting methods in both classes to accomodate for player and computer classes needing updates.
 
 
 Create a cell with a colour for the player and another colour for the computer
