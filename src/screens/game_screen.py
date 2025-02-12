@@ -23,6 +23,7 @@ class GameScreen:
         #game properties
         Configs.UNIT_POOL = UnitPool() #Refresh UnitPool each time GameScreen is initialised
         self.enable_player = True
+        self.isPlayer = False#Determines whether a unit is being assigned to the player or not
 
 
 
@@ -58,7 +59,9 @@ class GameScreen:
             #1
             Button("Toggle Tile Debug",20,220,50,110,75),
             #2
-            Button("End turn",20,100,50, Configs.USER_WIDTH - 50, Configs.USER_HEIGHT - 25)
+            Button("End turn",20,100,50, Configs.USER_WIDTH - 50, Configs.USER_HEIGHT - 25),
+            #3
+            Button("Toggle Player Units", 16,220,50,110,125)
         ]
 
 
@@ -86,14 +89,17 @@ class GameScreen:
                 if self.buttons[2].is_clicked(event):
                     print("\nPlayer turn ended")
                     self.end_turn()
+                if self.buttons[3].is_clicked(event):
+                    print("Player Units Toggled")
+                    self.isPlayer = not self.isPlayer
 
 
                 #tile debug
                 if event.type == pygame.MOUSEBUTTONDOWN and self.tile_debug:
                     self.board.check_clicked_debug(event)
 
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    self.board.check_clicked_game(event)
+                elif event.type == pygame.MOUSEBUTTONDOWN and not self.tile_debug:
+                    self.board.check_clicked_game(event,self.isPlayer)
 
         self.draw()
 

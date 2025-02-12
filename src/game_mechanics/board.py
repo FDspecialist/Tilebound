@@ -35,7 +35,7 @@ class Board:
                 if clicked:
                     tile.visual_debug()
                     return
-    def check_clicked_game(self, event): # adapt for game
+    def check_clicked_game(self, event, isPlayer):
         for row in range(15):
             for col in range(15):
                 tile = cast(Tile, self.array[row,col])
@@ -43,7 +43,7 @@ class Board:
                 if clicked:
                     #spawn infantry for now
                     infantry_unit = Configs.UNIT_POOL.get_unit()
-                    infantry_unit.activate("Infantry",False, tile.x, tile.y)
+                    infantry_unit.activate("Infantry",isPlayer, tile.x, tile.y)
                     tile.add_unit(infantry_unit)
                     tile.update_visual()
                     return

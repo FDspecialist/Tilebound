@@ -2,7 +2,6 @@ import pygame
 pygame.init()
 from src.utils.assets import Assets
 from src.utils.configs import Configs
-from src.game_mechanics.tile_menu import TileMenu
 from src.game_mechanics.unit import Unit
 from src.game_mechanics.tile_menu import TileMenu
 class Tile:
@@ -58,19 +57,19 @@ class Tile:
 
 
     def add_unit(self, unit):
-        self.current_unit = unit # Assign unit to tile
-        self.lock()
+        if self.traversable == True:
+            self.current_unit = unit # Assign unit to tile
+            self.lock()
+        else:
+            print(f"Tile[{self.x},{self.y}] is locked")
     def remove_unit(self):
         self.unlock()
+
+
     def lock(self):
         self.traversable = False
     def unlock(self):
         self.traversable = True
-
-    def open_menu(self, display):
-        mousepos = pygame.mouse.get_pos()
-        self.menu.draw(display, mousepos)
-
 
 
 
@@ -80,9 +79,12 @@ class Tile:
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover
+            self.update_visual()
         else:
             self.active_image = self.tile_image
+            self.update_visual()
 
 
     def update_visual(self):
-        self.current_unit.draw(self.active_image) # Draw unit onto tile
+        if self.current_unit.UnitType != "blank":
+            self.current_unit.draw(self.active_image) # Draw unit onto tile

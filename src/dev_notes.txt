@@ -5,7 +5,6 @@ MOVING TO NOTION!
 
 
 
-
 Create a cell with a colour for the player and another colour for the computer
 
 Create path finding for player and computer units

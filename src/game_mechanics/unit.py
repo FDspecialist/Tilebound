@@ -35,14 +35,14 @@ class Unit:
         self.board_x = x
         self.board_y = y
 
-    def draw(self, tile):
-        tile.blit(self.unit_sprite, (0,0))
+    def draw(self, board):
+        board.blit(self.unit_sprite, (0,0))
 
     #pooling essentials
-    def activate(self, unitType, is_player, x, y):
-        match unitType:
+    def activate(self, unit_type, is_player, x, y):
+        match unit_type:
             case "Infantry":
-                self.UnitType = unitType
+                self.UnitType = unit_type
                 self.Health = 8
                 self.Defence = 2
                 self.Attack = 4
