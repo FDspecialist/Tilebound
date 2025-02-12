@@ -2,6 +2,41 @@ log:
 
 MOVING TO NOTION!
 
+Path Finding process:
+If board has computer units + player units
+    computer units move toward nearest player units on computer turn
+    computer units stop right before tile holding closest player unit
+
+In computer turn:
+    Apply follow method to all units
+
+
+In follow method:
+    Find closest player unit relative to instance of computer unit
+        -get list of player unit positions
+        -apply pythagoras to each active player unit
+        -closest unit is determined by smallest value from pythagoras
+        -save closest unit as target unit
+
+
+    Apply A* to get list of nodes towards player unit
+        DO NOT APPLY A* TO GET NEW LIST IF:
+        -target unit stays the same
+        -target unit has not moved
+    Use index and computer MovementRange to determine which tile in the list to move to
+    Apply 'found tile' as current tile, change x and y coordinates appropriately
+    Remove previously traversed tiles from the list generated from A*
+
+
+
+
+
+
+
+
+
+
+
 IMPORTANT DESIGN CHOICE:
 player and computer class inside board class.. why?
 player and computer class need to be in same module where units are being generated.

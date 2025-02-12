@@ -57,7 +57,7 @@ class Tile:
 
 
     def add_unit(self, unit):
-        if self.traversable == True:
+        if self.traversable:
             self.current_unit = unit # Assign unit to tile
             self.lock()
         else:
@@ -79,10 +79,10 @@ class Tile:
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover
-            self.update_visual()
+            self.update_visual() #render unit
         else:
             self.active_image = self.tile_image
-            self.update_visual()
+            self.update_visual() # render unit
 
 
     def update_visual(self):
