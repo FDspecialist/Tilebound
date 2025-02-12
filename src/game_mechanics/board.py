@@ -44,7 +44,7 @@ class Board:
             for col in range(15):
                 tile = cast(Tile, self.array[row,col])
                 clicked = tile.clicked(event, self.board_x, self.board_y)
-                if clicked:
+                if clicked and tile.traversable == True:
                     #spawn infantry for now
                     infantry_unit = Configs.UNIT_POOL.get_unit()
                     infantry_unit.activate("Infantry",isPlayer, tile.x, tile.y)
@@ -52,6 +52,8 @@ class Board:
 
                     if isPlayer:
                         self.Player.assign_unit(infantry_unit)
+                    else:
+                        self.Computer.assign_unit(infantry_unit)
                     tile.update_visual()
                     return True
         return False

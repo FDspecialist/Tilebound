@@ -51,9 +51,12 @@ class GameScreen:
         #[
 
         #0
-        self.player_unit_count_text = Text("Player Unit Count: 0", 25, Configs.LIGHT_BLUE,145, 225)
+        self.player_unit_count_text = Text("Player Unit Count: 0", 25, Configs.LIGHT_BLUE,150, 225)
         self.texts.append(self.player_unit_count_text)
 
+        #1
+        self.computer_unit_count_text = Text("Computer Unit Count: 0",25,Configs.RED, 170,275)
+        self.texts.append(self.computer_unit_count_text)
         #]
 
 
@@ -104,6 +107,7 @@ class GameScreen:
                         print(f"\nPlayer Unit Count: {self.Player.unit_count}")
                         print(f"self.player_unit_count_text: {self.player_unit_count_text.text}\n")
                         self.player_unit_count_text.update_text(f"Player Unit Count: {self.Player.unit_count}")
+                        self.computer_unit_count_text.update_text(f"Computer Unit Count: {self.Computer.unit_count}")
 
         self.draw()
 
