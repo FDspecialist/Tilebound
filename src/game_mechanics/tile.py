@@ -17,6 +17,11 @@ class Tile:
         self.current_unit = Unit()
         self.traversable = True
 
+        #pathfinding properties
+        self.g_value = 0
+        self.h_value = 0
+        self.f_value = 0 #will be updated to be sum of g and h
+        self.parent = []
 
         #display orientations
         self.display = display

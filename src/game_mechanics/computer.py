@@ -15,7 +15,7 @@ class Computer:
         return self.unit_select[(x,y)]
 
 
-    def move_to_player_units(self,player_units):
+    def move_to_player_units(selfplayer_units):
 
         #testing: finding closest unit.
 
