@@ -13,3 +13,11 @@ class Computer:
         self.unit_count = len(self.unit_list)
     def get_unit(self,x,y):
         return self.unit_select[(x,y)]
+
+
+    def move_to_player_units(self,player_units):
+
+        #testing: finding closest unit.
+
+
+        print("")

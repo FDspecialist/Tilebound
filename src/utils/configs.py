@@ -21,6 +21,9 @@ class Configs:
     #Unit Pool
     UNIT_POOL = UnitPool()
 
+    #pathfinding
+    MAXIMUM_DISTANCE = 19.8 #largest possible distance on a 15x15 grid
+
 
     #board
     TILESIZE = 48

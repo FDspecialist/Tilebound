@@ -1,6 +1,7 @@
 import pygame
+from src.utils.configs import Configs
 from src.utils.assets import Assets
-
+from src.utils.pathfinder import Pathfinder
 class Unit:
     def __init__(self):
 
@@ -13,10 +14,16 @@ class Unit:
         self.MovementRange = 0
         self.Cost = 0
         self.isPlayer = False
+
         #Descriptional Properties
         self.Description = "blank"
         self.WeaknessDesc = "blank"
 
+        #Pathfinding Properties
+        self.Pathfinder = Pathfinder()
+        self.target_unit = []
+        self.target_x = -1
+        self.target_y = -1
         #Graphics properties
         self.unit_load = Assets()
         self.unit_load.load_boardsprites()
@@ -30,7 +37,42 @@ class Unit:
 
 
 
+    #PATHFINDING
+    #============================================Computer=================================================
+    def find_path(self,unit_list):
+        # unit list may vary between Player list and Computer list
+        print("")
+        #step1 find closest unit
+        self.find_closest_unit(unit_list)
+        #step2 apply A* to closest unit
 
+
+    def set_target_unit(self,unit):
+        if self.target_unit:
+            self.target_unit[0] = unit
+        else:
+            self.target_unit.append(unit)
+    def find_closest_unit(self,unit_list):
+        #finds the closest unit from unit_list to current instance of unit
+        shortest_distance = Configs.MAXIMUM_DISTANCE
+        closest_unit = None
+        for unit in unit_list:
+            #find distance with current unit
+            current_distance = self.Pathfinder.euclidean_distance(self,unit)
+
+            #when shorter distance found save distance and unit
+            if current_distance < shortest_distance:
+                shortest_distance = current_distance
+                closest_unit = unit
+        print(f"Closest unit to unit[{self.x},{self.y}] is unit[{closest_unit.x},{closest_unit.y}]")
+        self.set_target_unit(closest_unit)
+
+    #=====================================================================================================
+
+
+    #==============================================Player=================================================
+
+    # ====================================================================================================
     def move(self,x ,y):
         self.x = x
         self.y = y

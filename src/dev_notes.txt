@@ -12,7 +12,7 @@ In computer turn:
 
 
 In follow method:
-    Find closest player unit relative to instance of computer unit
+    Find closest player unit relative to instance of computer unit - Done!
         -get list of player unit positions
         -apply pythagoras to each active player unit
         -closest unit is determined by smallest value from pythagoras
