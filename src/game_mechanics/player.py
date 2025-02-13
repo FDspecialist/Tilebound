@@ -1,7 +1,11 @@
 class Player:
-    def __init__(self):
+    def __init__(self, array):
         self.unit_list = []
         self.unit_select = {}
+
+        #pathfinding/board interaction
+        self.array = array
+
         self.unit_count = 0
         self.score = 0
         self.balance = 0

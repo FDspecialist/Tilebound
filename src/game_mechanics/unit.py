@@ -21,8 +21,8 @@ class Unit:
         #Pathfinding Properties
         self.Pathfinder = Pathfinder()
         self.target_unit = []
-        self.target_x = -1
-        self.target_y = -1
+
+
         #Graphics properties
         self.unit_load = Assets()
         self.unit_load.load_boardsprites()
@@ -38,16 +38,6 @@ class Unit:
 
     #PATHFINDING
     #============================================Computer=================================================
-    def find_path(self,unit_list):
-        # unit list may vary between Player list and Computer list
-        print("")
-        #step1 find closest unit
-        self.find_closest_unit(unit_list)
-        #step2 apply A* to closest unit
-
-
-
-
     def set_target_unit(self,unit):
         if self.target_unit:
             self.target_unit[0] = unit

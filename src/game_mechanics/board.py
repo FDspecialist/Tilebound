@@ -8,9 +8,6 @@ from src.utils.configs import Configs
 Configs = Configs()
 class Board:
     def __init__(self, display):
-        #game properties
-        self.Player = Player()
-        self.Computer = Computer()
         #board_base, can change to a different sprite later
         self.base = pygame.surface.Surface((Configs.GRID_WIDTH,Configs.GRID_HEIGHT))
         self.base.fill((0, 0, 0))
@@ -28,7 +25,12 @@ class Board:
         #Visually attaching Tiles to array.
         for x in self.array:
             for tile in x:
+                tile.get_neighbours(self.array)
                 tile.blit_to_board(self.base)
+
+        # game properties
+        self.Player = Player(self.array)
+        self.Computer = Computer(self.array)
 
 
     def check_clicked_debug(self, event):

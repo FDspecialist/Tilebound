@@ -1,8 +1,11 @@
 class Computer:
-    def __init__(self):
+    def __init__(self,array):
         self.unit_list = []
         self.unit_select = {}
         self.unit_count = 0
+
+        #pathfinding/board interaction
+        self.array = array
     def assign_unit(self, unit):
         self.unit_list.append(unit)
         self.unit_select[(unit.x,unit.y)] = unit
@@ -15,7 +18,7 @@ class Computer:
         return self.unit_select[(x,y)]
 
 
-    def move_to_player_units(selfplayer_units):
+    def move_to_player_units(self,player_units):
 
         #testing: finding closest unit.
 

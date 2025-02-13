@@ -21,7 +21,8 @@ class Tile:
         self.g_value = 0
         self.h_value = 0
         self.f_value = 0 #will be updated to be sum of g and h
-        self.parent = []
+        self.parent = None
+        self.neighbours = []
 
         #display orientations
         self.display = display
@@ -51,8 +52,25 @@ class Tile:
         #menu UI
         self.menu = TileMenu()
 
+
+    #initialisation
     def blit_to_board(self, _board):
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
+    def get_neighbours(self, board_array):
+        #check if neighbours list is already populated, prevents accidental duplicates
+        if self.neighbours:
+            return
+        directions = [
+            (-1, 0),( 1, 0),(0, 1),(0,-1), #left,right,up,down
+            (-1,-1),( 1, 1),( 1,-1),(-1, 1) #downleft,upright,downright,upleft
+        ]
+        for dx,dy in directions:
+            neighbour_x,neighbour_y = self.x + dx, self.y + dy
+
+            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
+                self.neighbours.append(board_array[neighbour_x,neighbour_y])
+
+
     def clicked(self, event, board_x, board_y):
         adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
         if event.type == pygame.MOUSEBUTTONDOWN and adjusted_rect.collidepoint(event.pos):
@@ -71,10 +89,16 @@ class Tile:
         self.unlock()
 
 
+    #path finding
     def lock(self):
         self.traversable = False
     def unlock(self):
         self.traversable = True
+    def set_parent(self,new_parent):
+        #new_parent is another tile
+        self.parent = new_parent
+
+
 
 
 
