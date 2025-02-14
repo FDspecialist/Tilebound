@@ -1,7 +1,10 @@
 import math
+from minheap import MinHeap
+from stack import Stack
 class Pathfinder:
     def __init__(self):
-        self.open_list = []
+        self.path = Stack()
+        self.open_list = MinHeap()
         self.closed_list = []
         self.finished = False
     def euclidean_distance(self, unit1, unit2):
@@ -47,6 +50,8 @@ class Pathfinder:
         current_tile.get_neighbours(array)
         for neighbours in current_tile.get_neighbours:
             neighbours.calculate_current_f_value()
+
+            #then sort into open list as stack
 
 
 
