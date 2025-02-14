@@ -6,10 +6,12 @@ class Pathfinder:
         self.finished = False
     def euclidean_distance(self, unit1, unit2):
         #formula: d = sqrt((x2 - x1)*2 + (y2- y1)*2)
+        #finds direct distance between two objects (tile or unit)
         x1, y1 = unit1.x,unit1.y
         x2, y2 = unit2.x,unit2.y
         return math.sqrt((x2-x1)**2+(y2-y1)**2)
     def calculate_f_value(self, current_tile, target_tile):
+        #F value = G value + H value
         current_tile.g_value = self.calculate_g_value(current_tile, target_tile)
         current_tile.h_value = self.calculate_h_value(current_tile, target_tile)
         current_tile.f_value = current_tile.g_value + current_tile.h_value
@@ -30,6 +32,7 @@ class Pathfinder:
                 print("Tiles evaluated are NOT adjacent")
                 return -1
     def calculate_h_value(self, current_tile, target_tile):
+        #finds Euclidean distance between both tiles.
         h_value = self.euclidean_distance(current_tile, target_tile)
         return h_value
 
