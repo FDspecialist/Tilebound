@@ -1,6 +1,6 @@
 import math
-from minheap import MinHeap
-from stack import Stack
+from src.utils.minheap import MinHeap
+from src.utils.stack import Stack
 class Pathfinder:
     def __init__(self):
         self.path = Stack()
