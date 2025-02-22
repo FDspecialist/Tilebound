@@ -50,7 +50,7 @@ class Unit:
         closest_unit = None
         for unit in unit_list:
             #find distance with current unit
-            current_distance = self.Pathfinder.euclidean_distance(self,unit)
+            current_distance = self.Pathfinder.chebyshev_distance(self,unit)
 
             #when shorter distance found save distance and unit
             if current_distance < shortest_distance:
