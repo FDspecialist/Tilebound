@@ -20,7 +20,7 @@ class Unit:
 
         #Pathfinding Properties
         self.Pathfinder = Pathfinder()
-        self.target_unit = []
+        self.target_unit = None
 
 
         #Graphics properties
@@ -39,10 +39,10 @@ class Unit:
     #PATHFINDING
     #============================================Computer=================================================
     def set_target_unit(self,unit):
-        if self.target_unit:
-            self.target_unit[0] = unit
+        if self.target_unit is None:
+            self.target_unit = unit
         else:
-            self.target_unit.append(unit)
+            self.target_unit = unit
 
     def find_closest_unit(self,unit_list):
         #finds the closest unit from unit_list to current instance of unit
@@ -51,6 +51,8 @@ class Unit:
         for unit in unit_list:
             #find distance with current unit
             current_distance = self.Pathfinder.chebyshev_distance(self,unit)
+            print(f"instance x and y: {self.x}, {self.y}\ncompared x and y: {unit.x}, {unit.y}")
+            print(current_distance)
 
             #when shorter distance found save distance and unit
             if current_distance < shortest_distance:
@@ -88,8 +90,8 @@ class Unit:
                     self.unit_sprite = self.unit_load.get_sprite("computer_infantry").convert_alpha()
 
                 #initial board position
-                self.board_x = x
-                self.board_y = y
+                self.x = x
+                self.y = y
 
 
             case "Archer":

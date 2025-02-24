@@ -16,11 +16,12 @@ class Pathfinder:
         #This is because diagonal movement in Tilebound has a movement cost of only 1.
         x1, y1 = unit1.x,unit1.y
         x2, y2 = unit2.x,unit2.y
-
+        print(f"Calculating Chebyshev distance between ({x1},{y1}) and ({x2},{y2})")
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
-
         return max(dx,dy)
+
+
     def calculate_f_value(self, current_tile, target_tile):
         #F value = G value + H value
         current_tile.g_value = self.calculate_g_value(current_tile)

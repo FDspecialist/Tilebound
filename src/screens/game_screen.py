@@ -116,8 +116,8 @@ class GameScreen:
         print("\n\nComputer turn started\n")
 
         #path finding method call here
-
-
+        for unit in self.Computer.unit_list:
+            unit.find_closest_unit(self.Player.unit_list)
         self.draw()
         self.end_turn()
 
