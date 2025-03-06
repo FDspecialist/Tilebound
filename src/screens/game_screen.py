@@ -102,6 +102,7 @@ class GameScreen:
                     self.board.check_clicked_debug(event)
 
                 elif event.type == pygame.MOUSEBUTTONDOWN and not self.tile_debug:
+                    #checking if the click is prompting for
                     added_unit_bool = self.board.check_clicked_game(event,self.isPlayer)
                     if added_unit_bool:
                         print(f"\nPlayer Unit Count: {self.Player.unit_count}")
@@ -116,10 +117,11 @@ class GameScreen:
         print("\n\nComputer turn started\n")
 
         #path finding method call here
-        for unit in self.Computer.unit_list:
-            unit.find_closest_unit(self.Player.unit_list)
-        self.draw()
-        self.end_turn()
+        #prove that chebyshev works
+        # for unit in self.Computer.unit_list:
+        #     unit.find_closest_unit(self.Player.unit_list)
+        # self.draw()
+        # self.end_turn()
 
 
 

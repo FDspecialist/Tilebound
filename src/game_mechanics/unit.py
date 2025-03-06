@@ -1,4 +1,4 @@
-import pygame
+import random
 from src.utils.assets import Assets
 from src.utils.pathfinder import Pathfinder
 class Unit:
@@ -45,8 +45,13 @@ class Unit:
             self.target_unit = unit
 
     def find_closest_unit(self,unit_list):
+        #becareful with implementing this:
+        #each time this function is called, target unit is likely to be changed
+        #make sure an objective is achieved before calling again for the instance of the unit.
+
         #finds the closest unit from unit_list to current instance of unit
         shortest_distance = 19.8 # initially set to largest possible distance for 15x15
+        closest_units = []
         closest_unit = None
         for unit in unit_list:
             #find distance with current unit
@@ -57,7 +62,17 @@ class Unit:
             #when shorter distance found save distance and unit
             if current_distance < shortest_distance:
                 shortest_distance = current_distance
-                closest_unit = unit
+                closest_units.append(unit)
+            elif current_distance == shortest_distance:
+                closest_units.append(unit)
+
+        if len(closest_units) == 1:
+            closest_unit = closest_units[0]
+        else:
+            select_random = random.randint(0, len(closest_units)-1)
+            print(f"\n\nrandom index: {select_random}\nclosest_units length: {len(closest_units)-1}\n\n")
+            closest_unit = closest_units[select_random]
+
         print(f"Closest unit to unit[{self.x},{self.y}] is unit[{closest_unit.x},{closest_unit.y}]")
         self.set_target_unit(closest_unit)
 

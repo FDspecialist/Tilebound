@@ -64,11 +64,20 @@ class Tile:
             (-1, 0),( 1, 0),(0, 1),(0,-1), #left,right,up,down
             (-1,-1),( 1, 1),( 1,-1),(-1, 1) #downleft,upright,downright,upleft
         ]
+
+        #check each neighbour for direction
         for dx,dy in directions:
             neighbour_x,neighbour_y = self.x + dx, self.y + dy
-
+            # if neighbour exists (within range)
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
-                self.neighbours.append(board_array[neighbour_x,neighbour_y])
+                neighbour = board_array[neighbour_x,neighbour_y]
+                #if neighbour is traversable
+                if neighbour.traversable:
+                    self.neighbours.append(neighbour)
+
+            #if neighbour exists (within range) and neighbour is traversable
+            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15 and neighbour.traversable == True:
+                self.neighbours.append(neighbour)
 
 
     def clicked(self, event, board_x, board_y):
