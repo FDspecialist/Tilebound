@@ -56,6 +56,7 @@ class Tile:
     #initialisation
     def blit_to_board(self, _board):
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
+
     def get_neighbours(self, board_array):
         #check if neighbours list is already populated, prevents accidental duplicates
         if self.neighbours:

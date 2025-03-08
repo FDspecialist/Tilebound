@@ -10,6 +10,8 @@ class Pathfinder:
 
 
     #moving into chebyshev // document this!!!
+
+    #Pathfinding Handler
     def chebyshev_distance(self, unit1, unit2):
         #This function will calculate the difference between both x and y values of both points
         #both ordinates are compared and the greater ordinate is returned.
@@ -20,7 +22,6 @@ class Pathfinder:
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
         return max(dx,dy)
-
 
     def calculate_f_value(self, current_tile, target_tile):
         #F value = G value + H value
@@ -41,16 +42,11 @@ class Pathfinder:
     def path_to_unit_target(self, unit, array):
         print()
         #A* Path Finding Algorithm here
-        target_unit = unit.target_unit[0]
+        target_unit = unit.target_unit
         current_tile = array[unit.x,unit.y]
         target_tile = array[target_unit.x,target_unit.y]
 
-        #starting open list
-        current_tile.get_neighbours(array)
-        for neighbours in current_tile.get_neighbours:
-            neighbours.calculate_current_f_value()
 
-            #then sort into open list as stack
 
 
 
