@@ -9,19 +9,19 @@ class Node:
     def set_name(self):
         self.name = f"Node[{self.f_value}]"
 
-unsorted_nodes = []
 
-while len(unsorted_nodes) != 10:
+sorted_nodes = MinHeap("tile")
+
+while len(sorted_nodes.min_heap) != 10:
     random_f = random.randint(1,15)
     new_node = Node(random_f)
     new_node.set_name()
-    unsorted_nodes.append(new_node)
+    sorted_nodes.push(new_node)
 
-sorted_nodes = MinHeap()
-
-for node in unsorted_nodes:
-    sorted_nodes.push(node)
 
 while not len(sorted_nodes.min_heap) == 0:
     node = sorted_nodes.pop()
     print(node.name)
+
+    #this proves that when adding items to the minheap, the items are sorted upon being added.
+    #when popping, minheap maintains validity.

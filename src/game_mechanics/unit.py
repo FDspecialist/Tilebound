@@ -1,6 +1,7 @@
 import random
 from src.utils.assets import Assets
 from src.utils.pathfinder import Pathfinder
+from src.utils.minheap import MinHeap
 class Unit:
     def __init__(self):
 
@@ -33,6 +34,9 @@ class Unit:
         self.x = 0
         self.y = 0
 
+        #debug
+        self.ID = ""
+
 
 
 
@@ -45,36 +49,36 @@ class Unit:
             self.target_unit = unit
 
     def find_closest_unit(self,unit_list):
-        #becareful with implementing this:
-        #each time this function is called, target unit is likely to be changed
-        #make sure an objective is achieved before calling again for the instance of the unit.
+        #complete rework, using hashmap and minheap
+        #since it uses a dictionary, which overwrites over already existing keys, the unit
+        #will set the closest unit to be the most recently checked unit
 
-        #finds the closest unit from unit_list to current instance of unit
-        shortest_distance = 19.8 # initially set to largest possible distance for 15x15
-        closest_units = []
-        closest_unit = None
+        dist_unit_map = {}
+        known_distances = MinHeap("unit") #ensures that popped distance will be the shortest
+        shortest_distance = 99
+        unit_dist = 99
         for unit in unit_list:
-            #find distance with current unit
-            current_distance = self.Pathfinder.chebyshev_distance(self,unit)
-            print(f"instance x and y: {self.x}, {self.y}\ncompared x and y: {unit.x}, {unit.y}")
-            print(current_distance)
+            #find distance between self and unit
+            unit_dist = self.Pathfinder.chebyshev_distance(self,unit)
+            #link distance to unit (key: distance val: unit)
+            dist_unit_map[unit_dist] = unit
+            #push distance to minheap and order
+            known_distances.push(unit_dist)
+            print(f"chebyshev distance: {unit_dist}")
 
-            #when shorter distance found save distance and unit
-            if current_distance < shortest_distance:
-                shortest_distance = current_distance
-                closest_units.append(unit)
-            elif current_distance == shortest_distance:
-                closest_units.append(unit)
+        shortest_distance = known_distances.pop()
 
-        if len(closest_units) == 1:
-            closest_unit = closest_units[0]
-        else:
-            select_random = random.randint(0, len(closest_units)-1)
-            print(f"\n\nrandom index: {select_random}\nclosest_units length: {len(closest_units)-1}\n\n")
-            closest_unit = closest_units[select_random]
+        #error handling
+        if shortest_distance > 15:
+            print("Error: unit exists outside array")
+            return
+        return dist_unit_map[shortest_distance]
 
-        print(f"Closest unit to unit[{self.x},{self.y}] is unit[{closest_unit.x},{closest_unit.y}]")
-        self.set_target_unit(closest_unit)
+
+
+
+
+
 
     def move(self,x ,y):
         self.x = x
@@ -98,16 +102,17 @@ class Unit:
                 self.Description = "Standard foot soldiers, defence stat intends that this unit is intended for holding defensive lines and occupying territory. Bonus defence when adjacent to another allied infantry piece. "
                 self.WeaknessDesc = "Low RANGE, Low MOVEMENT RANGE"
 
-                #assign correct unit orientation
-                if is_player:
-                    self.unit_sprite = self.unit_load.get_sprite("player_infantry").convert_alpha()
-                else:
-                    self.unit_sprite = self.unit_load.get_sprite("computer_infantry").convert_alpha()
-
-                #initial board position
+                # initial board position
                 self.x = x
                 self.y = y
 
+                #assign correct unit orientation
+                if is_player:
+                    self.unit_sprite = self.unit_load.get_sprite("player_infantry").convert_alpha()
+                    self.ID = self.ID + unit_type +" PLAYER["+str(x)+","+str(y)+"]"
+                else:
+                    self.unit_sprite = self.unit_load.get_sprite("computer_infantry").convert_alpha()
+                    self.ID = self.ID + unit_type + " COMPUTER[" + str(x) + "," + str(y) + "]"
 
             case "Archer":
                 self.Health = 8

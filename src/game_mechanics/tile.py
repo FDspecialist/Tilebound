@@ -17,6 +17,7 @@ class Tile:
         self.current_unit = Unit()
         self.traversable = True
 
+
         #pathfinding properties
         self.g_value = 0
         self.h_value = 0
