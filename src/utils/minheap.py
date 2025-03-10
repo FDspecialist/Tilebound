@@ -1,5 +1,15 @@
 class MinHeap:
     # Data structure for Open List in A*
+
+    #Important:
+    #root element at index 0
+
+
+    #for any ith node in array
+    #parent node index = [(i-1)/2]
+    #left child node = [(2*i) + 1]
+    #right child node = [(2*i) + 2]
+
     def __init__(self):
         self.min_heap = []
 
