@@ -66,11 +66,13 @@ class Tile:
             (-1,-1),( 1, 1),( 1,-1),(-1, 1) #downleft,upright,downright,upleft
         ]
 
+        neighbour = None
         #check each neighbour for direction
+        #while also ignoring neighbours that are not on the array or neighbours that are not traversable.
         for dx,dy in directions:
             neighbour_x,neighbour_y = self.x + dx, self.y + dy
             # if neighbour exists (within range)
-            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
+            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15 and neighbour is None:
                 neighbour = board_array[neighbour_x,neighbour_y]
                 #if neighbour is traversable
                 if neighbour.traversable:
