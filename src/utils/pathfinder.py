@@ -10,6 +10,7 @@ class Pathfinder:
 
     def clear(self):
         #not sure if i need this yet
+        pass
 
 
     #moving into chebyshev // document this!!!
