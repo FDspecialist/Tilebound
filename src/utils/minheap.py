@@ -74,3 +74,5 @@ class MinHeap:
         self.min_heap[0] = self.min_heap.pop()
         self.sort_popped(0)
         return root
+    def size(self):
+        return len(self.min_heap)
