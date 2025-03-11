@@ -107,10 +107,6 @@ class Tile:
                 if neighbour.traversable:
                     self.neighbours.append(neighbour)
 
-            #if neighbour exists (within range) and neighbour is traversable
-            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15 and neighbour.traversable == True:
-                self.neighbours.append(neighbour)
-
 
 
 
