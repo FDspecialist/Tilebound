@@ -56,13 +56,3 @@ class Pathfinder:
         target_unit = unit.target_unit
         current_tile = array[unit.x,unit.y]
         target_tile = array[target_unit.x,target_unit.y]
-
-
-
-
-
-
-
-
-
-

@@ -116,13 +116,7 @@ class GameScreen:
     def computer_turn(self):
         print("\n\nComputer turn started\n")
 
-        #HEYYY REMINDER!! YOU FORGOT TO IMPLEMENT CLOSEST UNIT FINDING INSIDE COMPUTER CLASS!!!
-        # path finding method call here (which should be from computer class)
-        # prove that chebyshev works
-        for unit in self.Computer.unit_list:
-            closest = unit.find_closest_unit(self.Player.unit_list)
-            print(closest.ID)
-
+        self.Computer.move_units_to_enemy(self.Player.unit_list)
 
         #DO NOT GET RID: updates visuals and ends turn
         self.draw()

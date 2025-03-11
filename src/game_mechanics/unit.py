@@ -53,6 +53,8 @@ class Unit:
         #since it uses a dictionary, which overwrites over already existing keys, the unit
         #will set the closest unit to be the most recently checked unit
 
+        #will set closest unit to target for the foreseeable future
+
         dist_unit_map = {}
         known_distances = MinHeap("unit") #ensures that popped distance will be the shortest
         shortest_distance = 99
@@ -72,7 +74,9 @@ class Unit:
         if shortest_distance > 15:
             print("Error: unit exists outside array")
             return
-        return dist_unit_map[shortest_distance]
+
+        #set the unit with shortest distance from the map as the target unit.
+        self.set_target_unit(dist_unit_map[shortest_distance])
 
 
 

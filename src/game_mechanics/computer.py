@@ -18,9 +18,18 @@ class Computer:
         return self.unit_select[(x,y)]
 
 
-    def move_to_player_units(self,player_units):
+    def move_units_to_enemy(self,player_units):
+        #foreach unit:
+        #   find target unit
+        #   find path to target
+        #   move (last action before end of unit turn)
+        #   if adjacent to target then dont do anything move
 
-        #testing: finding closest unit.
+        #only do function if both player and computer have units.
+        if len(self.unit_list) == 0 or len(player_units) == 0:
+            return
 
+        for unit in self.unit_list:
+            unit.find_closest_unit(player_units)
+            print(unit.target_unit.ID)
 
-        print("")
