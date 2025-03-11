@@ -8,6 +8,9 @@ class Pathfinder:
         self.closed_list = []
         self.finished = False
 
+    def clear(self):
+        #not sure if i need this yet
+
 
     #moving into chebyshev // document this!!!
     #Pathfinding Handler
@@ -36,23 +39,29 @@ class Pathfinder:
         return max(dx,dy)
     def calculate_f_value(self, current_tile, target_tile):
         #F value = G value + H value
-        current_tile.g_value = self.calculate_g_value(current_tile)
-        current_tile.h_value = self.calculate_h_value(current_tile, target_tile)
+        #assign values to instance of current_tile
+        self.calculate_g_value(current_tile)
+        self.calculate_h_value(current_tile, target_tile)
         current_tile.f_value = current_tile.g_value + current_tile.h_value
-        return current_tile.f_value
     def calculate_g_value(self,current_tile): # likely logic error here
         if current_tile.parent is None:
-            return 0 #hence current tile is the starting tile
+            current_tile.g_value = 0
         else:
-            return current_tile.parent.g_value + 1
+            current_tile.g_value = current_tile.parent.g_value + 1
     def calculate_h_value(self, current_tile, target_tile):
         #finds Euclidean distance between both tiles.
-        h_value = self.chebyshev_distance_tile(current_tile, target_tile)
-        return h_value
+        current_tile.h_value = self.chebyshev_distance_tile(current_tile, target_tile)
 
+
+    #IMPORTANT:
+    #remember to make sure neighbours already in open list are not added again.
     def path_to_unit_target(self, unit, array):
         print()
         #A* Path Finding Algorithm here
         target_unit = unit.target_unit
         current_tile = array[unit.x,unit.y]
         target_tile = array[target_unit.x,target_unit.y]
+
+        self.calculate_f_value(current_tile)
+        self.open_list.push(current_tile)
+
