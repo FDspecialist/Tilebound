@@ -21,8 +21,7 @@ class Unit:
 
         #Pathfinding Properties
         self.Pathfinder = Pathfinder()
-        self.target_unit = None
-
+        self.target_object = None # Set to target 'object' as this can either be a control point, or an enemy unit.
 
         #Graphics properties
         self.unit_load = Assets()
@@ -42,31 +41,30 @@ class Unit:
 
     #PATHFINDING
     #============================================Computer=================================================
-    def set_target_unit(self,unit):
-        if self.target_unit is None:
-            self.target_unit = unit
+    def set_target_object(self, obj):
+        if self.target_object is None:
+            self.target_object = obj
         else:
-            self.target_unit = unit
+            self.target_object = obj
 
-    def find_closest_unit(self,unit_list):
+    def find_closest_unit(self,object_list):
         #complete rework, using hashmap and minheap
         #since it uses a dictionary, which overwrites over already existing keys, the unit
-        #will set the closest unit to be the most recently checked unit
+        #will set the closest object to be the most recently checked object
+        #will set closest object to target for the foreseeable future
 
-        #will set closest unit to target for the foreseeable future
-
-        dist_unit_map = {}
+        dist_obj_map = {}
         known_distances = MinHeap("unit") #ensures that popped distance will be the shortest
         shortest_distance = 99
-        unit_dist = 99
-        for unit in unit_list:
-            #find distance between self and unit
-            unit_dist = self.Pathfinder.chebyshev_distance(self,unit)
-            #link distance to unit (key: distance val: unit)
-            dist_unit_map[unit_dist] = unit
+        obj_dist = 99
+        for obj in object_list:
+            #find distance between self and obj
+            obj_dist = self.Pathfinder.chebyshev_distance(self,obj)
+            #link distance to obj (key: distance val: obj)
+            dist_obj_map[obj_dist] = obj
             #push distance to minheap and order
-            known_distances.push(unit_dist)
-            print(f"chebyshev distance: {unit_dist}")
+            known_distances.push(obj_dist)
+            print(f"chebyshev distance: {obj_dist}")
 
         shortest_distance = known_distances.pop()
 
@@ -75,8 +73,8 @@ class Unit:
             print("Error: unit exists outside array")
             return
 
-        #set the unit with shortest distance from the map as the target unit.
-        self.set_target_unit(dist_unit_map[shortest_distance])
+        #set the unit with shortest distance from the map as the target object.
+        self.set_target_object(dist_obj_map[shortest_distance])
 
 
 

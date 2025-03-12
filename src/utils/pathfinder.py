@@ -56,7 +56,7 @@ class Pathfinder:
 
     #IMPORTANT:
     #remember to make sure neighbours already in open list are not added again.
-    def path_to_unit_target(self, unit, array):
+    def unit_path_finder(self, unit, array):
         print()
         #A* Path Finding Algorithm here
         target_unit = unit.target_unit
@@ -65,4 +65,9 @@ class Pathfinder:
 
         self.calculate_f_value(current_tile)
         self.open_list.push(current_tile)
-
+    def tile_path_finder(self, start_tile, end_tile):
+        #for demonstration, put the same algorithm here but adapt for tiles only.
+        #only really need to find the target and current tile differently.
+        #return path ig???
+        #add a flag for this too probably
+        pass
