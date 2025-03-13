@@ -92,13 +92,17 @@ class Tile:
         else:
             self.parent = new_parent
 
-    def get_neighbours(self, board_array):
+    def get_neighbours(self, board_array, closed_list):
         #check if neighbours list is already populated, prevents accidental duplicates
         if self.neighbours:
             #update neighbours to see whether traversable
             #remove intraversable neighbours
             for neighbour in self.neighbours:
                 if not neighbour.traversable:
+                    self.neighbours.remove(neighbour)
+
+                #not sure if this part is obsolete yet tbh
+                if neighbour in closed_list:
                     self.neighbours.remove(neighbour)
 
             #after sorting out intraversable neighbours, end method
@@ -111,7 +115,7 @@ class Tile:
 
         neighbour = None
         #check each neighbour for direction
-        #while also ignoring neighbours that are not on the array or neighbours that are not traversable.
+        #while also ignoring neighbours that are not on the array or neighbours that are not traversable or in closed list.
         for dx,dy in directions:
             neighbour_x,neighbour_y = self.x + dx, self.y + dy
             # if neighbour exists (within range)
@@ -119,7 +123,8 @@ class Tile:
                 neighbour = board_array[neighbour_x,neighbour_y]
                 #if neighbour is traversable
                 if neighbour.traversable:
-                    self.neighbours.append(neighbour)
+                    if not neighbour in closed_list:
+                        self.neighbours.append(neighbour)
 
 
 

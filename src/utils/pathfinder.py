@@ -7,6 +7,7 @@ class Pathfinder:
         self.open_list = MinHeap("tile")
         self.closed_list = []
         self.finished = False
+        self.found_target = False
 
     def clear(self):
         #not sure if i need this yet
@@ -53,6 +54,13 @@ class Pathfinder:
         #finds Euclidean distance between both tiles.
         current_tile.h_value = self.chebyshev_distance_tile(current_tile, target_tile)
 
+    def path_constructor(self, target_tile):
+        #initial current tile
+        current_tile = target_tile
+        #while current tile parent is not None
+        while not current_tile.parent is None:
+            self.path.push(current_tile)
+            current_tile = current_tile.parent
 
     #IMPORTANT:
     #remember to make sure neighbours already in open list are not added again.
@@ -64,6 +72,40 @@ class Pathfinder:
 
         self.calculate_f_value(current_tile)
         self.open_list.push(current_tile)
+
+        #get neighbours and add to openlist
+        while not self.finished:
+            if self.open_list.is_empty:
+                finished = True
+                self.found_target = False
+                break
+
+            #add current tile to closed list
+            #get neighbours,calculate values then add to open list
+            current_tile.get_neighbours(array, self.closed_list)
+            self.closed_list.append(current_tile)
+            for ntile in current_tile.neighbours:
+                ntile.set_parent(current_tile)
+                self.calculate_f_value(ntile, target_tile)
+                self.open_list.push(ntile)
+
+            #find next best unit,check if target node
+            best_tile = self.open_list.pop()
+            if best_tile == target_tile:
+                #found target tile, start backtracking parents
+                self.found_target = True
+                self.finished = True
+            else:
+                current_tile = best_tile # set new current tile
+
+        if self.found_target:
+            #back track parents here
+            self.path_constructor(target_tile)
+            return self.path
+        else:
+            return self.path
+
+
     def tile_path_finder(self, start_tile, end_tile):
         #for demonstration, put the same algorithm here but adapt for tiles only.
         #only really need to find the target and current tile differently.

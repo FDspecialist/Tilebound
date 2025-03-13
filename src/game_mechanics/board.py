@@ -25,7 +25,6 @@ class Board:
         #Visually attaching Tiles to array.
         for x in self.array:
             for tile in x:
-                tile.get_neighbours(self.array)
                 tile.blit_to_board(self.base)
 
         # game properties

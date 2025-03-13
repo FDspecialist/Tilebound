@@ -30,6 +30,6 @@ class Computer:
             return
 
         for unit in self.unit_list:
-            unit.find_closest_unit(player_units)
-            print(unit.target_unit.ID)
+            unit.find_closest_object(player_units)
+            print(unit.target_object.ID)
 

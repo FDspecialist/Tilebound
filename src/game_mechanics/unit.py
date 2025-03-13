@@ -47,7 +47,7 @@ class Unit:
         else:
             self.target_object = obj
 
-    def find_closest_unit(self,object_list):
+    def find_closest_object(self,object_list):
         #complete rework, using hashmap and minheap
         #since it uses a dictionary, which overwrites over already existing keys, the unit
         #will set the closest object to be the most recently checked object

@@ -1,3 +1,6 @@
+from operator import truediv
+
+
 class MinHeap:
     # Data structure for sorting by size for either tiles or units
 
@@ -76,3 +79,8 @@ class MinHeap:
         return root
     def size(self):
         return len(self.min_heap)
+    def is_empty(self):
+        if len(self.min_heap) == 0:
+            return True
+        else:
+            return False
