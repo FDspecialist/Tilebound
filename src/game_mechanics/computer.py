@@ -1,3 +1,5 @@
+from src.utils.pathfinder import Pathfinder
+
 class Computer:
     def __init__(self,array):
         self.unit_list = []
@@ -5,6 +7,7 @@ class Computer:
         self.unit_count = 0
 
         #pathfinding/board interaction
+        self.pathfinder = Pathfinder()
         self.array = array
     def assign_unit(self, unit):
         self.unit_list.append(unit)
@@ -29,7 +32,9 @@ class Computer:
         if len(self.unit_list) == 0 or len(player_units) == 0:
             return
 
+        rpath = []
+        path = []
         for unit in self.unit_list:
             unit.find_closest_object(player_units)
-            print(unit.target_object.ID)
-
+            print(f"Closest Target: {unit.target_object.ID}")
+            rpath = self.pathfinder.unit_path_finder(unit, self.array)

@@ -66,11 +66,11 @@ class Pathfinder:
     #remember to make sure neighbours already in open list are not added again.
     def unit_path_finder(self, unit, array):
         #A* Path Finding Algorithm here
-        target_unit = unit.target_unit
+        target_unit = unit.target_object
         current_tile = array[unit.x,unit.y]
         target_tile = array[target_unit.x,target_unit.y]
 
-        self.calculate_f_value(current_tile)
+        self.calculate_f_value(current_tile, target_tile)
         self.open_list.push(current_tile)
 
         #get neighbours and add to openlist
@@ -91,6 +91,7 @@ class Pathfinder:
 
             #find next best unit,check if target node
             best_tile = self.open_list.pop()
+            best_tile.visual_debug()
             if best_tile == target_tile:
                 #found target tile, start backtracking parents
                 self.found_target = True
@@ -101,8 +102,12 @@ class Pathfinder:
         if self.found_target:
             #back track parents here
             self.path_constructor(target_tile)
+            size = self.path.size
+            print(f"\nPathfinder:\nPath size found {size}")
             return self.path
         else:
+            size = self.path.size
+            print(f"\nPathfinder:\nPath size found {size}\nPath was not found")
             return self.path
 
 
