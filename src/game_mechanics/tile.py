@@ -15,13 +15,13 @@ class Tile:
         self.x = X
         self.y = Y
         self.current_unit = Unit()
-        self.traversable = True
 
 
         #pathfinding properties
         self.g_value = 0
         self.h_value = 0
         self.f_value = 0 #will be updated to be sum of g and h
+        self.traversable = True
         self.parent = None
         self.neighbours = []
 
@@ -95,7 +95,15 @@ class Tile:
     def get_neighbours(self, board_array):
         #check if neighbours list is already populated, prevents accidental duplicates
         if self.neighbours:
+            #update neighbours to see whether traversable
+            #remove intraversable neighbours
+            for neighbour in self.neighbours:
+                if not neighbour.traversable:
+                    self.neighbours.remove(neighbour)
+
+            #after sorting out intraversable neighbours, end method
             return
+
         directions = [
             (-1, 0),( 1, 0),(0, 1),(0,-1), #left,right,up,down
             (-1,-1),( 1, 1),( 1,-1),(-1, 1) #downleft,upright,downright,upleft

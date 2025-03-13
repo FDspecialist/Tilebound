@@ -57,7 +57,6 @@ class Pathfinder:
     #IMPORTANT:
     #remember to make sure neighbours already in open list are not added again.
     def unit_path_finder(self, unit, array):
-        print()
         #A* Path Finding Algorithm here
         target_unit = unit.target_unit
         current_tile = array[unit.x,unit.y]
