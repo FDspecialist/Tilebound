@@ -9,8 +9,12 @@ class Pathfinder:
         self.found_target = False
 
     def clear(self):
-        #not sure if i need this yet
-        pass
+        #I will definitely need this once the computer starts adding new units
+        self.path.stack.clear()
+        self.open_list.min_heap.clear()
+        self.closed_list.clear()
+        self.finished = False
+        self.found_target = False
 
 
     #moving into chebyshev // document this!!!
@@ -85,11 +89,10 @@ class Pathfinder:
             current_tile.get_neighbours(array, self.closed_list)
             self.closed_list.append(current_tile)
             for ntile in current_tile.neighbours:
-
                 if ntile in self.closed_list:
                     continue
 
-                if ntile not in self.open_list.min_heap or ntile.g_value > current_tile.g_value + 1:
+                if ntile not in self.open_list.min_heap:
                     ntile.set_parent(current_tile)
                     self.calculate_f_value(ntile, target_tile)
                     self.open_list.push(ntile)
@@ -111,11 +114,16 @@ class Pathfinder:
             size = self.path.size()
             print(size)
             print(f"Size of path: {size}")
-            return self.path
+            rtn_path = self.path
+            self.clear()
+            return rtn_path
         else:
+            self.path_constructor(current_tile)
             size = self.path.size()
             print(f"Size of path: {size}")
-            return self.path
+            rtn_path = self.path
+            self.clear()
+            return rtn_path
 
 
     def tile_path_finder(self, start_tile, end_tile):

@@ -117,6 +117,7 @@ class Tile:
             # if neighbour exists (within range)
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15 and neighbour is None:
                 neighbour = board_array[neighbour_x,neighbour_y]
+                print(f"Neighbour: [{neighbour.x},{neighbour.y}]")
                 #if neighbour is traversable
                 if neighbour.traversable:
                     if not neighbour in closed_list:
@@ -128,7 +129,7 @@ class Tile:
 
 
     def visual_debug(self):
-        print(f"Click on Tile[{self.x},{self.y}]")
+        print(f"Reference Tile[{self.x},{self.y}]")
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover

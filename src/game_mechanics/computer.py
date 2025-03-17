@@ -34,6 +34,7 @@ class Computer:
 
         rpath = []
         path = []
+        #temp commented for now
         for unit in self.unit_list:
             unit.find_closest_object(player_units)
             print(f"Closest Target: {unit.target_object.ID}")

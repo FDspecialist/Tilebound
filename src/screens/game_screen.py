@@ -117,7 +117,6 @@ class GameScreen:
         print("\n\nComputer turn started\n")
 
         self.Computer.move_units_to_enemy(self.Player.unit_list)
-
         #DO NOT GET RID: updates visuals and ends turn
         self.draw()
         self.end_turn()

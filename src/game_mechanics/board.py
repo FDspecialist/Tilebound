@@ -60,7 +60,8 @@ class Board:
         return False
 
 
-
+    def tile(self,x ,y): #python OOP actually sucks this doesn't even work..
+        return self.array[x,y]
     def draw(self, display):
 
         #update tile visuals
