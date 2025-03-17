@@ -1,4 +1,3 @@
-import math
 from src.utils.minheap import MinHeap
 from src.utils.stack import Stack
 class Pathfinder:
@@ -69,14 +68,15 @@ class Pathfinder:
         target_unit = unit.target_object
         current_tile = array[unit.x,unit.y]
         target_tile = array[target_unit.x,target_unit.y]
-
+        #set target_tile to traversable just so that it can be added as neighbour
+        target_tile.traversable = True
         self.calculate_f_value(current_tile, target_tile)
         self.open_list.push(current_tile)
 
         #get neighbours and add to openlist
         while not self.finished:
-            if self.open_list.is_empty:
-                finished = True
+            if self.open_list.is_empty():
+                self.finished = True
                 self.found_target = False
                 break
 
@@ -85,9 +85,15 @@ class Pathfinder:
             current_tile.get_neighbours(array, self.closed_list)
             self.closed_list.append(current_tile)
             for ntile in current_tile.neighbours:
-                ntile.set_parent(current_tile)
-                self.calculate_f_value(ntile, target_tile)
-                self.open_list.push(ntile)
+
+                if ntile in self.closed_list:
+                    continue
+
+                if ntile not in self.open_list.min_heap or ntile.g_value > current_tile.g_value + 1:
+                    ntile.set_parent(current_tile)
+                    self.calculate_f_value(ntile, target_tile)
+                    self.open_list.push(ntile)
+
 
             #find next best unit,check if target node
             best_tile = self.open_list.pop()
@@ -102,12 +108,13 @@ class Pathfinder:
         if self.found_target:
             #back track parents here
             self.path_constructor(target_tile)
-            size = self.path.size
-            print(f"\nPathfinder:\nPath size found {size}")
+            size = self.path.size()
+            print(size)
+            print(f"Size of path: {size}")
             return self.path
         else:
-            size = self.path.size
-            print(f"\nPathfinder:\nPath size found {size}\nPath was not found")
+            size = self.path.size()
+            print(f"Size of path: {size}")
             return self.path
 
 

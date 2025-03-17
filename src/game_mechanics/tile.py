@@ -86,11 +86,7 @@ class Tile:
         self.traversable = True
 
     def set_parent(self,new_parent):
-        #handle None type
-        if self.parent is None:
-            self.parent = new_parent
-        else:
-            self.parent = new_parent
+        self.parent = new_parent
 
     def get_neighbours(self, board_array, closed_list):
         #check if neighbours list is already populated, prevents accidental duplicates
