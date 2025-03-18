@@ -78,35 +78,29 @@ class Pathfinder:
         self.open_list.push(current_tile)
 
         #get neighbours and add to openlist
-        while not self.finished:
-            if self.open_list.is_empty():
+        while not self.open_list.is_empty():
+            current_tile = self.open_list.pop()
+            current_tile.visual_debug()
+            if current_tile == target_tile:
                 self.finished = True
-                self.found_target = False
+                self.found_target = True
                 break
 
             #add current tile to closed list
             #get neighbours,calculate values then add to open list
-            current_tile.get_neighbours(array, self.closed_list)
             self.closed_list.append(current_tile)
+            current_tile.get_neighbours(array, self.closed_list)
+
             for ntile in current_tile.neighbours:
                 if ntile in self.closed_list:
                     continue
 
-                if ntile not in self.open_list.min_heap:
+                new_g_value = current_tile.g_value + 1
+                if ntile not in self.open_list.min_heap or new_g_value < ntile.g_value:
                     ntile.set_parent(current_tile)
                     self.calculate_f_value(ntile, target_tile)
-                    self.open_list.push(ntile)
-
-
-            #find next best unit,check if target node
-            best_tile = self.open_list.pop()
-            best_tile.visual_debug()
-            if best_tile == target_tile:
-                #found target tile, start backtracking parents
-                self.found_target = True
-                self.finished = True
-            else:
-                current_tile = best_tile # set new current tile
+                    if ntile not in self.open_list.min_heap:
+                        self.open_list.push(ntile)
 
         if self.found_target:
             #back track parents here
