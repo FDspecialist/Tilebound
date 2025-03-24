@@ -119,7 +119,7 @@ class Tile:
             print(f"\n     Performing: selfx:{self.x} + dx:{dx}, selfy:{self.y} + dy:{dy}")
             # if neighbour exists (within range)
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
-                neighbour = board_array[neighbour_x,neighbour_y]
+                neighbour = board_array[neighbour_y][neighbour_x]
                 #if neighbour is traversable
                 if neighbour.traversable:
                     print(f"     Neighbour[{neighbour.x},{neighbour.y}]")

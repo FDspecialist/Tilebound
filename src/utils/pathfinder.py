@@ -88,12 +88,11 @@ class Pathfinder:
         #get neighbours and add to openlist
         while not self.open_list.is_empty():
             #handle target tile being adjacent from beginning
-            if self.finished == True:
-                break
             current_tile = self.open_list.pop()
             print(f"Current Tile: [{current_tile.x},{current_tile.y}]")
             # current_tile.visual_debug()
             if current_tile == target_tile:
+                print(f"\nThese two are supposedly the same:\nCURRENT_TILE[{current_tile.x},{current_tile.y}]\nTARGET_TILE[{target_tile.x},{target_tile.y}]")
                 self.finished = True
                 self.found_target = True
                 break
@@ -105,12 +104,10 @@ class Pathfinder:
 
             print(f"\nNeighbour A* values:")
             for ntile in current_tile.neighbours:
-                if ntile == target_tile:
-                    self.finished == True
-                    self.found_target == True
                 if ntile in self.closed_list or not ntile.traversable:
                     continue
-                print(f"Tile[{ntile.x},{ntile.y}] F: {ntile.f_value}  G: {ntile.g_value}")
+                self.calculate_f_value(ntile,target_tile)
+                print(f"Tile[{ntile.x},{ntile.y}] F: {ntile.f_value}  G: {ntile.g_value} H: {ntile.h_value}")
                 new_g_value = current_tile.g_value + 1
                 if ntile not in self.open_list.min_heap or new_g_value < ntile.g_value:
                     ntile.set_parent(current_tile)
