@@ -80,6 +80,13 @@ class Tile:
 
 
     #path finding
+    def clear(self):
+        self.g_value = 0
+        self.h_value = 0
+        self.f_value = 0
+        self.parent = None
+        self.neighbours.clear()
+
     def lock(self):
         self.traversable = False
 
@@ -102,20 +109,23 @@ class Tile:
         ]
 
 
-        print(f"\nNeighbour of Tile:[{self.x},{self.y}]:")
+        print(f"\nNeighbours of Tile[{self.x},{self.y}]:")
         #check each neighbour for direction
         #while also ignoring neighbours that are not on the array or neighbours that are not traversable or in closed list.
         for dx,dy in directions:
-            neighbour_x,neighbour_y = self.x + dx, self.y + dy
+            #neighbour_x,neighbour_y = self.x + dx, self.y + dy
+            neighbour_x = self.x + dx
+            neighbour_y = self.y + dy
             print(f"\n     Performing: selfx:{self.x} + dx:{dx}, selfy:{self.y} + dy:{dy}")
             # if neighbour exists (within range)
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
                 neighbour = board_array[neighbour_x,neighbour_y]
                 #if neighbour is traversable
                 if neighbour.traversable:
-                    if not neighbour in closed_list:
-                        print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
-                        self.neighbours.append(neighbour)
+                    print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
+                    self.neighbours.append(neighbour)
+            else:
+                print(f"Tile:[{neighbour_x},{neighbour_y}] was found to be invalid")
 
         #fat error here, neighbours list does NOT get all correct neighbours
         print(f"Neighbours list length: {len(self.neighbours)}")

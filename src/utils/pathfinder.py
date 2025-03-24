@@ -8,6 +8,9 @@ class Pathfinder:
         self.finished = False
         self.found_target = False
 
+        #debug
+        self.rtn_path_debug = []
+
     def clear(self):
         #I will definitely need this once the computer starts adding new units
         self.path.stack.clear()
@@ -15,6 +18,7 @@ class Pathfinder:
         self.closed_list.clear()
         self.finished = False
         self.found_target = False
+        self.rtn_path_debug.clear()
 
 
     #moving into chebyshev // document this!!!
@@ -61,8 +65,12 @@ class Pathfinder:
         #initial current tile
         current_tile = target_tile
         #while current tile parent is not None
+        print("\nPATH LIST")
         while not current_tile.parent is None:
+            current_tile.visual_debug()
+            print(f"     TILE[{current_tile.x},{current_tile.y}]")
             self.path.push(current_tile)
+            self.rtn_path_debug.append(current_tile)
             current_tile = current_tile.parent
 
     #IMPORTANT:
@@ -79,9 +87,12 @@ class Pathfinder:
 
         #get neighbours and add to openlist
         while not self.open_list.is_empty():
+            #handle target tile being adjacent from beginning
+            if self.finished == True:
+                break
             current_tile = self.open_list.pop()
-            print(f"Current: Tile: [{current_tile.x},{current_tile.y}]")
-            current_tile.visual_debug()
+            print(f"Current Tile: [{current_tile.x},{current_tile.y}]")
+            # current_tile.visual_debug()
             if current_tile == target_tile:
                 self.finished = True
                 self.found_target = True
@@ -92,17 +103,20 @@ class Pathfinder:
             self.closed_list.append(current_tile)
             current_tile.get_neighbours(array, self.closed_list)
 
+            print(f"\nNeighbour A* values:")
             for ntile in current_tile.neighbours:
+                if ntile == target_tile:
+                    self.finished == True
+                    self.found_target == True
                 if ntile in self.closed_list or not ntile.traversable:
                     continue
-
+                print(f"Tile[{ntile.x},{ntile.y}] F: {ntile.f_value}  G: {ntile.g_value}")
                 new_g_value = current_tile.g_value + 1
                 if ntile not in self.open_list.min_heap or new_g_value < ntile.g_value:
                     ntile.set_parent(current_tile)
                     self.calculate_f_value(ntile, target_tile)
                     if ntile not in self.open_list.min_heap:
                         self.open_list.push(ntile)
-
         if self.found_target:
             #back track parents here
             self.path_constructor(target_tile)
@@ -110,7 +124,13 @@ class Pathfinder:
             print(f"path found")
             print(f"Size of path: {size}")
             rtn_path = self.path
+
+            #reset everything for next unit
+            for x in array:
+                for tile in x:
+                    tile.clear()
             self.clear()
+
             return rtn_path
         else:
             self.path_constructor(current_tile)
@@ -118,13 +138,15 @@ class Pathfinder:
             print("Path not found")
             print(f"Size of path: {size}")
             rtn_path = self.path
+            # reset everything for next unit
+            for x in array:
+                for tile in x:
+                    tile.clear()
             self.clear()
             return rtn_path
 
 
-    def tile_path_finder(self, start_tile, end_tile):
-        #for demonstration, put the same algorithm here but adapt for tiles only.
-        #only really need to find the target and current tile differently.
-        #return path ig???
-        #add a flag for this too probably
-        pass
+    def rtn_path_list(self):
+        print("\nPATH LIST: ")
+        for tile in self.rtn_path_debug:
+            print(f"     Tile[{tile.x},{tile.y}]")
