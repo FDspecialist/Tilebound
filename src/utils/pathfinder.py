@@ -38,7 +38,7 @@ class Pathfinder:
         #This is because diagonal movement in Tilebound has a movement cost of only 1.
         x1, y1 = tile1.x,tile1.y
         x2, y2 = tile2.x,tile2.y
-        print(f"Calculating Chebyshev distance between ({x1},{y1}) and ({x2},{y2})")
+        #print(f"Calculating Chebyshev distance between ({x1},{y1}) and ({x2},{y2})")
         dx = abs(x2 - x1)
         dy = abs(y2 - y1)
         return max(dx,dy)
@@ -80,6 +80,7 @@ class Pathfinder:
         #get neighbours and add to openlist
         while not self.open_list.is_empty():
             current_tile = self.open_list.pop()
+            print(f"Current: Tile: [{current_tile.x},{current_tile.y}]")
             current_tile.visual_debug()
             if current_tile == target_tile:
                 self.finished = True
@@ -92,7 +93,7 @@ class Pathfinder:
             current_tile.get_neighbours(array, self.closed_list)
 
             for ntile in current_tile.neighbours:
-                if ntile in self.closed_list:
+                if ntile in self.closed_list or not ntile.traversable:
                     continue
 
                 new_g_value = current_tile.g_value + 1
@@ -106,7 +107,7 @@ class Pathfinder:
             #back track parents here
             self.path_constructor(target_tile)
             size = self.path.size()
-            print(size)
+            print(f"path found")
             print(f"Size of path: {size}")
             rtn_path = self.path
             self.clear()
@@ -114,6 +115,7 @@ class Pathfinder:
         else:
             self.path_constructor(current_tile)
             size = self.path.size()
+            print("Path not found")
             print(f"Size of path: {size}")
             rtn_path = self.path
             self.clear()

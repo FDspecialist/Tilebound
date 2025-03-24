@@ -1,5 +1,6 @@
 import pygame
 pygame.init()
+from collections import deque
 from src.utils.assets import Assets
 from src.utils.configs import Configs
 from src.game_mechanics.unit import Unit
@@ -91,37 +92,65 @@ class Tile:
     def get_neighbours(self, board_array, closed_list):
         #check if neighbours list is already populated, prevents accidental duplicates
         if self.neighbours:
-            #update neighbours to see whether traversable
-            #remove intraversable neighbours
-            for neighbour in self.neighbours:
-                if not neighbour.traversable:
-                    self.neighbours.remove(neighbour)
-
-                #not sure if this part is obsolete yet tbh
-                if neighbour in closed_list:
-                    self.neighbours.remove(neighbour)
-
-            #after sorting out intraversable neighbours, end method
+            #dont find neighbours again if neighbours already found
             return
 
+        #might only be working for y direction going upwards
         directions = [
             (-1, 0),( 1, 0),(0, 1),(0,-1), #left,right,up,down
             (-1,-1),( 1, 1),( 1,-1),(-1, 1) #downleft,upright,downright,upleft
         ]
 
-        neighbour = None
+
+        print(f"\nNeighbour of Tile:[{self.x},{self.y}]:")
         #check each neighbour for direction
         #while also ignoring neighbours that are not on the array or neighbours that are not traversable or in closed list.
         for dx,dy in directions:
             neighbour_x,neighbour_y = self.x + dx, self.y + dy
+            print(f"\n     Performing: selfx:{self.x} + dx:{dx}, selfy:{self.y} + dy:{dy}")
             # if neighbour exists (within range)
-            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15 and neighbour is None:
+            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
                 neighbour = board_array[neighbour_x,neighbour_y]
-                print(f"Neighbour: [{neighbour.x},{neighbour.y}]")
                 #if neighbour is traversable
                 if neighbour.traversable:
                     if not neighbour in closed_list:
+                        print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
                         self.neighbours.append(neighbour)
+
+        #fat error here, neighbours list does NOT get all correct neighbours
+        print(f"Neighbours list length: {len(self.neighbours)}")
+
+    #BSF IMPLEMENTATION probably wont keep this tbf, may not work on square tiled board.
+    # def get_neighbours(self, board_array, closed_list):
+    #     self.neighbours = []  # Reset neighbors
+    #
+    #     # Define movement directions (8-way movement for Chebyshev distance)
+    #     directions = [
+    #         (-1, 0), (1, 0), (0, 1), (0, -1),  # Left, Right, Up, Down
+    #         (-1, -1), (1, 1), (1, -1), (-1, 1)  # Diagonals
+    #     ]
+    #
+    #     # BFS queue to explore valid neighbors
+    #     queue = deque([(self.x, self.y)])  # Start from current tile
+    #     visited = set()  # Keep track of visited tiles
+    #
+    #     print(f"\nNeighbour of Tile:[{self.x},{self.y}]:")
+    #     while queue:
+    #         x, y = queue.popleft()  # Get the next tile
+    #
+    #         for dx, dy in directions:
+    #             nx, ny = x + dx, y + dy  # New neighbor coordinates
+    #
+    #             # Ensure within board bounds
+    #             if 0 <= nx < len(board_array) and 0 <= ny < len(board_array[0]):
+    #                 neighbour = board_array[nx][ny]  # Get tile object
+    #
+    #                 # Check if neighbor is valid and not visited
+    #                 if neighbour.traversable and neighbour not in closed_list and neighbour not in visited:
+    #                     print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
+    #                     self.neighbours.append(neighbour)
+    #                     visited.add(neighbour)  # Mark as visited
+    #                     queue.append((nx, ny))  # Continue exploring
 
 
 
@@ -129,7 +158,7 @@ class Tile:
 
 
     def visual_debug(self):
-        print(f"Reference Tile[{self.x},{self.y}]")
+        print(f"Highlighting Tile[{self.x},{self.y}]")
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover
@@ -137,6 +166,7 @@ class Tile:
         else:
             self.active_image = self.tile_image
             self.update_visual() # render unit
+
 
 
     def update_visual(self):
