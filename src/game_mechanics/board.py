@@ -27,6 +27,8 @@ class Board:
             for tile in x:
                 tile.blit_to_board(self.base)
 
+        self.selected_tile = None
+
         # game properties
         self.Player = Player(self.array)
         self.Computer = Computer(self.array)
@@ -40,28 +42,18 @@ class Board:
                 if clicked:
                     tile.visual_debug()
                     return
-    def check_clicked_game(self, event, isPlayer):
+    #template function for checking if tiles are clicked
+    #Checks through board, if tile was clicked, return true and assign found tike to current selected tile
+    def search_tile(self, event):
         for row in range(15):
             for col in range(15):
                 tile = cast(Tile, self.array[row,col])
                 clicked = tile.clicked(event, self.board_x, self.board_y)
-                if clicked and tile.traversable == True:
-                    #spawn infantry for now
-                    infantry_unit = Configs.UNIT_POOL.get_unit()
-                    infantry_unit.activate("Infantry",isPlayer, tile.x, tile.y)
-                    tile.add_unit(infantry_unit)
-
-                    if isPlayer:
-                        self.Player.assign_unit(infantry_unit)
-                    else:
-                        self.Computer.assign_unit(infantry_unit)
-                    tile.update_visual()
+                self.selected_tile = tile
+                if clicked:
                     return True
         return False
 
-
-    def tile(self,x ,y): #python OOP actually sucks this doesn't even work..
-        return self.array[x,y]
     def draw(self, display):
 
         #update tile visuals
