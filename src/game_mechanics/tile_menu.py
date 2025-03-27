@@ -10,6 +10,8 @@ class TileMenu:
 
         self.x = 0
         self.y = 0
+        self.image_rect = self.image.get_rect()
+        self.image_rect.topleft = (self.x,self.y)
 
     def activate(self, tx, ty):
         self.x = tx
@@ -26,5 +28,5 @@ class TileMenu:
     def handle_buttons(self):
         #return a string determining which button was pressed.
         pass
-    def draw(self, display):
-        display.blit(self.image,(self.x,self.y))
+    def blit_to(self, display):
+        display.blit(self.image,self.image_rect)

@@ -53,6 +53,7 @@ class MainMenu:
             if button.is_clicked(event):
                 match button.text:
                     case "START":
+                        print("main menu ----> game screen")
                         self.ScreenManager.set_state('game screen')
                     case "OPTIONS":
                         print("This is options")
