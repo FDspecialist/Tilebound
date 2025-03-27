@@ -37,8 +37,4 @@ class Computer:
         #temp commented for now
         for unit in self.unit_list:
             unit.find_closest_object(player_units)
-            print(f"Closest Target: {unit.target_object.ID}")
             rpath = self.pathfinder.unit_path_finder(unit, self.array)
-
-            #rtn debug fail
-            #self.pathfinder.rtn_path_list()

@@ -76,12 +76,6 @@ class Unit:
         #set the unit with shortest distance from the map as the target object.
         self.set_target_object(dist_obj_map[shortest_distance])
 
-
-
-
-
-
-
     def move(self,x ,y):
         self.x = x
         self.y = y
@@ -111,10 +105,10 @@ class Unit:
                 #assign correct unit orientation
                 if is_player:
                     self.unit_sprite = self.unit_load.get_sprite("player_infantry").convert_alpha()
-                    self.ID = self.ID + unit_type +" PLAYER["+str(x)+","+str(y)+"]"
+                    self.ID = self.ID + unit_type +" PLAYER["+str(x)+","+str(y)+"]" #bad since ID can change
                 else:
                     self.unit_sprite = self.unit_load.get_sprite("computer_infantry").convert_alpha()
-                    self.ID = self.ID + unit_type + " COMPUTER[" + str(x) + "," + str(y) + "]"
+                    self.ID = self.ID + unit_type + " COMPUTER[" + str(x) + "," + str(y) + "]" #bad since ID can change
 
             case "Archer":
                 self.Health = 8

@@ -4,7 +4,7 @@ from collections import deque
 from src.utils.assets import Assets
 from src.utils.configs import Configs
 from src.game_mechanics.unit import Unit
-from src.game_mechanics.tile_menu import TileMenu
+from src.utils.text import Text
 class Tile:
     def __init__(self,X,Y, display):
         board_assets = Assets()
@@ -50,17 +50,17 @@ class Tile:
         # Set tile_rect position relative to sprite
         self.tile_rect.topleft = (self.blitposx, self.blitposy)
 
+        #visual display information
+        self.visual_x = Text(f"{self.x}", 22, Configs.GRAY, 10, Configs.TILESIZE-10)
+        self.visual_y = Text(f"{self.y}", 22, Configs.GRAY, Configs.TILESIZE - 10, Configs.TILESIZE-10)
 
-        #menu UI
-        self.menu = TileMenu()
 
 
-    #initialisation
+    #Add to board
     def blit_to_board(self, _board):
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
 
-
-
+    #check clicked
     def clicked(self, event, board_x, board_y):
         adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
         if event.type == pygame.MOUSEBUTTONDOWN and adjusted_rect.collidepoint(event.pos):
@@ -68,13 +68,14 @@ class Tile:
         return False
 
 
-
+    #unit handling
     def add_unit(self, unit):
         if self.traversable:
             self.current_unit = unit # Assign unit to tile
             self.lock()
         else:
             print(f"Tile[{self.x},{self.y}] is locked")
+
     def remove_unit(self):
         self.unlock()
 
@@ -166,9 +167,9 @@ class Tile:
 
 
 
-
+    #visuals
     def visual_debug(self):
-        print(f"Highlighting Tile[{self.x},{self.y}]")
+        #print(f"Highlighting Tile[{self.x},{self.y}]")
         self.vdebug = not self.vdebug
         if self.vdebug:
             self.active_image = self.tile_image_hover
@@ -178,7 +179,8 @@ class Tile:
             self.update_visual() # render unit
 
 
-
     def update_visual(self):
+        self.visual_x.draw(self.active_image)
+        self.visual_y.draw(self.active_image)
         if self.current_unit.UnitType != "blank":
             self.current_unit.draw(self.active_image) # Draw unit onto tile

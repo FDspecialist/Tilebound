@@ -42,7 +42,9 @@ class Board:
                 if clicked:
                     tile.visual_debug()
                     return
-    #template function for checking if tiles are clicked
+
+
+    #template functions:
     #Checks through board, if tile was clicked, return true and assign found tike to current selected tile
     def search_tile(self, event):
         for row in range(15):
@@ -53,6 +55,15 @@ class Board:
                 if clicked:
                     return True
         return False
+
+    def update_all(self):
+        for row in range(15):
+            for col in range(15):
+                tile = cast(Tile, self.array[row,col])
+                tile.update_visual()
+
+
+
 
     def draw(self, display):
 

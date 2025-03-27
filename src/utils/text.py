@@ -12,7 +12,7 @@ class Text:
         self.size = size
         self.colour = colour
         self.font = self.font_assets.get_font(Configs.DEFAULT_FONT, self.size)
-        self.text_surface = self.font.render(self.text, True, self.colour)
+        self.text_surface = self.font.render(self.text, True, self.colour).convert_alpha()
         self.x = x
         self.y = y
         self.text_rect = self.text_surface.get_rect(center=(self.x, self.y))

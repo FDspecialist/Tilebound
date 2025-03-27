@@ -4,6 +4,7 @@ from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
 from src.utils.text import Text
+from src.game_mechanics.tile_menu import TileMenu
 from src.game_mechanics.board import Board
 from src.game_mechanics.unit_pool import UnitPool
 Configs = Configs()
@@ -22,12 +23,12 @@ class GameScreen:
         #game properties
         Configs.UNIT_POOL = UnitPool() #Refresh UnitPool each time GameScreen is initialised
         self.board = Board(self.display)
-
+        self.tile_menu = TileMenu()
         self.Player = self.board.Player
         self.Computer = self.board.Computer
 
 
-        self.enable_player = True
+        self.enable_player = True # Player Turn Bool
         self.isPlayer = False#Determines whether a unit is being assigned to the player or not
 
 
@@ -145,6 +146,7 @@ class GameScreen:
                 self.computer_turn()
 
     def run(self):
+        self.board.update_all()#update visuals of all tiles
         self.run_turns()
 
 
