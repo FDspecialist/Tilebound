@@ -69,7 +69,7 @@ class Pathfinder:
         print("\nPATH LIST")
         while not current_tile.parent is None:
             current_tile.visual_debug()
-            print(f"     PARENT TILE[{current_tile.parent.x},{current_tile.parent.y}] ---->TILE[{current_tile.x},{current_tile.y}]")
+            print(f"     CHILD[{current_tile.x},{current_tile.y}] ---->PARENT[{current_tile.parent.x},{current_tile.parent.y}]")
             self.path.push(current_tile)
             self.rtn_path_debug.append(current_tile)
             current_tile = current_tile.parent
@@ -79,9 +79,9 @@ class Pathfinder:
     def unit_path_finder(self, unit, array):
         #A* Path Finding Algorithm here
         target_unit = unit.target_object
-        current_tile = array[unit.x,unit.y]
+        current_tile = array[unit.y,unit.x]
         print(f"--Pathfinder init--\n     Start:[{current_tile.x},{current_tile.y}]\n     End:[{target_unit.x},{target_unit.y}]")
-        target_tile = array[target_unit.x,target_unit.y]
+        target_tile = array[target_unit.y,target_unit.x]
         #set target_tile to traversable just so that it can be added as neighbour
         target_tile.traversable = True
         self.calculate_f_value(current_tile, target_tile)

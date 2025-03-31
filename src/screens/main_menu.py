@@ -30,7 +30,7 @@ class MainMenu:
         self.text_colour = Configs.WHITE
 
         #Screen Text
-        self.title = Text("!Tilebound!", 150, Configs.WHITE, Configs.SCREEN_MIDDLE_X, 100)
+        self.title = Text("*Tilebound*", 150, Configs.WHITE, Configs.SCREEN_MIDDLE_X, 100)
 
         #Add buttons here, access by index
         self.buttons = [# Name, font size, button width, button height, posx, posy

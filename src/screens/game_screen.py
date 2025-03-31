@@ -18,7 +18,7 @@ class GameScreen:
         self.ScreenManager = _screenmanager
 
         #change to toggle tile coordinates later
-        #self.tile_debug = False
+        self.tile_debug = False
 
 
         #game properties
@@ -100,42 +100,49 @@ class GameScreen:
                     self.isPlayer = not self.isPlayer
 
 
-                #Check for player input
-                # if event.type == pygame.MOUSEBUTTONDOWN and self.tile_debug:
-                #     self.board.check_clicked_debug(event)
-
-                # Handle mouse inputs
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    #Check for clicks on board
+                    # #Tile Menu Button Handling
+                    # if self.tile_menu.active:
+                    #     print("Tile menu active is True")
+                    #     selected_menu_button = self.tile_menu.responsive(event)
+                    #     print(selected_menu_button)
+                    # else:
+                    #     print("Tile menu active is False")
+                    #
+                    # #Check for clicks on board
+                    # click_on_board = self.board.search_tile(event)
+                    #
+                    # #left click, not on board
+                    # if event.button == 1:
+                    #     self.tile_menu.deactivate()
+                    #
+                    # #Left click, on board
+                    # if event.button == 1 and click_on_board == True:
+                    #     #error for blitpos placements, ther eis a massive offset
+                    #     #perhaps use mouse pos and fix blits late,r or never touch again
+                    #     mousex, mousey = pygame.mouse.get_pos()
+                    #     if not self.tile_menu.active:
+                    #         self.tile_menu.activate(mousex,mousey)
+
                     click_on_board = self.board.search_tile(event)
+                    if self.tile_debug:
+                        self.board.check_clicked_debug(event)
+                    if click_on_board and self.board.selected_tile.traversable and self.tile_debug == False:
+                        # spawn infantry for now
+                        infantry_unit = Configs.UNIT_POOL.get_unit()
+                        infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+                        self.board.selected_tile.add_unit(infantry_unit)
 
-                    #left click, not on board
-                    if event.button == 1:
-                        self.tile_menu.deactivate()
-
-                    #Left click, on board
-                    if event.button == 1 and click_on_board == True:
-                        if self.tile_menu.active == False:
-                            self.tile_menu.activate(self.board.selected_tile.x,self.board.selected_tile.y)
+                        if self.isPlayer:
+                            self.Player.assign_unit(infantry_unit)
                         else:
-                            self.tile_menu.update_pos(self.board.selected_tile.x,self.board.selected_tile.y)
+                            self.Computer.assign_unit(infantry_unit)
+                        self.board.selected_tile.update_visual()
 
-                    # if click_on_board and self.board.selected_tile.traversable:
-                    #     # spawn infantry for now
-                    #     infantry_unit = Configs.UNIT_POOL.get_unit()
-                    #     infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-                    #     self.board.selected_tile.add_unit(infantry_unit)
-                    #
-                    #     if self.isPlayer:
-                    #         self.Player.assign_unit(infantry_unit)
-                    #     else:
-                    #         self.Computer.assign_unit(infantry_unit)
-                    #     self.board.selected_tile.update_visual()
-                    #
-                    #     print(f"\nPlayer Unit Count: {self.Player.unit_count}")
-                    #     print(f"self.player_unit_count_text: {self.player_unit_count_text.text}\n")
-                    #     self.player_unit_count_text.update_text(f"Player Unit Count: {self.Player.unit_count}")
-                    #     self.computer_unit_count_text.update_text(f"Computer Unit Count: {self.Computer.unit_count}")
+                        print(f"\nPlayer Unit Count: {self.Player.unit_count}")
+                        print(f"self.player_unit_count_text: {self.player_unit_count_text.text}\n")
+                        self.player_unit_count_text.update_text(f"Player Unit Count: {self.Player.unit_count}")
+                        self.computer_unit_count_text.update_text(f"Computer Unit Count: {self.Computer.unit_count}")
         self.draw()
 
     #handle game process for computer
@@ -173,3 +180,5 @@ class GameScreen:
         for text in self.texts:
             text.draw(self.display)
         pygame.display.update()
+        if self.tile_menu.active:
+            self.tile_menu.blit_to(self.display)

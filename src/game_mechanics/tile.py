@@ -73,8 +73,6 @@ class Tile:
         if self.traversable:
             self.current_unit = unit # Assign unit to tile
             self.lock()
-        else:
-            print(f"Tile[{self.x},{self.y}] is locked")
 
     def remove_unit(self):
         self.unlock()
@@ -174,6 +172,7 @@ class Tile:
         if self.vdebug:
             self.active_image = self.tile_image_hover
             self.update_visual() #render unit
+            #print(f"Highlight Tile[{self.x},{self.y}]")
         else:
             self.active_image = self.tile_image
             self.update_visual() # render unit
