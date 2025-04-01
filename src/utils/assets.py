@@ -39,7 +39,7 @@ class Assets:
     def fonts(self):
         return self.fonts
 
-# debug
+# testing
 background_assets = Assets()
 button_assets = Assets()
 background_assets.load_backgrounds()
@@ -51,3 +51,4 @@ font.render("Testing", False, (255,255,255))
 
 board_assets = Assets()
 board_assets.load_boardsprites()
+wall_asset = board_assets.get_sprite("wall")

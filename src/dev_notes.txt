@@ -54,10 +54,17 @@ Create player and computer classes - Include in UML
 
 Start getting basic game functionality created.
     Turn system
+        Handle two phases
+        Time system in seconds
     Player and Computer Units
-    Path finding
+        Infantry /
+        Archer
+        Knight
+    Path finding /
     Unit generation
+        Unit Factories
     Obstacles
+        Intraversable Tiles
 
 Update:
 

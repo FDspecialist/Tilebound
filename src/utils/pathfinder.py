@@ -80,7 +80,6 @@ class Pathfinder:
         #A* Path Finding Algorithm here
         target_unit = unit.target_object
         current_tile = array[unit.y,unit.x]
-        print(f"--Pathfinder init--\n     Start:[{current_tile.x},{current_tile.y}]\n     End:[{target_unit.x},{target_unit.y}]")
         target_tile = array[target_unit.y,target_unit.x]
         #set target_tile to traversable just so that it can be added as neighbour
         target_tile.traversable = True

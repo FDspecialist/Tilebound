@@ -34,6 +34,23 @@ class Board:
         self.Computer = Computer(self.array)
 
 
+    def init_structures(self):
+        #coordinate list:
+        wall_coords = [
+            (4,0),(10,0),(4,1),(10,1),(4,3),(10,3),(0,4),(1,4),(3,4),(4,4),(10,4),(11,4),(13,4),(14,4),
+            (6,5),(7,5),(8,5),(5,6),(9,6),(5,7),(9,7),(5,8),(9,8),(6,9),(7,9),(8,9),(0,10),(1,10),(3,10),
+            (4,10),(10,10),(11,10),(13,10),(14,10),(4,11),(10,11),(4,13),(10,13),(4,14),(10,14)
+                       ]
+
+
+        for row in range(15):
+            for col in range(15):
+                tile_coords = (row,col)
+                if tile_coords in wall_coords:
+                    tile = cast(Tile, self.array[row,col])
+                    tile.set_wall()
+
+
     def check_clicked_debug(self, event):
         for row in range(15):
             for col in range(15):

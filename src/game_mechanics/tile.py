@@ -16,6 +16,7 @@ class Tile:
         self.x = X
         self.y = Y
         self.current_unit = Unit()
+        self.type = ""
 
 
         #pathfinding properties
@@ -43,6 +44,10 @@ class Tile:
         self.tile_image_hover = board_assets.get_sprite("tile_hover").convert_alpha()
         self.tile_image_hover = pygame.transform.scale(self.tile_image_hover,(Configs.TILESIZE, Configs.TILESIZE))
 
+        #Wall image
+        self.tile_image_wall = board_assets.get_sprite("wall").convert_alpha()
+        self.tile_image_wall = pygame.transform.scale(self.tile_image_wall, (Configs.TILESIZE, Configs.TILESIZE))
+
         #initialise default image
         self.active_image = self.tile_image
         self.tile_rect = self.tile_image.get_rect()
@@ -59,6 +64,15 @@ class Tile:
     #Add to board
     def blit_to_board(self, _board):
         _board.blit(self.active_image, (self.blitposx, self.blitposy))
+
+    #Init Wall
+    def set_wall(self):
+        self.traversable = False
+        self.type = "wall"
+        self.active_image = self.tile_image_wall
+        self.visual_x.update_text("")
+        self.visual_y.update_text("")
+        self.update_visual()
 
     #check clicked
     def clicked(self, event, board_x, board_y):

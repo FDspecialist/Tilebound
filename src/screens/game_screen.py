@@ -24,9 +24,11 @@ class GameScreen:
         #game properties
         Configs.UNIT_POOL = UnitPool() #Refresh UnitPool each time GameScreen is initialised
         self.board = Board(self.display)
+        self.board.init_structures()
         self.tile_menu = TileMenu()
         self.Player = self.board.Player
         self.Computer = self.board.Computer
+
 
 
         self.enable_player = True # Player Turn Bool
