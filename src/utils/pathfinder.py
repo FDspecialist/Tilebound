@@ -22,7 +22,6 @@ class Pathfinder:
         self.rtn_path_debug.clear()
 
 
-    #moving into chebyshev // document this!!!
     #Pathfinding Handler
     def chebyshev_distance(self, unit1, unit2):
         #This function will calculate the difference between both x and y values of both points
@@ -63,12 +62,15 @@ class Pathfinder:
         current_tile.h_value = self.euclidean_distance_tile(current_tile, target_tile)
 
     def path_constructor(self, target_tile):
-        #initial current tile
-        current_tile = target_tile
+        #initial current tile, set to parent so that target_tile not included in path.
+        current_tile = target_tile.parent
         #while current tile parent is not None
         print("\nPATH LIST")
         while not current_tile.parent is None:
-            current_tile.visual_debug()
+
+            #activate only to display path
+            #current_tile.visual_debug()
+
             print(f"     CHILD[{current_tile.x},{current_tile.y}] ---->PARENT[{current_tile.parent.x},{current_tile.parent.y}]")
             self.path.push(current_tile)
             self.rtn_path_debug.append(current_tile)
@@ -91,7 +93,6 @@ class Pathfinder:
             #handle target tile being adjacent from beginning
             current_tile = self.open_list.pop()
             print(f"Current Tile: [{current_tile.x},{current_tile.y}]")
-            # current_tile.visual_debug()
             if current_tile == target_tile:
                 print(f"\nThese two are supposedly the same:\nCURRENT_TILE[{current_tile.x},{current_tile.y}]\nTARGET_TILE[{target_tile.x},{target_tile.y}]")
                 self.finished = True
@@ -117,11 +118,13 @@ class Pathfinder:
                         self.open_list.push(ntile)
         if self.found_target:
             #back track parents here
+            rtn_path = []
             self.path_constructor(target_tile)
             size = self.path.size()
             print(f"path found")
             print(f"Size of path: {size}")
-            rtn_path = self.path
+            for tile in self.path.stack:
+                rtn_path.append(tile)
 
             #reset everything for next unit
             for x in array:
@@ -131,17 +134,13 @@ class Pathfinder:
 
             return rtn_path
         else:
-            self.path_constructor(current_tile)
-            size = self.path.size()
             print("Path not found")
-            print(f"Size of path: {size}")
-            rtn_path = self.path
             # reset everything for next unit
             for x in array:
                 for tile in x:
                     tile.clear()
             self.clear()
-            return rtn_path
+            return self.path
 
 
     def rtn_path_list(self):

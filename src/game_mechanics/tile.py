@@ -89,6 +89,7 @@ class Tile:
             self.lock()
 
     def remove_unit(self):
+        self.current_unit = Unit()
         self.unlock()
 
 
@@ -143,53 +144,25 @@ class Tile:
         #fat error here, neighbours list does NOT get all correct neighbours
         print(f"Neighbours list length: {len(self.neighbours)}")
 
-    #BSF IMPLEMENTATION probably wont keep this tbf, may not work on square tiled board.
-    # def get_neighbours(self, board_array, closed_list):
-    #     self.neighbours = []  # Reset neighbors
-    #
-    #     # Define movement directions (8-way movement for Chebyshev distance)
-    #     directions = [
-    #         (-1, 0), (1, 0), (0, 1), (0, -1),  # Left, Right, Up, Down
-    #         (-1, -1), (1, 1), (1, -1), (-1, 1)  # Diagonals
-    #     ]
-    #
-    #     # BFS queue to explore valid neighbors
-    #     queue = deque([(self.x, self.y)])  # Start from current tile
-    #     visited = set()  # Keep track of visited tiles
-    #
-    #     print(f"\nNeighbour of Tile:[{self.x},{self.y}]:")
-    #     while queue:
-    #         x, y = queue.popleft()  # Get the next tile
-    #
-    #         for dx, dy in directions:
-    #             nx, ny = x + dx, y + dy  # New neighbor coordinates
-    #
-    #             # Ensure within board bounds
-    #             if 0 <= nx < len(board_array) and 0 <= ny < len(board_array[0]):
-    #                 neighbour = board_array[nx][ny]  # Get tile object
-    #
-    #                 # Check if neighbor is valid and not visited
-    #                 if neighbour.traversable and neighbour not in closed_list and neighbour not in visited:
-    #                     print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
-    #                     self.neighbours.append(neighbour)
-    #                     visited.add(neighbour)  # Mark as visited
-    #                     queue.append((nx, ny))  # Continue exploring
-
-
-
-
 
     #visuals
     def visual_debug(self):
         #print(f"Highlighting Tile[{self.x},{self.y}]")
-        self.vdebug = not self.vdebug
+        self.vdebug = True
         if self.vdebug:
             self.active_image = self.tile_image_hover
             self.update_visual() #render unit
             #print(f"Highlight Tile[{self.x},{self.y}]")
-        else:
+
+    def visual_debug_click(self):
+        self.vdebug = not self.vdebug
+        if self.vdebug and self.type == "":
+            self.active_image = self.tile_image_hover
+            self.update_visual() #render unit
+        elif not self.vdebug and self.type == "":
             self.active_image = self.tile_image
-            self.update_visual() # render unit
+            self.update_visual() #render unit
+        print(f"Highlight Tile[{self.x},{self.y}]\n     Type: {self.type}\n     Unit: {self.current_unit.UnitType}")
 
 
     def update_visual(self):

@@ -20,8 +20,11 @@ class Computer:
     def get_unit(self,x,y):
         return self.unit_select[(x,y)]
 
+    def update_unit_pos(self,unit,array):
+        #had to invert x and y here
+        array[unit.y,unit.x].add_unit(unit)
 
-    def move_units_to_enemy(self,player_units):
+    def move_units_to_enemy(self,player_units, array):
         #foreach unit:
         #   find target unit
         #   find path to target
@@ -32,9 +35,40 @@ class Computer:
         if len(self.unit_list) == 0 or len(player_units) == 0:
             return
 
-        rpath = []
         path = []
         #temp commented for now
         for unit in self.unit_list:
+            print("FOr this unit")
             unit.find_closest_object(player_units)
-            rpath = self.pathfinder.unit_path_finder(unit, self.array)
+            path = self.pathfinder.unit_path_finder(unit, self.array)
+            steps = unit.MovementRange
+            distance = len(path)
+            hold_position = False
+            index = 0
+            #disable for path showcase:
+            #==0
+            if distance == 0:
+                #hold position
+                hold_position = True
+            elif distance <= steps:
+                index = steps - distance
+                #shorter distance
+            else:
+                index = distance - steps
+
+            if hold_position:
+                #not moving
+                continue
+            row = unit.x
+            col = unit.y
+            array[col, row].remove_unit()
+            array[col, row].update_visual()
+            index = distance - steps
+            destination_tile = path[index]
+
+            print(f"Tile at index {steps}: TILE[{path[index].x},{path[index].y})")
+
+            # set new x and y for unit, and update new tile
+            unit.move(destination_tile.x, destination_tile.y)
+            self.update_unit_pos(unit, array)
+            #==1

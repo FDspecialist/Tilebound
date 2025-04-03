@@ -57,7 +57,7 @@ class Board:
                 tile = cast(Tile, self.array[row,col])
                 clicked = tile.clicked(event, self.board_x, self.board_y)
                 if clicked:
-                    tile.visual_debug()
+                    tile.visual_debug_click()
                     return
 
 
