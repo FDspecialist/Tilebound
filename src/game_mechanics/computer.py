@@ -38,7 +38,7 @@ class Computer:
         path = []
         #temp commented for now
         for unit in self.unit_list:
-            print("FOr this unit")
+            print("For this unit")
             unit.find_closest_object(player_units)
             path = self.pathfinder.unit_path_finder(unit, self.array)
             steps = unit.MovementRange

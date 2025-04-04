@@ -52,6 +52,10 @@ class Tile:
         self.active_image = self.tile_image
         self.tile_rect = self.tile_image.get_rect()
 
+        #final display image after processing
+        #maintain original images for different image states after blitting
+        self.final_image = self.active_image.copy()
+
         # Set tile_rect position relative to sprite
         self.tile_rect.topleft = (self.blitposx, self.blitposy)
 
@@ -63,7 +67,7 @@ class Tile:
 
     #Add to board
     def blit_to_board(self, _board):
-        _board.blit(self.active_image, (self.blitposx, self.blitposy))
+        _board.blit(self.final_image, (self.blitposx, self.blitposy))
 
     #Init Wall
     def set_wall(self):
@@ -168,5 +172,6 @@ class Tile:
     def update_visual(self):
         self.visual_x.draw(self.active_image)
         self.visual_y.draw(self.active_image)
+        self.final_image = self.active_image.copy()
         if self.current_unit.UnitType != "blank":
-            self.current_unit.draw(self.active_image) # Draw unit onto tile
+            self.current_unit.draw(self.final_image) # Draw unit onto tile

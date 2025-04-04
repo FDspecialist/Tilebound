@@ -134,13 +134,14 @@ class Pathfinder:
 
             return rtn_path
         else:
+            rtn_path = []
             print("Path not found")
             # reset everything for next unit
             for x in array:
                 for tile in x:
                     tile.clear()
             self.clear()
-            return self.path
+            return rtn_path
 
 
     def rtn_path_list(self):
