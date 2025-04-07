@@ -61,6 +61,10 @@ class GameScreen:
         #1
         self.computer_unit_count_text = Text("Computer Unit Count: 0",25,Configs.RED, 170,275)
         self.texts.append(self.computer_unit_count_text)
+
+        #2
+        self.game_turn_text = Text("Player Turn", 35, Configs.WHITE, Configs.SCREEN_MIDDLE_X, 60)
+        self.texts.append(self.game_turn_text)
         #]
 
 
@@ -103,29 +107,30 @@ class GameScreen:
 
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    # #Tile Menu Button Handling
-                    # if self.tile_menu.active:
-                    #     print("Tile menu active is True")
-                    #     selected_menu_button = self.tile_menu.responsive(event)
-                    #     print(selected_menu_button)
-                    # else:
-                    #     print("Tile menu active is False")
-                    #
-                    # #Check for clicks on board
-                    # click_on_board = self.board.search_tile(event)
-                    #
-                    # #left click, not on board
-                    # if event.button == 1:
-                    #     self.tile_menu.deactivate()
-                    #
-                    # #Left click, on board
-                    # if event.button == 1 and click_on_board == True:
-                    #     #error for blitpos placements, ther eis a massive offset
-                    #     #perhaps use mouse pos and fix blits late,r or never touch again
-                    #     mousex, mousey = pygame.mouse.get_pos()
-                    #     if not self.tile_menu.active:
-                    #         self.tile_menu.activate(mousex,mousey)
+                #     #Tile Menu Button Handling
+                #     if self.tile_menu.active:
+                #         print("Tile menu active is True")
+                #         selected_menu_button = self.tile_menu.responsive(event)
+                #         print(selected_menu_button)
+                #     else:
+                #         print("Tile menu active is False")
+                #
+                #     #Check for clicks on board
+                #     click_on_board = self.board.search_tile(event)
+                #
+                #     #left click, not on board
+                #     if event.button == 1:
+                #         self.tile_menu.deactivate()
+                #
+                #     #Left click, on board
+                #     if event.button == 1 and click_on_board == True:
+                #         #error for blitpos placements, ther eis a massive offset
+                #         #perhaps use mouse pos and fix blits late,r or never touch again
+                #         mousex, mousey = pygame.mouse.get_pos()
+                #         if not self.tile_menu.active:
+                #             self.tile_menu.activate(mousex,mousey)
 
+                    #only activate for unit testing while unit placement rework is being worked on
                     click_on_board = self.board.search_tile(event)
                     if self.tile_debug:
                         self.board.check_clicked_debug(event)
@@ -169,6 +174,10 @@ class GameScreen:
                 self.computer_turn()
 
     def run(self):
+        if self.enable_player:
+            self.game_turn_text.update_text("Player Turn. . .")
+        else:
+            self.game_turn_text.update_text("Computer Turn. . .")
         self.board.update_all()#update visuals of all tiles
         self.run_turns()
 

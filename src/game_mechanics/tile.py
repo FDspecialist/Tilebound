@@ -114,38 +114,27 @@ class Tile:
     def set_parent(self,new_parent):
         self.parent = new_parent
 
-    def get_neighbours(self, board_array, closed_list):
-        #check if neighbours list is already populated, prevents accidental duplicates
+    def get_neighbours(self, board_array):
         if self.neighbours:
-            #dont find neighbours again if neighbours already found
             return
-
-        #might only be working for y direction going upwards
         directions = [
-            (-1, 0),( 1, 0),(0, 1),(0,-1), #left,right,up,down
-            (-1,-1),( 1, 1),( 1,-1),(-1, 1) #downleft,upright,downright,upleft
+            (-1, 0),( 1, 0),(0, 1),(0,-1),
+            (-1,-1),( 1, 1),( 1,-1),(-1, 1)
         ]
 
 
         print(f"\nNeighbours of Tile[{self.x},{self.y}]:")
-        #check each neighbour for direction
-        #while also ignoring neighbours that are not on the array or neighbours that are not traversable or in closed list.
         for dx,dy in directions:
-            #neighbour_x,neighbour_y = self.x + dx, self.y + dy
             neighbour_x = self.x + dx
             neighbour_y = self.y + dy
             print(f"\n     Performing: selfx:{self.x} + dx:{dx}, selfy:{self.y} + dy:{dy}")
-            # if neighbour exists (within range)
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
                 neighbour = board_array[neighbour_y][neighbour_x]
-                #if neighbour is traversable
                 if neighbour.traversable:
                     print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
                     self.neighbours.append(neighbour)
             else:
                 print(f"Tile:[{neighbour_x},{neighbour_y}] was found to be invalid")
-
-        #fat error here, neighbours list does NOT get all correct neighbours
         print(f"Neighbours list length: {len(self.neighbours)}")
 
 

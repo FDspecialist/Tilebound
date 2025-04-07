@@ -59,12 +59,12 @@ class Unit:
         obj_dist = 99
         for obj in object_list:
             #find distance between self and obj
-            obj_dist = self.Pathfinder.chebyshev_distance(self,obj)
+            obj_dist = self.Pathfinder.euclidean_distance(self,obj)
             #link distance to obj (key: distance val: obj)
             dist_obj_map[obj_dist] = obj
             #push distance to minheap and order
             known_distances.push(obj_dist)
-            print(f"chebyshev distance: {obj_dist}")
+            print(f"euclidean distance: {obj_dist}")
 
         shortest_distance = known_distances.pop()
 

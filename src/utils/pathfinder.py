@@ -23,7 +23,7 @@ class Pathfinder:
 
 
     #Pathfinding Handler
-    def chebyshev_distance(self, unit1, unit2):
+    def euclidean_distance(self, unit1, unit2):
         #This function will calculate the difference between both x and y values of both points
         #both ordinates are compared and the greater ordinate is returned.
         #This is because diagonal movement in Tilebound has a movement cost of only 1.
@@ -102,7 +102,7 @@ class Pathfinder:
             #add current tile to closed list
             #get neighbours,calculate values then add to open list
             self.closed_list.append(current_tile)
-            current_tile.get_neighbours(array, self.closed_list)
+            current_tile.get_neighbours(array)
 
             print(f"\nNeighbour A* values:")
             for ntile in current_tile.neighbours:
