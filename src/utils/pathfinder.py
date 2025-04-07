@@ -6,7 +6,6 @@ class Pathfinder:
         self.path = Stack()
         self.open_list = MinHeap("tile")
         self.closed_list = []
-        self.finished = False
         self.found_target = False
 
         #debug
@@ -17,7 +16,6 @@ class Pathfinder:
         self.path.stack.clear()
         self.open_list.min_heap.clear()
         self.closed_list.clear()
-        self.finished = False
         self.found_target = False
         self.rtn_path_debug.clear()
 
@@ -95,7 +93,6 @@ class Pathfinder:
             print(f"Current Tile: [{current_tile.x},{current_tile.y}]")
             if current_tile == target_tile:
                 print(f"\nThese two are supposedly the same:\nCURRENT_TILE[{current_tile.x},{current_tile.y}]\nTARGET_TILE[{target_tile.x},{target_tile.y}]")
-                self.finished = True
                 self.found_target = True
                 break
 
