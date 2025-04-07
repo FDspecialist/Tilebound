@@ -13,7 +13,6 @@ class Pathfinder:
 
     def clear(self):
         #I will definitely need this once the computer starts adding new units
-        self.path.stack.clear()
         self.open_list.min_heap.clear()
         self.closed_list.clear()
         self.found_target = False
@@ -60,6 +59,8 @@ class Pathfinder:
         current_tile.h_value = self.euclidean_distance_tile(current_tile, target_tile)
 
     def path_constructor(self, target_tile):
+        #Empty path for new path
+        self.path.stack.clear()
         #initial current tile, set to parent so that target_tile not included in path.
         current_tile = target_tile.parent
         #while current tile parent is not None
@@ -120,15 +121,13 @@ class Pathfinder:
             size = self.path.size()
             print(f"path found")
             print(f"Size of path: {size}")
-            for tile in self.path.stack:
-                rtn_path.append(tile)
-
             #reset everything for next unit
             for x in array:
                 for tile in x:
                     tile.clear()
             self.clear()
-
+            for tile in self.path.stack:
+                rtn_path.append(tile)
             return rtn_path
         else:
             rtn_path = []
