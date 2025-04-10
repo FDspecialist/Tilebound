@@ -12,7 +12,12 @@ class Stack:
         if not self.is_empty():
             return self.stack.pop()
         else:
-            print("Stack ran out of objects")
+            return None
+
+    def peek(self):
+        if not self.is_empty():
+            return self.stack[-1]
+        else:
             return None
     def size(self):
         return len(self.stack)

@@ -6,9 +6,13 @@ class Player:
         #pathfinding/board interaction
         self.array = array
 
+        #Game Values
         self.unit_count = 0
         self.score = 0
-        self.balance = 0
+        self.balance = 650
+
+        #Text
+
     def assign_unit(self, unit):
         self.unit_list.append(unit)
         self.unit_select[(unit.x,unit.y)] = unit

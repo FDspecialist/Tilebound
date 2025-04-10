@@ -1,4 +1,5 @@
 import pygame
+import time
 from src.utils.configs import Configs
 configs = Configs()
 from src.screens.main_menu import MainMenu

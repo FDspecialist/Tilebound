@@ -49,6 +49,9 @@ class Button: # OK SO FAT LOGIC ERROR BUT HEY ATLEAST EVERYTHING RUNS
         #using pygame.transform.scale because the button images has a different size by default.
         else:
             return False
+    def is_hovering(self,event):
+        if event.type == pygame.MOUSEBUTTONDOWN and self.button_rect.collidepoint(event.pos):
+            return True
 
     def draw(self, screen):
         text_x = ((self.button_image.get_width() - self.text_surface.get_width())// 2)
