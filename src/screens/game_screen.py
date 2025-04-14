@@ -128,12 +128,13 @@ class GameScreen:
                                 case "Spawn Unit":
                                     self.tile_menu.set_menu("player_spawn_menu")
                                 case "Spawn Enemy":
-                                    infantry_unit = Configs.UNIT_POOL.get_unit()
-                                    infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-                                    self.Computer.assign_unit(infantry_unit)
-                                    self.board.selected_tile.add_unit(infantry_unit)
-                                    self.board.selected_tile.update_visual()
-                                    self.tile_menu.deactivate()
+                                    if self.board.selected_tile.traversable:
+                                        infantry_unit = Configs.UNIT_POOL.get_unit()
+                                        infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+                                        self.Computer.assign_unit(infantry_unit)
+                                        self.board.selected_tile.add_unit(infantry_unit)
+                                        self.board.selected_tile.update_visual()
+                                        self.tile_menu.deactivate()
                                 case "Manual Debug":
                                     self.board.selected_tile.visual_debug_click()
                                     self.tile_menu.deactivate()

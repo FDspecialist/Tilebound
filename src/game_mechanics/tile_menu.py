@@ -58,8 +58,6 @@ class TileMenu:
                 self.history.pop()
                 self.current_menu = self.history.peek()
 
-
-
     def button_hovering(self,event):
         for button in self.current_menu:
             button.is_hovering(event)

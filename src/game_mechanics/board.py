@@ -68,8 +68,8 @@ class Board:
             for col in range(15):
                 tile = cast(Tile, self.array[row,col])
                 clicked = tile.clicked(event, self.board_x, self.board_y)
-                self.selected_tile = tile
                 if clicked:
+                    self.selected_tile = tile
                     return True
         return False
 
