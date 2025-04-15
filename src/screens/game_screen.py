@@ -128,6 +128,7 @@ class GameScreen:
                                 case "Spawn Unit":
                                     self.tile_menu.set_menu("player_spawn_menu")
                                 case "Spawn Enemy":
+                                    self.isPlayer = False
                                     if self.board.selected_tile.traversable:
                                         infantry_unit = Configs.UNIT_POOL.get_unit()
                                         infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
@@ -143,11 +144,19 @@ class GameScreen:
 
                                 #player spawn menu
                                 case "Spawn Infantry":
+                                    self.isPlayer = True
                                     infantry_unit = Configs.UNIT_POOL.get_unit()
+                                    infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+                                    self.Player.assign_unit(infantry_unit)
+                                    self.board.selected_tile.add_unit(infantry_unit)
+                                    self.board.selected_tile.update_visual()
+                                    self.tile_menu.deactivate()
                                     continue
                                 case "Spawn Archer":
+                                    self.isPlayer = True
                                     continue
                                 case "Spawn Knight":
+                                    self.isPlayer = True
                                     continue
 
                     else:

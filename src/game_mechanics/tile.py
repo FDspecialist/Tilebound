@@ -160,7 +160,7 @@ class Tile:
         elif not self.vdebug and self.type == "":
             self.active_image = self.tile_image
             self.update_visual() #render unit
-        print(f"Highlight Tile[{self.x},{self.y}]\n     Type: {self.type}\n     Unit: {self.current_unit.UnitType}")
+        print(f"Highlight Tile[{self.x},{self.y}]\n     Type: {self.type}\n     Unit: {self.current_unit.ID}")
 
 
     def update_visual(self):
