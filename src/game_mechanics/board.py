@@ -60,6 +60,11 @@ class Board:
                     tile.visual_debug_click()
                     return
 
+    def mouse_hover_highlight(self, mouse_pos):
+        for row in range(15):
+            for col in range(15):
+                tile = cast(Tile, self.array[row,col])
+                tile.mouse_hover(mouse_pos, self.board_x, self.board_y)
 
     #template functions:
     #Checks through board, if tile was clicked, return true and assign found tike to current selected tile

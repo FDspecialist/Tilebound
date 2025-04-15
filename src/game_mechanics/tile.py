@@ -85,7 +85,14 @@ class Tile:
             return True
         return False
 
-
+    #check hover and highlight
+    def mouse_hover(self, mouse_pos, board_x, board_y):
+        if not self.type == "wall":
+            adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
+            if adjusted_rect.collidepoint(mouse_pos):
+                self.visual_debug()
+            else:
+                self.active_image = self.tile_image
     #unit handling
     def add_unit(self, unit):
         if self.traversable:
@@ -140,12 +147,10 @@ class Tile:
 
     #visuals
     def visual_debug(self):
-        #print(f"Highlighting Tile[{self.x},{self.y}]")
         self.vdebug = True
         if self.vdebug:
             self.active_image = self.tile_image_hover
-            self.update_visual() #render unit
-            #print(f"Highlight Tile[{self.x},{self.y}]")
+            self.update_visual()
 
     def visual_debug_click(self):
         self.vdebug = not self.vdebug

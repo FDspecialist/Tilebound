@@ -16,9 +16,13 @@ class TileMenu:
         self.spawn_unit_btn = Button("Spawn Unit", 20, 240,50, self.x, 25 + self.y)
         self.spawn_enemy_btn = Button("Spawn Enemy", 20, 240, 50, self.x, 75 + self.y)
         self.manual_debug_btn = Button("Manual Debug", 20, 240, 50, self.x, 125 + self.y)
+        self.exit_btn = Button("Exit",20, 240, 50,self.x, 175 + self.y)
 
         #player spawn menu
         self.back_btn = Button("Back",20,240,50, self.x,25 + self.y)
+        self.spawn_infantry_btn = Button("Spawn Infantry",20,240,50,self.x,75 + self.y)
+        self.spawn_archer_btn = Button("Spawn Archer", 20,240,50,self.x, 125 + self.y)
+        self.spawn_knight_btn = Button("Spawn Knight", 20,240,50,self.x,175 + self.y)
 
         self.start = [
             #0
@@ -26,12 +30,20 @@ class TileMenu:
             #1
             self.spawn_enemy_btn,
             #2
-            self.manual_debug_btn
+            self.manual_debug_btn,
+            #3
+            self.exit_btn
         ]
 
         self.player_spawn_menu = [
             #0
-            self.back_btn
+            self.back_btn,
+            #1
+            self.spawn_infantry_btn,
+            #2
+            self.spawn_archer_btn,
+            #3
+            self.spawn_knight_btn
         ]
 
         self.history = Stack()

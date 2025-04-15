@@ -138,8 +138,18 @@ class GameScreen:
                                 case "Manual Debug":
                                     self.board.selected_tile.visual_debug_click()
                                     self.tile_menu.deactivate()
+                                case "Exit":
+                                    self.tile_menu.deactivate()
 
                                 #player spawn menu
+                                case "Spawn Infantry":
+                                    infantry_unit = Configs.UNIT_POOL.get_unit()
+                                    continue
+                                case "Spawn Archer":
+                                    continue
+                                case "Spawn Knight":
+                                    continue
+
                     else:
                         if event.button == 1 and click_on_board == True:
                             self.tile_menu.activate()
@@ -209,6 +219,9 @@ class GameScreen:
             self.game_turn_text.update_text("Player Turn. . .")
         else:
             self.game_turn_text.update_text("Computer Turn. . .")
+
+        mouse_pos = pygame.mouse.get_pos()
+        self.board.mouse_hover_highlight(mouse_pos)
         self.board.update_all()#update visuals of all tiles
         self.run_turns()
 
