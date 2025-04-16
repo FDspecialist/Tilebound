@@ -54,8 +54,12 @@ class Board:
         #basepoints
         player_base_tile = cast(Tile, self.array[13, 1]) #coords swapped again ;-;
         player_base_tile.set_base_point("Player")
+        player_base_tile.set_base_neighbours(self.array)
+        self.Player.base_tile = player_base_tile
         enemy_base_tile = cast(Tile, self.array[1, 13])
         enemy_base_tile.set_base_point("Computer")
+        enemy_base_tile.set_base_neighbours(self.array)
+        self.Computer.base_tile = enemy_base_tile
 
 
     def check_clicked_debug(self, event):

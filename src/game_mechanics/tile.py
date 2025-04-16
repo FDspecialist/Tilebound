@@ -19,6 +19,9 @@ class Tile:
         self.type = "Regular"
         self.ownership = "Free"
 
+        #base point properties
+        self.base_neighbours = []
+
 
         #pathfinding properties
         self.g_value = 0
@@ -148,21 +151,28 @@ class Tile:
             (-1,-1),( 1, 1),( 1,-1),(-1, 1)
         ]
 
-
-        print(f"\nNeighbours of Tile[{self.x},{self.y}]:")
         for dx,dy in directions:
             neighbour_x = self.x + dx
             neighbour_y = self.y + dy
-            print(f"\n     Performing: selfx:{self.x} + dx:{dx}, selfy:{self.y} + dy:{dy}")
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
                 neighbour = board_array[neighbour_y][neighbour_x]
                 if neighbour.traversable:
-                    print(f"     Neighbour[{neighbour.x},{neighbour.y}]")
                     self.neighbours.append(neighbour)
-            else:
-                print(f"Tile:[{neighbour_x},{neighbour_y}] was found to be invalid")
-        print(f"Neighbours list length: {len(self.neighbours)}")
+    def set_base_neighbours(self, board_array):
+        if self.neighbours:
+            return
+        directions = [
+            (-1, 0),( 1, 0),(0, 1),(0,-1),
+            (-1,-1),( 1, 1),( 1,-1),(-1, 1)
+        ]
 
+        for dx,dy in directions:
+            neighbour_x = self.x + dx
+            neighbour_y = self.y + dy
+            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
+                neighbour = board_array[neighbour_y][neighbour_x]
+                if neighbour.traversable:
+                    self.base_neighbours.append(neighbour)
 
     #visuals
     def visual_debug(self):

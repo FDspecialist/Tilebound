@@ -10,6 +10,7 @@ class Player:
         self.unit_count = 0
         self.score = 0
         self.balance = 1000
+        self.base_tile = None
 
         #Text
 

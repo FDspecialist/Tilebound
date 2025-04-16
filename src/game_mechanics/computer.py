@@ -6,6 +6,10 @@ class Computer:
         self.unit_select = {}
         self.unit_count = 0
 
+        # Game Values
+        self.balance = 1000
+        self.base_tile = None
+
         #pathfinding/board interaction
         self.pathfinder = Pathfinder()
         self.array = array

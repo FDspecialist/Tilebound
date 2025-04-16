@@ -12,11 +12,15 @@ class TileMenu:
         self.x = 1248
         self.y = 120
 
-        #start menu
+        #start menu on base neighbour
         self.spawn_unit_btn = Button("Spawn Unit", 20, 240,50, self.x, 25 + self.y)
         self.spawn_enemy_btn = Button("Spawn Enemy", 20, 240, 50, self.x, 75 + self.y)
         self.manual_debug_btn = Button("Manual Debug", 20, 240, 50, self.x, 125 + self.y)
         self.exit_btn = Button("Exit",20, 240, 50,self.x, 175 + self.y)
+
+        #start menu on default tile
+        self.info_btn = Button("Info", 20, 240, 50, self.x, 25 + self.y)
+        self.exit_btn2 = Button("Exit", 20, 240, 50, self.x, 75 + self.y)
 
         #player spawn menu
         self.back_btn = Button("Back",20,240,50, self.x,25 + self.y)
@@ -25,14 +29,15 @@ class TileMenu:
         self.spawn_knight_btn = Button("Spawn Knight", 20,240,50,self.x,175 + self.y)
 
         self.start = [
-            #0
             self.spawn_unit_btn,
-            #1
             self.spawn_enemy_btn,
-            #2
             self.manual_debug_btn,
-            #3
             self.exit_btn
+        ]
+
+        self.start2 = [
+            self.info_btn,
+            self.exit_btn2
         ]
 
         self.player_spawn_menu = [
@@ -50,10 +55,14 @@ class TileMenu:
         self.history.push(self.start)
         self.current_menu = self.history.peek()
 
-    def activate(self):
+    def activate(self,isBaseNeighbour):
         self.active = True
-        self.history.push(self.start)
-        self.current_menu = self.history.peek()
+        if isBaseNeighbour:
+            self.history.push(self.start)
+            self.current_menu = self.history.peek()
+        else:
+            self.history.push(self.start2)
+            self.current_menu = self.history.peek()
     def deactivate(self):
         self.active = False
         self.history.stack.clear()

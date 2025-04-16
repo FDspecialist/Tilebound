@@ -162,7 +162,10 @@ class GameScreen:
 
                     else:
                         if event.button == 1 and click_on_board == True:
-                            self.tile_menu.activate()
+                            if self.board.selected_tile in self.Player.base_tile.base_neighbours:
+                                self.tile_menu.activate(True)
+                            else:
+                                self.tile_menu.activate(False)
 
 
 
