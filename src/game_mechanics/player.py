@@ -9,7 +9,7 @@ class Player:
         #Game Values
         self.unit_count = 0
         self.score = 0
-        self.balance = 650
+        self.balance = 1000
 
         #Text
 

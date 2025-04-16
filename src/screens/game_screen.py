@@ -145,13 +145,14 @@ class GameScreen:
                                 #player spawn menu
                                 case "Spawn Infantry":
                                     self.isPlayer = True
-                                    infantry_unit = Configs.UNIT_POOL.get_unit()
-                                    infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-                                    self.Player.assign_unit(infantry_unit)
-                                    self.board.selected_tile.add_unit(infantry_unit)
-                                    self.board.selected_tile.update_visual()
-                                    self.tile_menu.deactivate()
-                                    continue
+                                    if self.board.selected_tile.traversable and self.Player.balance - Configs.INFANTRY_STATS["Cost"] >= 0:
+                                        self.Player.balance = self.Player.balance - Configs.INFANTRY_STATS["Cost"]
+                                        infantry_unit = Configs.UNIT_POOL.get_unit()
+                                        infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+                                        self.Player.assign_unit(infantry_unit)
+                                        self.board.selected_tile.add_unit(infantry_unit)
+                                        self.board.selected_tile.update_visual()
+                                        self.tile_menu.deactivate()
                                 case "Spawn Archer":
                                     self.isPlayer = True
                                     continue

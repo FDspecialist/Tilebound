@@ -7,8 +7,8 @@ from src.game_mechanics.unit import Unit
 from src.utils.text import Text
 class Tile:
     def __init__(self,X,Y, display):
-        board_assets = Assets()
-        board_assets.load_boardsprites()
+        self.board_assets = Assets()
+        self.board_assets.load_boardsprites()
         #note to future self:
         #All math variables for pathfinding algorithm will be stored inside Tile as it is relative to tile.
 
@@ -16,7 +16,8 @@ class Tile:
         self.x = X
         self.y = Y
         self.current_unit = Unit()
-        self.type = ""
+        self.type = "Regular"
+        self.ownership = "Free"
 
 
         #pathfinding properties
@@ -37,15 +38,15 @@ class Tile:
         self.vdebug = False
 
         #default image
-        self.tile_image = board_assets.get_sprite("tile").convert_alpha()
+        self.tile_image = self.board_assets.get_sprite("tile").convert_alpha()
         self.tile_image = pygame.transform.scale(self.tile_image, (Configs.TILESIZE,Configs.TILESIZE))
 
         #hover image
-        self.tile_image_hover = board_assets.get_sprite("tile_hover").convert_alpha()
+        self.tile_image_hover = self.board_assets.get_sprite("tile_hover").convert_alpha()
         self.tile_image_hover = pygame.transform.scale(self.tile_image_hover,(Configs.TILESIZE, Configs.TILESIZE))
 
         #Wall image
-        self.tile_image_wall = board_assets.get_sprite("wall").convert_alpha()
+        self.tile_image_wall = self.board_assets.get_sprite("wall").convert_alpha()
         self.tile_image_wall = pygame.transform.scale(self.tile_image_wall, (Configs.TILESIZE, Configs.TILESIZE))
 
         #initialise default image
@@ -72,11 +73,29 @@ class Tile:
     #Init Wall
     def set_wall(self):
         self.traversable = False
-        self.type = "wall"
+        self.type = "Wall"
         self.active_image = self.tile_image_wall
+        self.blank_text()
+        self.update_visual()
+    def set_base_point(self,owner):
+        base_point_image = self.tile_image
+        match owner:
+            case "Player":
+                self.ownership = "Player"
+                base_point_image = self.board_assets.get_sprite("PlayerBasePoint")
+            case "Computer":
+                self.ownership = "Computer"
+                base_point_image = self.board_assets.get_sprite("ComputerBasePoint")
+        self.traversable = False
+        self.type = "BasePoint"
+        self.active_image = base_point_image
+        self.blank_text()
+        self.update_visual()
+
+
+    def blank_text(self):
         self.visual_x.update_text("")
         self.visual_y.update_text("")
-        self.update_visual()
 
     #check clicked
     def clicked(self, event, board_x, board_y):

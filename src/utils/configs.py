@@ -41,6 +41,54 @@ class Configs:
     #font constant
     DEFAULT_FONT = 'Pixel Digivolve'
 
+
+    #Unit Stats
+
+    INFANTRY_STATS = {
+        "Health": 8,
+        "Defence": 2,
+        "Attack": 4,
+        "AttackRange": 1,
+        "MovementRange": 2,
+        "Cost": 100,
+        "Description": (
+            "Standard foot soldiers, defence stat intends that this unit is intended "
+            "for holding defensive lines and occupying territory. Bonus defence when "
+            "adjacent to another allied infantry piece."
+        ),
+        "WeaknessDesc": "Low RANGE, Low MOVEMENT RANGE"
+    }
+
+    ARCHER_STATS = {
+        "Health": 8,
+        "Defence": 0,
+        "Attack": 4,
+        "AttackRange": 3,
+        "MovementRange": 2,
+        "Cost": 150,
+        "Description": (
+            "Description: Archers, shoot projectiles, range allows for attacking without being attacked in return."
+        ),
+        "WeaknessDesc": "Weak DEFENCE"
+    }
+
+    KNIGHT_STATS = {
+        "Health": 8,
+        "Defence": 1,
+        "Attack": 5,
+        "AttackRange": 1,
+        "MovementRange": 3,
+        "Cost": 250,
+        "Description": (
+            "Mounted infantry, reduced defence for increased movement range. Cavalries excel in damage and speed. "
+            "Bonus damage to infantry if attacking right after moving."
+        ),
+        "WeaknessDesc": "Reduced DAMAGE when stationary, Low DEFENCE"
+    }
+
 #debugging
 test_unit = Configs.UNIT_POOL.get_unit()
 print(test_unit.Description)
+
+infantry_description = Configs.INFANTRY_STATS["Cost"]
+print(f"\n{infantry_description}")

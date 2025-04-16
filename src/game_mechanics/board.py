@@ -35,20 +35,27 @@ class Board:
 
 
     def init_structures(self):
-        #coordinate list:
+        # coordinate list:
         wall_coords = [
-            (4,0),(10,0),(4,1),(10,1),(4,3),(10,3),(0,4),(1,4),(3,4),(4,4),(10,4),(11,4),(13,4),(14,4),
-            (6,5),(7,5),(8,5),(5,6),(9,6),(5,7),(9,7),(5,8),(9,8),(6,9),(7,9),(8,9),(0,10),(1,10),(3,10),
-            (4,10),(10,10),(11,10),(13,10),(14,10),(4,11),(10,11),(4,13),(10,13),(4,14),(10,14)
-                       ]
-
+            (4, 0), (10, 0), (4, 1), (10, 1), (4, 3), (10, 3), (0, 4), (1, 4), (3, 4), (4, 4), (10, 4), (11, 4),
+            (13, 4), (14, 4),
+            (6, 5), (7, 5), (8, 5), (5, 6), (9, 6), (5, 7), (9, 7), (5, 8), (9, 8), (6, 9), (7, 9), (8, 9), (0, 10),
+            (1, 10), (3, 10),
+            (4, 10), (10, 10), (11, 10), (13, 10), (14, 10), (4, 11), (10, 11), (4, 13), (10, 13), (4, 14), (10, 14)
+        ]
 
         for row in range(15):
             for col in range(15):
-                tile_coords = (row,col)
+                tile_coords = (row, col)
                 if tile_coords in wall_coords:
-                    tile = cast(Tile, self.array[row,col])
+                    tile = cast(Tile, self.array[row, col])
                     tile.set_wall()
+
+        #basepoints
+        player_base_tile = cast(Tile, self.array[13, 1]) #coords swapped again ;-;
+        player_base_tile.set_base_point("Player")
+        enemy_base_tile = cast(Tile, self.array[1, 13])
+        enemy_base_tile.set_base_point("Computer")
 
 
     def check_clicked_debug(self, event):
@@ -64,7 +71,8 @@ class Board:
         for row in range(15):
             for col in range(15):
                 tile = cast(Tile, self.array[row,col])
-                tile.mouse_hover(mouse_pos, self.board_x, self.board_y)
+                if tile.type == "Regular":
+                    tile.mouse_hover(mouse_pos, self.board_x, self.board_y)
 
     #template functions:
     #Checks through board, if tile was clicked, return true and assign found tike to current selected tile
