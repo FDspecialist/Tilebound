@@ -64,6 +64,9 @@ class GameScreen:
         self.computer_unit_count_text = Text("Computer Unit Count: 0",25,Configs.RED, 170,325)
         self.texts.append(self.computer_unit_count_text)
 
+        self.player_busy_state_text = Text("Player State: ", 25,Configs.GRAY, 200, 375)
+        self.texts.append(self.player_busy_state_text)
+
         self.game_turn_text = Text("Player Turn", 35, Configs.WHITE, Configs.SCREEN_MIDDLE_X, 60)
         self.texts.append(self.game_turn_text)
 
@@ -109,102 +112,107 @@ class GameScreen:
                     print("Player Units Toggled")
                     self.isPlayer = not self.isPlayer
 
+                run_state = self.determine_state()
+                match run_state:
+                    case "Neutral":
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            self.neutral_logic_state(event)
+                    case "Spawning":
+                        self.spawn_logic_state(event)
+                        self.spawn_visuals_state()
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    # Get necessary data
-                    click_on_board = self.board.search_tile(event)
-                    #Tile Menu Handling take 2
-                    if self.tile_menu.active:
-                        #click not on board or tile menu
-                        if event.button == 1 and not click_on_board and not self.tile_menu.button_hovering(event):
-                            print("Not on board or tile menu")
-                            self.tile_menu.deactivate()
-
-                        #click on tile menu
-                        if event.button == 1 and self.tile_menu.button_hovering(event):
-                            selected_button = self.tile_menu.button_clicked(event)
-                            match selected_button:
-                                #start menu
-                                case "Spawn Unit":
-                                    self.tile_menu.set_menu("player_spawn_menu")
-                                case "Spawn Enemy":
-                                    self.isPlayer = False
-                                    if self.board.selected_tile.traversable:
-                                        infantry_unit = Configs.UNIT_POOL.get_unit()
-                                        infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-                                        self.Computer.assign_unit(infantry_unit)
-                                        self.board.selected_tile.add_unit(infantry_unit)
-                                        self.board.selected_tile.update_visual()
-                                        self.tile_menu.deactivate()
-                                case "Manual Debug":
-                                    self.board.selected_tile.visual_debug_click()
-                                    self.tile_menu.deactivate()
-                                case "Exit":
-                                    self.tile_menu.deactivate()
-
-                                #player spawn menu
-                                case "Spawn Infantry":
-                                    self.isPlayer = True
-                                    if self.board.selected_tile.traversable and self.Player.balance - Configs.INFANTRY_STATS["Cost"] >= 0:
-                                        self.Player.balance = self.Player.balance - Configs.INFANTRY_STATS["Cost"]
-                                        infantry_unit = Configs.UNIT_POOL.get_unit()
-                                        infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-                                        self.Player.assign_unit(infantry_unit)
-                                        self.board.selected_tile.add_unit(infantry_unit)
-                                        self.board.selected_tile.update_visual()
-                                        self.tile_menu.deactivate()
-                                case "Spawn Archer":
-                                    self.isPlayer = True
-                                    continue
-                                case "Spawn Knight":
-                                    self.isPlayer = True
-                                    continue
-
-                    else:
-                        if event.button == 1 and click_on_board == True:
-                            if self.board.selected_tile in self.Player.base_tile.base_neighbours:
-                                self.tile_menu.activate(True)
-                            else:
-                                self.tile_menu.activate(False)
-
-
-
-
-
-                    # #TILE MENU HANDLING
-                    # if self.tile_menu.active:
-                    #     if event.button == 1 and not click_on_board and not tile_menu_hovering:
-                    # else:
-                    #     print("--TileMenu Inactive")
-                    #     # Left click, on board
-                    #     if event.button == 1 and click_on_board == True:
-
-                    #Check for clicks on board
-
-
-                    #only activate for unit testing while unit placement rework is being worked on
-                    # click_on_board = self.board.search_tile(event)
-                    # if self.tile_debug:
-                    #     self.board.check_clicked_debug(event)
-                    # if click_on_board and self.board.selected_tile.traversable and self.tile_debug == False:
-                    #     # spawn infantry for now
-                    #     infantry_unit = Configs.UNIT_POOL.get_unit()
-                    #     infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-                    #
-                    #     if self.isPlayer and self.Player.balance - infantry_unit.Cost > 0:
-                    #         self.Player.assign_unit(infantry_unit)
-                    #         self.Player.balance = self.Player.balance - infantry_unit.Cost
-                    #         self.board.selected_tile.add_unit(infantry_unit)
-                    #     elif not self.isPlayer:
-                    #         self.Computer.assign_unit(infantry_unit)
-                    #         self.board.selected_tile.add_unit(infantry_unit)
-                    #     self.board.selected_tile.update_visual()
 
         #update texts
         self.player_unit_count_text.update_text(f"Player Unit Count: {self.Player.unit_count}")
         self.computer_unit_count_text.update_text(f"Computer Unit Count: {self.Computer.unit_count}")
         self.player_balance_text.update_text(f"Resources: {self.Player.balance}")
         self.draw()
+
+    def spawn_player_unit(self, selection):
+        #It spends the player's resources to create an infantry unit, places the unit on the selected tile,
+        #updates the tile's appearance, and then closes the tile menu.
+        self.Player.balance = self.Player.balance - Configs.UNIT_STATS[selection]["Cost"]
+        infantry_unit = Configs.UNIT_POOL.get_unit()
+        infantry_unit.activate("selection", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+        self.Player.assign_unit(infantry_unit)
+        self.board.selected_tile.add_unit(infantry_unit)
+        self.board.selected_tile.update_visual()
+        self.tile_menu.deactivate()
+
+    def determine_state(self):
+        run_state = ""
+        if not self.Player.is_busy():
+            run_state = "Neutral"
+            self.player_busy_state_text.update_text("Player State: Neutral")
+            return run_state
+        elif self.Player.states["Spawning"]:
+            run_state = "Spawning"
+            self.player_busy_state_text.update_text("Player State: Spawning")
+            return run_state
+
+
+    def spawn_logic_state(self, event):
+        print("run_spawning_state started")
+        clicked = self.board.search_tile_among(event, self.Player.base_tile.base_neighbours)
+        if clicked:
+            self.spawn_player_unit(self.Player.current_spawn)
+            self.Player.base_tile.deactivate_neighbour_highlights()
+            self.Player.reset_state()
+    def spawn_visuals_state(self):
+        self.Player.base_tile.activate_neighbour_highlights()
+
+    def neutral_logic_state(self, event):
+        print("run_neutral_state started")
+        click_on_board = self.board.search_tile(event)
+        if self.tile_menu.active:
+            # click not on board or tile menu
+            if event.button == 1 and click_on_board == False and self.tile_menu.button_hovering(event) == False:
+                print("Not on board or tile menu")
+                self.tile_menu.deactivate()
+
+            # click on tile menu
+            if event.button == 1 and self.tile_menu.button_hovering(event):
+                selected_button = self.tile_menu.button_clicked(event)
+                match selected_button:
+                    # start menu
+                    case "Spawn Unit":
+                        self.tile_menu.set_menu("player_spawn_menu")
+                    case "Spawn Enemy":
+                        self.isPlayer = False
+                        if self.board.selected_tile.traversable:
+                            infantry_unit = Configs.UNIT_POOL.get_unit()
+                            infantry_unit.activate("Infantry", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+                            self.Computer.assign_unit(infantry_unit)
+                            self.board.selected_tile.add_unit(infantry_unit)
+                            self.board.selected_tile.update_visual()
+                            self.tile_menu.deactivate()
+                    case "Manual Debug":
+                        self.board.selected_tile.visual_debug_click()
+                        self.tile_menu.deactivate()
+                    case "Exit":
+                        self.tile_menu.deactivate()
+
+                    # player spawn menu
+                    case "Spawn Infantry":
+                        self.isPlayer = True
+                        if self.Player.balance - Configs.INFANTRY_STATS["Cost"] >= 0:
+                            self.Player.states["Spawning"] = True
+                            self.Player.current_spawn = "Infantry"
+                            self.tile_menu.deactivate()
+                        else:
+                            self.tile_menu.deactivate()
+
+                    case "Spawn Archer":
+                        self.isPlayer = True
+                    case "Spawn Knight":
+                        self.isPlayer = True
+
+        else:
+            if event.button == 1 and click_on_board == True:
+                if self.board.selected_tile == self.Player.base_tile:
+                    self.tile_menu.activate(True)
+                else:
+                    self.tile_menu.activate(False)
 
     #handle game process for computer
     def computer_turn(self):

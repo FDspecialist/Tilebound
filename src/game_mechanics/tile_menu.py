@@ -55,9 +55,9 @@ class TileMenu:
         self.history.push(self.start)
         self.current_menu = self.history.peek()
 
-    def activate(self,isBaseNeighbour):
+    def activate(self,isBase):
         self.active = True
-        if isBaseNeighbour:
+        if isBase:
             self.history.push(self.start)
             self.current_menu = self.history.peek()
         else:

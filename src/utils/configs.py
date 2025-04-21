@@ -86,9 +86,15 @@ class Configs:
         "WeaknessDesc": "Reduced DAMAGE when stationary, Low DEFENCE"
     }
 
+    UNIT_STATS = {
+        "Infantry" : INFANTRY_STATS,
+        "Archer" : ARCHER_STATS,
+        "Knight" : KNIGHT_STATS
+    }
+
 #debugging
 test_unit = Configs.UNIT_POOL.get_unit()
 print(test_unit.Description)
 
-infantry_description = Configs.INFANTRY_STATS["Cost"]
+infantry_description = Configs.UNIT_STATS["Knight"]["Health"]
 print(f"\n{infantry_description}")

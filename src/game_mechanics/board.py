@@ -75,7 +75,7 @@ class Board:
         for row in range(15):
             for col in range(15):
                 tile = cast(Tile, self.array[row,col])
-                if tile.type == "Regular":
+                if tile.type == "Regular" and not tile.base_registered:
                     tile.mouse_hover(mouse_pos, self.board_x, self.board_y)
 
     #template functions:
@@ -88,6 +88,13 @@ class Board:
                 if clicked:
                     self.selected_tile = tile
                     return True
+        return False
+    def search_tile_among(self, event, tile_list):
+        for tile in tile_list:
+            clicked = tile.clicked(event,self.board_x,self.board_y)
+            if clicked:
+                self.selected_tile = tile
+                return True
         return False
 
     def update_all(self):

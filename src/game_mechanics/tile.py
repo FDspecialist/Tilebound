@@ -21,6 +21,8 @@ class Tile:
 
         #base point properties
         self.base_neighbours = []
+        self.base_registered = False
+        self.base_highlight = False
 
 
         #pathfinding properties
@@ -68,7 +70,9 @@ class Tile:
         self.visual_y = Text(f"{self.y}", 22, Configs.GRAY, Configs.TILESIZE - 10, Configs.TILESIZE-10)
 
 
-
+    #debug
+    def detail(self):
+        print(f"Tile[{self.x},{self.y}]\n   type: {self.type}\n    UnitType: {self.current_unit.UnitType}")
     #Add to board
     def blit_to_board(self, _board):
         _board.blit(self.final_image, (self.blitposx, self.blitposy))
@@ -109,12 +113,20 @@ class Tile:
 
     #check hover and highlight
     def mouse_hover(self, mouse_pos, board_x, board_y):
+        if self.base_registered:
+            if self.base_highlight:
+                return
+            adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE,Configs.TILESIZE)
+            if adjusted_rect.collidepoint(mouse_pos):
+                self.activate_highlight()
+            else:
+                self.deactivate_highlight()
         if not self.type == "wall":
             adjusted_rect = pygame.Rect(self.blitposx + board_x, self.blitposy + board_y, Configs.TILESIZE, Configs.TILESIZE)
             if adjusted_rect.collidepoint(mouse_pos):
-                self.visual_debug()
+                self.activate_highlight()
             else:
-                self.active_image = self.tile_image
+                self.deactivate_highlight()
     #unit handling
     def add_unit(self, unit):
         if self.traversable:
@@ -159,7 +171,7 @@ class Tile:
                 if neighbour.traversable:
                     self.neighbours.append(neighbour)
     def set_base_neighbours(self, board_array):
-        if self.neighbours:
+        if self.base_neighbours:
             return
         directions = [
             (-1, 0),( 1, 0),(0, 1),(0,-1),
@@ -171,8 +183,8 @@ class Tile:
             neighbour_y = self.y + dy
             if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
                 neighbour = board_array[neighbour_y][neighbour_x]
-                if neighbour.traversable:
-                    self.base_neighbours.append(neighbour)
+                neighbour.base_registered = True
+                self.base_neighbours.append(neighbour)
 
     #visuals
     def visual_debug(self):
@@ -189,7 +201,34 @@ class Tile:
         elif not self.vdebug and self.type == "":
             self.active_image = self.tile_image
             self.update_visual() #render unit
-        print(f"Highlight Tile[{self.x},{self.y}]\n     Type: {self.type}\n     Unit: {self.current_unit.ID}")
+
+
+    #base tile functions
+    def activate_neighbour_highlights(self):
+        for tile in self.base_neighbours:
+            tile.activate_highlight()
+            self.base_highlight = True
+            tile.detail()
+    def deactivate_neighbour_highlights(self):
+        for tile in self.base_neighbours:
+            tile.deactivate_highlight()
+            self.base_highlight = True
+            tile.detail()
+
+    def activate_highlight(self):
+        #for base tile neighbours
+        self.vdebug = True
+        if self.vdebug:
+            self.active_image = self.tile_image_hover
+            self.update_visual()  # render unit
+
+    def deactivate_highlight(self):
+        # for base tile neighbours
+        self.vdebug = False
+        if not self.vdebug:
+            self.active_image = self.tile_image
+            self.update_visual()  # render unit
+
 
 
     def update_visual(self):
