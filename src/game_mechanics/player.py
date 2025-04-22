@@ -16,7 +16,7 @@ class Player:
         #Game Values
         self.unit_count = 0
         self.score = 0
-        self.balance = 1000
+        self.balance = 500
         self.base_tile = None
         self.current_spawn = ""
 

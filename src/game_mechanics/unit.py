@@ -34,6 +34,8 @@ class Unit:
         self.y = 0
 
         #debug
+
+        #rework ID later, current methods allows for identical IDs.
         self.ID = ""
 
 
@@ -104,13 +106,14 @@ class Unit:
 
                 #assign correct unit orientation
                 if is_player:
-                    self.unit_sprite = self.unit_load.get_sprite("player_infantry").convert_alpha()
+                    self.unit_sprite = self.unit_load.get_sprite("PlayerInfantry").convert_alpha()
                     self.ID = self.ID + unit_type +" PLAYER["+str(x)+","+str(y)+"]" #bad since ID can change
                 else:
-                    self.unit_sprite = self.unit_load.get_sprite("computer_infantry").convert_alpha()
+                    self.unit_sprite = self.unit_load.get_sprite("ComputerInfantry").convert_alpha()
                     self.ID = self.ID + unit_type + " COMPUTER[" + str(x) + "," + str(y) + "]" #bad since ID can change
 
             case "Archer":
+                self.UnitType = unit_type
                 self.Health = 8
                 self.Defence = 0
                 self.Attack = 4
@@ -120,7 +123,19 @@ class Unit:
                 self.isPlayer = is_player
                 self.Description = "Description: Archers, shoot projectiles, range allows for attacking without being attacked in return."
                 self.WeaknessDesc = "Weak DEFENCE"
+
+                # initial board position
+                self.x = x
+                self.y = y
+
+                if is_player:
+                    self.unit_sprite = self.unit_load.get_sprite("PlayerArcher").convert_alpha()
+                    self.ID = self.ID + unit_type +" PLAYER["+str(x)+","+str(y)+"]"
+                else:
+                    self.unit_sprite = self.unit_load.get_sprite("ComputerArcher").convert_alpha()
+                    self.ID = self.ID + unit_type + " COMPUTER[" + str(x) + "," + str(y) + "]"
             case "Knight":
+                self.UnitType = unit_type
                 self.Health = 8
                 self.Defence = 1
                 self.Attack = 5
@@ -130,6 +145,17 @@ class Unit:
                 self.isPlayer = is_player
                 self.Description = "Mounted infantry, reduced defence for increased movement range. Cavalries excel in damage and speed. Bonus damage to infantry if attacking right after moving. "
                 self.WeaknessDesc = "Reduced DAMAGE when stationary, Low DEFENCE"
+
+                # initial board position
+                self.x = x
+                self.y = y
+
+                if is_player:
+                    self.unit_sprite = self.unit_load.get_sprite("PlayerKnight").convert_alpha()
+                    self.ID = self.ID + unit_type + " PLAYER[" + str(x) + "," + str(y) + "]"
+                else:
+                    self.unit_sprite = self.unit_load.get_sprite("ComputerKnight").convert_alpha()
+                    self.ID = self.ID + unit_type + " COMPUTER[" + str(x) + "," + str(y) + "]"
 
     def reset(self):
         self.UnitType = "blank"

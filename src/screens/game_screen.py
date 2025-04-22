@@ -128,16 +128,6 @@ class GameScreen:
         self.player_balance_text.update_text(f"Resources: {self.Player.balance}")
         self.draw()
 
-    def spawn_player_unit(self, selection):
-        #It spends the player's resources to create an infantry unit, places the unit on the selected tile,
-        #updates the tile's appearance, and then closes the tile menu.
-        self.Player.balance = self.Player.balance - Configs.UNIT_STATS[selection]["Cost"]
-        infantry_unit = Configs.UNIT_POOL.get_unit()
-        infantry_unit.activate("selection", self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
-        self.Player.assign_unit(infantry_unit)
-        self.board.selected_tile.add_unit(infantry_unit)
-        self.board.selected_tile.update_visual()
-        self.tile_menu.deactivate()
 
     def determine_state(self):
         run_state = ""
@@ -150,16 +140,30 @@ class GameScreen:
             self.player_busy_state_text.update_text("Player State: Spawning")
             return run_state
 
+    def spawn_player_unit(self, selection):
+        #It spends the player's resources to create an infantry unit, places the unit on the selected tile,
+        #updates the tile's appearance, and then closes the tile menu.
+        if self.Player.balance - Configs.UNIT_STATS[selection]["Cost"] >= 0:
+            self.Player.balance = self.Player.balance - Configs.UNIT_STATS[selection]["Cost"]
+            infantry_unit = Configs.UNIT_POOL.get_unit()
+            infantry_unit.activate(selection, self.isPlayer, self.board.selected_tile.x, self.board.selected_tile.y)
+            self.Player.assign_unit(infantry_unit)
+            self.board.selected_tile.add_unit(infantry_unit)
+            self.board.selected_tile.update_visual()
+            self.tile_menu.deactivate()
+
 
     def spawn_logic_state(self, event):
         print("run_spawning_state started")
         clicked = self.board.search_tile_among(event, self.Player.base_tile.base_neighbours)
-        if clicked:
+        if clicked and self.board.selected_tile.traversable:
             self.spawn_player_unit(self.Player.current_spawn)
-            self.Player.base_tile.deactivate_neighbour_highlights()
             self.Player.reset_state()
     def spawn_visuals_state(self):
-        self.Player.base_tile.activate_neighbour_highlights()
+        if self.Player.states["Spawning"]:
+            self.Player.base_tile.activate_neighbour_highlights()
+        else:
+            self.Player.base_tile.deactivate_neighbour_highlights()
 
     def neutral_logic_state(self, event):
         print("run_neutral_state started")
@@ -204,8 +208,18 @@ class GameScreen:
 
                     case "Spawn Archer":
                         self.isPlayer = True
+                        if self.Player.balance - Configs.ARCHER_STATS["Cost"] >= 0:
+                            self.Player.states["Spawning"] = True
+                            self.Player.current_spawn = "Archer"
+                            self.tile_menu.deactivate()
+                        else:
+                            self.tile_menu.deactivate()
                     case "Spawn Knight":
                         self.isPlayer = True
+                        if self.Player.balance - Configs.KNIGHT_STATS["Cost"] >= 0:
+                            self.Player.states["Spawning"] = True
+                            self.Player.current_spawn = "Knight"
+                            self.tile_menu.deactivate()
 
         else:
             if event.button == 1 and click_on_board == True:

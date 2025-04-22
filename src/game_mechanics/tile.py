@@ -212,7 +212,7 @@ class Tile:
     def deactivate_neighbour_highlights(self):
         for tile in self.base_neighbours:
             tile.deactivate_highlight()
-            self.base_highlight = True
+            self.base_highlight = False
             tile.detail()
 
     def activate_highlight(self):
