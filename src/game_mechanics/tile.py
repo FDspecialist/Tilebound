@@ -15,7 +15,7 @@ class Tile:
         #game properties
         self.x = X
         self.y = Y
-        self.current_unit = Unit()
+        self.current_unit = None
         self.type = "Regular"
         self.ownership = "Free"
 
@@ -23,6 +23,9 @@ class Tile:
         self.base_neighbours = []
         self.base_registered = False
         self.base_highlight = False
+
+        #unit tile properties
+        self.highlighting_attackable = False
 
 
         #pathfinding properties
@@ -72,7 +75,7 @@ class Tile:
 
     #debug
     def detail(self):
-        print(f"Tile[{self.x},{self.y}]\n   type: {self.type}\n    UnitType: {self.current_unit.UnitType}")
+        print(f"Tile[{self.x},{self.y}]\n   type: {self.type}")
     #Add to board
     def blit_to_board(self, _board):
         _board.blit(self.final_image, (self.blitposx, self.blitposy))
@@ -134,7 +137,9 @@ class Tile:
             self.lock()
 
     def remove_unit(self):
-        self.current_unit = Unit()
+        add_back = self.current_unit
+        Configs.UNIT_POOL.return_unit(add_back)
+        self.current_unit = None
         self.unlock()
 
 
@@ -208,12 +213,40 @@ class Tile:
         for tile in self.base_neighbours:
             tile.activate_highlight()
             self.base_highlight = True
-            tile.detail()
     def deactivate_neighbour_highlights(self):
         for tile in self.base_neighbours:
             tile.deactivate_highlight()
             self.base_highlight = False
-            tile.detail()
+
+    #unit tile function
+    def toggle_highlight_attackable(self,board_array):
+        #REWORK, MAKE DYNAMIC
+        self.highlighting_attackable = not self.highlighting_attackable
+        directions = [
+            (-1, 0), (1, 0), (0, 1), (0, -1),
+            (-1, -1), (1, 1), (1, -1), (-1, 1)
+        ]
+
+        for dx, dy in directions:
+            neighbour_x = self.x + dx
+            neighbour_y = self.y + dy
+            if 0 <= neighbour_x < 15 and 0 <= neighbour_y < 15:
+                neighbour = board_array[neighbour_y][neighbour_x]
+                if self.highlighting_attackable:
+                    neighbour.activate_highlight()
+                else:
+                    neighbour.deactivate_highlight()
+
+    def list_moveable(self, board_array):
+        unit = self.current_unit
+        moveable_list = []
+        for dx in range(self.x - unit.MovementRange,self.x + unit.MovementRange):
+            for dy in range(self.y - unit.MovementRange, self.y + unit.MovementRange):
+                if 0 <= dx < 15 and 0 <= dy < 15:
+                    tile = board_array[dy][dx]
+                    if tile.traversable:
+                        moveable_list.append(tile)
+        return moveable_list
 
     def activate_highlight(self):
         #for base tile neighbours
@@ -235,5 +268,5 @@ class Tile:
         self.visual_x.draw(self.active_image)
         self.visual_y.draw(self.active_image)
         self.final_image = self.active_image.copy()
-        if self.current_unit.UnitType != "blank":
+        if not self.current_unit is None:
             self.current_unit.draw(self.final_image) # Draw unit onto tile

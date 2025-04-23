@@ -8,7 +8,9 @@ class Player:
 
         #states
         self.states = {
-            "Spawning" : False
+            "Spawning" : False,
+            "Attacking" : False,
+            "Moving" : False
         }
         self.activate_state = ""
 
@@ -20,7 +22,6 @@ class Player:
         self.base_tile = None
         self.current_spawn = ""
 
-        #Text
     def assign_unit(self, unit):
         self.unit_list.append(unit)
         self.unit_select[(unit.x,unit.y)] = unit
@@ -36,6 +37,6 @@ class Player:
             self.states[key] = False
     def is_busy(self):
         for key in self.states:
-            if self.states[key] == True:
+            if self.states[key]:
                 return True
         return False

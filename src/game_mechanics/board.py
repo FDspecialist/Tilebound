@@ -78,6 +78,15 @@ class Board:
                 if tile.type == "Regular" and not tile.base_registered:
                     tile.mouse_hover(mouse_pos, self.board_x, self.board_y)
 
+    #player movement:
+    def activate_highlight_list(self, tile_list):
+        for tile in tile_list:
+            tile.activate_highlight()
+
+    def deactivate_highlight_list(self, tile_list):
+        for tile in tile_list:
+            tile.deactivate_highlight()
+
     #template functions:
     #Checks through board, if tile was clicked, return true and assign found tike to current selected tile
     def search_tile(self, event):

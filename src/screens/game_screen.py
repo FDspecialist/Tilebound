@@ -120,6 +120,12 @@ class GameScreen:
                     case "Spawning":
                         self.spawn_logic_state(event)
                         self.spawn_visuals_state()
+                    case "Moving":
+                        moveable_list = self.board.selected_tile.list_moveable(self.board.array)
+                        unit = self.board.selected_tile.current_unit
+                        start_tile = self.board.selected_tile
+                        self.movement_logic_state(event, moveable_list, unit, start_tile)
+                        self.movement_visuals_state(moveable_list)
 
 
         #update texts
@@ -138,6 +144,9 @@ class GameScreen:
         elif self.Player.states["Spawning"]:
             run_state = "Spawning"
             self.player_busy_state_text.update_text("Player State: Spawning")
+            return run_state
+        elif self.Player.states["Moving"]:
+            self.player_busy_state_text.update_text("Player State: Moving")
             return run_state
 
     def spawn_player_unit(self, selection):
@@ -165,6 +174,30 @@ class GameScreen:
         else:
             self.Player.base_tile.deactivate_neighbour_highlights()
 
+
+    def attack_logic_state(self,event):
+        print("attack_logic_state started")
+        clicked = self.board.search_tile_among(event, self.Player.base_tile.base_neighbours)
+        pass
+    def attack_visuals_state(self):
+        pass
+
+    def movement_logic_state(self,event,moveable_list,unit, start_tile):
+        print("movement_logic_state started")
+        clicked = self.board.search_tile(event)
+        new_tile = self.board.selected_tile
+        if clicked and new_tile in moveable_list:
+            start_tile.remove_unit()
+            start_tile.update_visual()
+            unit.move(new_tile.x, new_tile.y)
+            new_tile.add_unit(unit)
+            new_tile.update_visual()
+            self.Player.reset_state()
+    def movement_visuals_state(self,moveable_list):
+            if self.Player.states["Moving"]:
+                self.board.activate_highlight_list(moveable_list)
+            else:
+                self.board.deactivate_highlight_list(moveable_list)
     def neutral_logic_state(self, event):
         print("run_neutral_state started")
         click_on_board = self.board.search_tile(event)
@@ -221,12 +254,25 @@ class GameScreen:
                             self.Player.current_spawn = "Knight"
                             self.tile_menu.deactivate()
 
+                    #unit tile menu:
+                    case "Attack":
+                        pass
+                    case "Move":
+                        self.Player.states["Moving"] = True
+                        self.tile_menu.deactivate()
+
+                        pass
+                    case "Statistics":
+                        pass
+
         else:
             if event.button == 1 and click_on_board == True:
                 if self.board.selected_tile == self.Player.base_tile:
-                    self.tile_menu.activate(True)
+                    self.tile_menu.activate("BaseTile")
+                elif self.board.selected_tile.current_unit.UnitType != "blank":
+                    self.tile_menu.activate("UnitTile")
                 else:
-                    self.tile_menu.activate(False)
+                    self.tile_menu.activate("RegularTile")
 
     #handle game process for computer
     def computer_turn(self):

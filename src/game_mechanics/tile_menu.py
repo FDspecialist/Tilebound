@@ -22,12 +22,20 @@ class TileMenu:
         self.info_btn = Button("Info", 20, 240, 50, self.x, 25 + self.y)
         self.exit_btn2 = Button("Exit", 20, 240, 50, self.x, 75 + self.y)
 
+        #start menu on unit tile
+        self.attack_btn = Button("Attack", 20, 240, 50, self.x, 25 + self.y)
+        self.move_btn = Button("Move",20, 240, 50, self.x, 75 + self.y)
+        self.stats = Button("Statistics", 20, 240, 50, self.x, 125 + self.y)
+        self.exit_btn3 = Button("Exit", 20, 240, 50, self.x, 175 + self.y)
+
         #player spawn menu
         self.back_btn = Button("Back",20,240,50, self.x,25 + self.y)
         self.spawn_infantry_btn = Button("Spawn Infantry",20,240,50,self.x,75 + self.y)
         self.spawn_archer_btn = Button("Spawn Archer", 20,240,50,self.x, 125 + self.y)
         self.spawn_knight_btn = Button("Spawn Knight", 20,240,50,self.x,175 + self.y)
 
+
+        #base tile menu
         self.start = [
             self.spawn_unit_btn,
             self.spawn_enemy_btn,
@@ -35,9 +43,18 @@ class TileMenu:
             self.exit_btn
         ]
 
+        #regular tile menu
         self.start2 = [
             self.info_btn,
             self.exit_btn2
+        ]
+
+        #unit tile menu
+        self.start3 = [
+            self.attack_btn,
+            self.move_btn,
+            self.stats,
+            self.exit_btn3
         ]
 
         self.player_spawn_menu = [
@@ -55,14 +72,19 @@ class TileMenu:
         self.history.push(self.start)
         self.current_menu = self.history.peek()
 
-    def activate(self,isBase):
+    def activate(self,TileType):
         self.active = True
-        if isBase:
-            self.history.push(self.start)
-            self.current_menu = self.history.peek()
-        else:
-            self.history.push(self.start2)
-            self.current_menu = self.history.peek()
+
+        match TileType:
+            case "BaseTile":
+                self.history.push(self.start)
+                self.current_menu = self.history.peek()
+            case "UnitTile":
+                self.history.push(self.start3)
+                self.current_menu = self.history.peek()
+            case "RegularTile":
+                self.history.push(self.start2)
+                self.current_menu = self.history.peek()
     def deactivate(self):
         self.active = False
         self.history.stack.clear()
