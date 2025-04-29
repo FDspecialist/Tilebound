@@ -51,28 +51,29 @@ class Computer:
             index = 0
             #disable for path showcase:
             #==0
-            if distance == 0:
-                #hold position
-                hold_position = True
-            elif distance <= steps:
-                index = steps - distance
-                #shorter distance
-            else:
-                index = distance - steps
-
-            if hold_position:
-                #not moving
-                continue
-            row = unit.x
-            col = unit.y
-            array[col, row].remove_unit()
-            array[col, row].update_visual()
-            index = distance - steps
-            destination_tile = path[index]
-
-            print(f"Tile at index {steps}: TILE[{path[index].x},{path[index].y})")
-
-            # set new x and y for unit, and update new tile
-            unit.move(destination_tile.x, destination_tile.y)
-            self.update_unit_pos(unit, array)
+            # if distance == 0:
+            #     #hold position
+            #     hold_position = True
+            # elif distance <= steps:
+            #     index = steps - distance
+            #     #shorter distance
+            # else:
+            #     index = distance - steps
+            #
+            # if hold_position:
+            #     #not moving
+            #     continue
+            # row = unit.x
+            # col = unit.y
+            # print(f"\n  row: {unit.x} col: {unit.y}")
+            # array[col, row].remove_unit()
+            # array[col, row].update_visual()
+            # index = distance - steps
+            # destination_tile = path[index]
+            #
+            # print(f"Tile at index {steps}: TILE[{path[index].x},{path[index].y})")
+            #
+            # # set new x and y for unit, and update new tile
+            # unit.move(destination_tile.x, destination_tile.y)
+            # self.update_unit_pos(unit, array)
             #==1

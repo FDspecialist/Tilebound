@@ -200,10 +200,10 @@ class Tile:
 
     def visual_debug_click(self):
         self.vdebug = not self.vdebug
-        if self.vdebug and self.type == "":
+        if self.vdebug and self.type == "Regular":
             self.active_image = self.tile_image_hover
             self.update_visual() #render unit
-        elif not self.vdebug and self.type == "":
+        elif not self.vdebug and self.type == "Regular":
             self.active_image = self.tile_image
             self.update_visual() #render unit
 

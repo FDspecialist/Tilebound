@@ -68,7 +68,7 @@ class Pathfinder:
         while not current_tile.parent is None:
 
             #activate only to display path
-            #current_tile.visual_debug()
+            current_tile.visual_debug_click()
 
             print(f"     CHILD[{current_tile.x},{current_tile.y}] ---->PARENT[{current_tile.parent.x},{current_tile.parent.y}]")
             self.path.push(current_tile)

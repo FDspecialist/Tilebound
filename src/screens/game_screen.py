@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 from src.utils.configs import Configs
 from src.utils.assets import Assets
 from src.utils.button import Button
@@ -199,7 +200,6 @@ class GameScreen:
             else:
                 self.board.deactivate_highlight_list(moveable_list)
     def neutral_logic_state(self, event):
-        print("run_neutral_state started")
         click_on_board = self.board.search_tile(event)
         if self.tile_menu.active:
             # click not on board or tile menu
@@ -269,7 +269,7 @@ class GameScreen:
             if event.button == 1 and click_on_board == True:
                 if self.board.selected_tile == self.Player.base_tile:
                     self.tile_menu.activate("BaseTile")
-                elif self.board.selected_tile.current_unit.UnitType != "blank":
+                elif not self.board.selected_tile.current_unit is None:
                     self.tile_menu.activate("UnitTile")
                 else:
                     self.tile_menu.activate("RegularTile")
@@ -277,13 +277,27 @@ class GameScreen:
     #handle game process for computer
     def computer_turn(self):
         print("\n\nComputer turn started\n")
-
         self.Computer.move_units_to_enemy(self.Player.unit_list, self.board.array)
+        if self.Computer.unit_count < 1:
+            #select random base tile
+            #spawn enemy infantry on random base neighbour tile.
+            bn_index = random.randint(0,7)
+            selected_tile = self.Computer.base_tile.base_neighbours[bn_index]
+            if selected_tile.traversable:
+                self.spawn_enemy_unit("Infantry", selected_tile)
 
         #DO NOT GET RID: updates visuals and ends turn
         self.draw()
         self.end_turn()
-
+    def spawn_enemy_unit(self,UnitType, selected_tile):
+        #enter Unit type, and the spawning tile coordinates.
+        self.isPlayer = False
+        infantry_unit = Configs.UNIT_POOL.get_unit()
+        infantry_unit.activate(UnitType, self.isPlayer, selected_tile.x, selected_tile.y)
+        self.Computer.assign_unit(infantry_unit)
+        selected_tile.add_unit(infantry_unit)
+        selected_tile.update_visual()
+        self.tile_menu.deactivate()
 
 
     def end_turn(self):
@@ -302,7 +316,8 @@ class GameScreen:
             self.game_turn_text.update_text("Computer Turn. . .")
 
         mouse_pos = pygame.mouse.get_pos()
-        self.board.mouse_hover_highlight(mouse_pos)
+        if not self.tile_debug:
+            self.board.mouse_hover_highlight(mouse_pos)
         self.board.update_all()#update visuals of all tiles
         self.run_turns()
 
